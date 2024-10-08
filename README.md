@@ -1,66 +1,51 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![App Proventis](@/Components/Img/Proventis.png)
 
-## About Laravel
+# Proventis
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Proventis** es una plataforma integral y moderna diseñada para mejorar la comunicación, la colaboración y la gestión de tareas dentro de las empresas. La aplicación combina las funciones esenciales de una red social corporativa con herramientas de productividad, creando un entorno digital en el que los empleados pueden interactuar, capacitarse y gestionar su día a día de manera eficiente y centralizada. Su objetivo es optimizar tanto el flujo de trabajo como las relaciones laborales, facilitando que las organizaciones crezcan de manera más ágil y conectada.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Características principales:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Cursos y capacitación continua:
+Proventis ofrece un espacio dedicado para el aprendizaje y el desarrollo profesional dentro de la empresa. Los empleados pueden acceder a una biblioteca de cursos, videos y materiales didácticos diseñados específicamente para su crecimiento. Los supervisores tienen la capacidad de asignar módulos y hacer un seguimiento del progreso de cada empleado, asegurando que el equipo esté siempre capacitado y actualizado.
 
-## Learning Laravel
+### 2. Encuestas, cuestionarios y retroalimentación:
+La plataforma permite a los líderes y administradores crear encuestas internas y cuestionarios para recopilar información valiosa sobre el bienestar, la satisfacción laboral y otros indicadores importantes. Las encuestas pueden enviarse a grupos específicos de empleados o a toda la organización, y los resultados se procesan en tiempo real, proporcionando informes claros y accionables.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 3. Gestión de solicitudes administrativas:
+Proventis facilita la gestión de tareas administrativas mediante un sistema simple e intuitivo de solicitudes. Los empleados pueden solicitar vacaciones, permisos o reportar problemas directamente desde la aplicación. El proceso es completamente automatizado, con flujos de aprobación claros y notificaciones en tiempo real que informan a los usuarios sobre el estado de sus solicitudes.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 4. Check-in y seguimiento de actividades laborales:
+Una de las características más destacadas de Proventis es la función de check-in/check-out. Los empleados pueden marcar sus horas de entrada y salida directamente en la app, lo que permite a los gerentes llevar un control preciso de la asistencia y el tiempo trabajado. Además, es posible registrar pausas y otras actividades, proporcionando datos detallados que facilitan la elaboración de reportes de productividad.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 5. Gestión de quejas y sugerencias:
+Proventis incluye un sistema que permite a los empleados reportar quejas, sugerencias o problemas que requieran atención. Estas entradas son gestionadas de manera confidencial y pueden ser monitoreadas por el equipo de recursos humanos o los supervisores pertinentes, asegurando que todas las inquietudes se manejen de manera oportuna y adecuada.
 
-## Laravel Sponsors
+### 6. Red social interna:
+La aplicación también funciona como una red social corporativa. Los empleados pueden interactuar en un muro o feed compartido, donde se publican actualizaciones importantes, eventos, anuncios o simplemente interacciones entre compañeros. Los usuarios pueden comentar, compartir y reaccionar a las publicaciones, creando un ambiente de colaboración y participación activa.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 7. Notificaciones y recordatorios:
+Proventis cuenta con un sistema robusto de notificaciones que mantiene a los usuarios informados de manera eficiente. Desde la aprobación de una solicitud hasta recordatorios de reuniones, los empleados reciben notificaciones personalizadas que les ayudan a mantenerse al tanto de todas sus responsabilidades.
 
-### Premium Partners
+### 8. Panel de control y análisis en tiempo real:
+Para los administradores y gerentes, Proventis ofrece un completo panel de control donde se puede visualizar el rendimiento del equipo, seguimiento de proyectos y análisis detallados en tiempo real. Los gráficos y reportes personalizados permiten a los líderes identificar cuellos de botella, medir el progreso de los empleados y tomar decisiones basadas en datos concretos.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 9. Acceso móvil y multiplataforma:
+Proventis está diseñada para ser completamente accesible desde dispositivos móviles, tabletas o computadoras de escritorio, asegurando que los empleados puedan interactuar con la plataforma en cualquier momento y desde cualquier lugar. Su diseño responsivo y su interfaz intuitiva garantizan una experiencia de usuario fluida y agradable, sin importar el dispositivo.
 
-## Contributing
+### 10. Integraciones y personalización:
+La app es flexible y puede integrarse con otros sistemas empresariales que la compañía ya esté utilizando, como software de gestión de recursos humanos (HRM), sistemas de nómina o herramientas de productividad. Además, Proventis es altamente personalizable, permitiendo que cada empresa ajuste la plataforma a sus necesidades y cultura organizacional.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Beneficios para las empresas:
 
-## Code of Conduct
+- **Mayor eficiencia y productividad**: Con la centralización de tareas, solicitudes y comunicaciones, las empresas pueden agilizar procesos que tradicionalmente serían lentos o dispersos. La plataforma elimina la necesidad de múltiples herramientas separadas, lo que simplifica la gestión y reduce errores administrativos.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Mejora de la cultura empresarial**: Proventis fomenta una cultura de colaboración y transparencia, facilitando la participación activa de los empleados en la toma de decisiones y en el intercambio de conocimientos. Los empleados pueden expresarse a través de encuestas, sugerencias y el feed social, lo que mejora el sentido de pertenencia y cohesión dentro del equipo.
 
-## Security Vulnerabilities
+- **Acceso a datos en tiempo real**: Con la capacidad de monitorear métricas clave de desempeño, ausentismo y satisfacción, los gerentes pueden tomar decisiones informadas que impactan positivamente en la operación de la empresa. Esto también facilita la identificación de oportunidades de mejora o capacitación adicional.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Aumento en la satisfacción del empleado**: Al simplificar tareas cotidianas como la solicitud de vacaciones o el reporte de problemas, y al brindar una plataforma accesible para el aprendizaje y el desarrollo, los empleados disfrutan de una experiencia más fluida y satisfactoria, reduciendo la fricción y los cuellos de botella que afectan su día a día.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Conclusión:
+Proventis es más que una simple aplicación, es una solución integral para empresas modernas que desean impulsar la productividad, mejorar la comunicación interna y optimizar la gestión de sus empleados. Con una amplia gama de funciones y un enfoque en la usabilidad, Proventis está diseñada para adaptarse a empresas de todos los tamaños, ofreciendo un entorno digital eficiente, accesible y escalable que impulsa el éxito organizacional.
