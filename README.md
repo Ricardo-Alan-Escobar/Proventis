@@ -1,5 +1,5 @@
 
-![App Proventis](@/Components/Img/Proventis.png)
+![App Proventis](./resources/js/Components/Img/Proventis.png)
 
 # Proventis
 
@@ -47,5 +47,3 @@ La app es flexible y puede integrarse con otros sistemas empresariales que la co
 
 - **Aumento en la satisfacción del empleado**: Al simplificar tareas cotidianas como la solicitud de vacaciones o el reporte de problemas, y al brindar una plataforma accesible para el aprendizaje y el desarrollo, los empleados disfrutan de una experiencia más fluida y satisfactoria, reduciendo la fricción y los cuellos de botella que afectan su día a día.
 
-## Conclusión:
-Proventis es más que una simple aplicación, es una solución integral para empresas modernas que desean impulsar la productividad, mejorar la comunicación interna y optimizar la gestión de sus empleados. Con una amplia gama de funciones y un enfoque en la usabilidad, Proventis está diseñada para adaptarse a empresas de todos los tamaños, ofreciendo un entorno digital eficiente, accesible y escalable que impulsa el éxito organizacional.
