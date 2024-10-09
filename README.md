@@ -47,3 +47,10 @@ La app es flexible y puede integrarse con otros sistemas empresariales que la co
 
 - **Aumento en la satisfacción del empleado**: Al simplificar tareas cotidianas como la solicitud de vacaciones o el reporte de problemas, y al brindar una plataforma accesible para el aprendizaje y el desarrollo, los empleados disfrutan de una experiencia más fluida y satisfactoria, reduciendo la fricción y los cuellos de botella que afectan su día a día.
 
+
+*Desarrollado con:
+-**PHP(Laravel)
+-**Javascript(React)
+-**Inertiajs
+-**SQLite
+-**TailwindCSS
