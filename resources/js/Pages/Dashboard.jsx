@@ -28,7 +28,7 @@ export default function Dashboard() {
                     </div>
 
                     <div className="mt-6">
-                        <h2 className="mb-4 text-xl font-bold">Posts Recientes</h2>
+                        <h2 className="mb-4 mx-4 text-xl font-bold">Posts Recientes</h2>
                         <PostList posts={posts} />
                     </div>
                 </div>
