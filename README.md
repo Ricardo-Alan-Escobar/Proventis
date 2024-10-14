@@ -2,11 +2,15 @@
 ![App Proventis](./resources/js/Components/Img/Proventis.png)
 
 # Desarrollado con:
--**PHP(Laravel)**
--**Javascript(React)**
--**Inertiajs**
--**SQLite**
--**TailwindCSS**
+### PHP(Laravel)
+
+### Javascript(React)
+
+### Inertiajs
+
+### SQLite
+
+### TailwindCSS
 
 
 # Proventis
