@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import { Pencil, Trash2, CircleChevronDown } from "lucide-react"
 
 export default function PostList({ posts }) {
     const [editPostId, setEditPostId] = useState(null);
@@ -74,21 +75,21 @@ export default function PostList({ posts }) {
                                 className="text-gray-500 hover:text-gray-700"
                                 onClick={() => toggleMenu(post.id)} // Alternar el menú al hacer clic
                             >
-                                •••
+                               <CircleChevronDown />
                             </button>
                             {showMenuId === post.id && ( // Mostrar el menú solo para la publicación actual
-                                <div className="absolute right-0 mt-2 w-24 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                                <div className="absolute right-0 mt-2 w-10 bg-white border border-gray-300 rounded-md shadow-lg z-10">
                                     <button
                                         onClick={() => handleEdit(post)}
-                                        className="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-200"
+                                        className="block w-full px-2 py-2 text-left text-gray-700 hover:bg-gray-200"
                                     >
-                                        Editar
+                                        <Pencil /> 
                                     </button>
                                     <button
                                         onClick={() => handleDelete(post.id)}
-                                        className="block w-full px-4 py-2 text-left text-red-500 hover:bg-gray-200"
+                                        className="block w-full px-2 py-2 text-left text-red-500 hover:bg-gray-200"
                                     >
-                                        Eliminar
+                                        <Trash2 />
                                     </button>
                                 </div>
                             )}
