@@ -13,6 +13,10 @@ export default function PostList({ posts }) {
         setShowMenuId(null); // Oculta el menú después de hacer clic en editar
     };
 
+    const handleCancelEdit = () => {
+        setEditPostId(null); // Cancela la edición
+    };
+
     const handleDelete = async (postId) => {
         try {
             if (confirm('Are you sure you want to delete this post?')) {
@@ -34,11 +38,20 @@ export default function PostList({ posts }) {
         }
     };
 
+    const toggleMenu = (postId) => {
+        // Si el menú ya está abierto, lo oculta; si no, lo muestra
+        if (showMenuId === postId) {
+            setShowMenuId(null); // Ocultar el menú
+        } else {
+            setShowMenuId(postId); // Mostrar el menú
+        }
+    };
+
     return (
         <div>
             {posts.map((post) => (
-                <div key={post.id} className="p-4 mb-2 bg-white rounded-md shadow-sm relative">
-                    <div className="flex justify-between  items-center mb-6">
+                <div key={post.id} className="p-4 mb-4 bg-white rounded-md shadow-sm relative">
+                    <div className="flex justify-between items-center mb-2">
                         <div className="text-sm text-gray-600">{post.user.name}</div>
                         <div className="text-xs text-gray-500">
                             {moment(post.created_at).format('MMMM Do YYYY, h:mm:ss a')}
@@ -48,7 +61,7 @@ export default function PostList({ posts }) {
                         <div className="relative">
                             <button
                                 className="text-gray-500 hover:text-gray-700"
-                                onClick={() => setShowMenuId(post.id)} // Mostrar menú al hacer clic
+                                onClick={() => toggleMenu(post.id)} // Alternar el menú al hacer clic
                             >
                                 •••
                             </button>
@@ -79,12 +92,20 @@ export default function PostList({ posts }) {
                                 onChange={(e) => setEditContent(e.target.value)}
                                 className="w-full p-2 border border-gray-300 rounded-md"
                             />
-                            <button
-                                onClick={() => handleUpdate(post.id)}
-                                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
-                            >
-                                Guardar
-                            </button>
+                            <div className="flex space-x-2 mt-2">
+                                <button
+                                    onClick={() => handleUpdate(post.id)}
+                                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                                >
+                                    Guardar
+                                </button>
+                                <button
+                                    onClick={handleCancelEdit} // Botón para cancelar la edición
+                                    className="px-4 py-2 bg-gray-500 text-white rounded-md"
+                                >
+                                    Cancelar
+                                </button>
+                            </div>
                         </div>
                     ) : (
                         <div className="mb-2 text-gray-900">{post.content}</div>
