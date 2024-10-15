@@ -47,11 +47,22 @@ export default function PostList({ posts }) {
         }
     };
 
+    const processContent = (content) => {
+        // Reemplazar '#' con etiquetas de título y '*' para negritas, respetar saltos de línea
+        const processedContent = content
+            .replace(/##(.+?)##/g, '<p class="text-lg font-bold">$1</p>') // Títulos h3 con ##
+            .replace(/#(.+?)#/g, '<p class="text-2xl font-bold">$1</p>')   // Títulos h2 con #
+            .replace(/\*(.+?)\*/g, '<strong>$1</strong>')                        // Texto en negritas con *
+            .replace(/\n/g, '<br />');                                           // Saltos de línea
+
+        return { __html: processedContent };
+    };
+
     return (
         <div>
             {posts.map((post) => (
-                <div key={post.id} className="p-4 mb-4 bg-white rounded-md shadow-sm relative">
-                    <div className="flex justify-between items-center mb-2">
+                <div key={post.id} className="p-6 mb-3 bg-white rounded-md shadow-sm relative">
+                    <div className="flex justify-between items-center mb-4">
                         <div className="text-sm text-gray-600">{post.user.name}</div>
                         <div className="text-xs text-gray-500">
                             {moment(post.created_at).format('MMMM Do YYYY, h:mm:ss a')}
@@ -108,7 +119,10 @@ export default function PostList({ posts }) {
                             </div>
                         </div>
                     ) : (
-                        <div className="mb-2 text-gray-900">{post.content}</div>
+                        <div
+                            className="mb-2 text-gray-900"
+                            dangerouslySetInnerHTML={processContent(post.content)} // Renderizar contenido con títulos, negritas y saltos de línea procesados
+                        />
                     )}
 
                     {post.image && (
