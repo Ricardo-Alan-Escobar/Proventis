@@ -12,30 +12,30 @@ export default function Dashboard() {
         <AuthenticatedLayout>
             <Head title="Dashboard" />
 
-            <div className="py-12 flex ">
+            <div className="py-12 flex flex-col lg:flex-row">
+                <div className='hidden lg:block lg:w-1/4 px-4 lg:max-w-none lg:min-w-1050 '>
+                    <Menu />
+                </div>
 
-            <div className='hidden lg:flex mx-auto px-10'>
-                <Menu></Menu>
-            </div>
-
-                <div className="mx-auto max-w-4xl  sm:px-6 lg:px-8">
-                    
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                <div className="w-full lg:w-2/4   ">
+                    <div className="overflow-hidden bg-white shadow-md sm:rounded-lg mb-6 ">
                         <div className="p-6 text-gray-900">
                             <h2 className="mb-4 text-xl font-bold">Crear nuevo post</h2>
                             <PostForm />
                         </div>
                     </div>
 
-                    <div className="mt-6">
-                        <h2 className="mb-4 mx-4 text-xl font-bold">Posts Recientes</h2>
+                    <div>
+                        <h2 className="mb-4 text-xl font-bold ">Posts Recientes</h2>
                         <PostList posts={posts} />
                     </div>
                 </div>
                 
-                <div className='hidden lg:flex mx-auto px-10'>
-               <Notificaciones></Notificaciones>
-            </div>
+                <div className="hidden lg:block lg:w-1/4 px-4 lg:max-w-none lg:min-w-1050">
+                <Notificaciones />
+                </div>
+
+               
             </div>
         </AuthenticatedLayout>
     );

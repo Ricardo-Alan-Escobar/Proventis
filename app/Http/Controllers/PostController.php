@@ -39,12 +39,12 @@ class PostController extends Controller
         return inertia('Dashboard', ['posts' => $posts]);
     }
 
-    // Actualizar publicación
+    
 public function update(Request $request, Post $post)
 {
-    // Verifica que el usuario autenticado sea el dueño de la publicación
+   
     if (auth()->id() !== $post->user_id) {
-        return response()->json(['message' => 'Unauthorized'], 403); // Error de autorización
+        return response()->json(['message' => 'Unauthorized'], 403); 
     }
 
     $request->validate([
@@ -67,12 +67,12 @@ public function update(Request $request, Post $post)
     return response()->json(['message' => 'Post updated successfully', 'post' => $post]);
 }
 
-// Eliminar publicación
+
 public function destroy(Post $post)
 {
-    // Verifica que el usuario autenticado sea el dueño de la publicación
+    
     if (auth()->id() !== $post->user_id) {
-        return response()->json(['message' => 'Unauthorized'], 403); // Error de autorización
+        return response()->json(['message' => 'Unauthorized'], 403); 
     }
 
     if ($post->image) {

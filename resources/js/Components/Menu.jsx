@@ -4,7 +4,7 @@ import React from "react"
 export default function Menu() {
   return (
 
-    <nav className="flex flex-col justify-center bg-white h-[270px] w-72 shadow-md rounded-lg">
+    <nav className="flex flex-col justify-center bg-white h-[270px] w-full shadow-md rounded-lg">
         <h1 className="text-2xl ml-4 mb-5 font-bold">Menu</h1>
       <a href="#" className="flex items-center space-x-3 py-2 px-4 bg-blue-100 text-green-600">
         <Home className="w-5 h-5" />

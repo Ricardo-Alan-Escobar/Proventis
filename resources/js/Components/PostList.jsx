@@ -5,21 +5,21 @@ import moment from 'moment';
 export default function PostList({ posts }) {
     const [editPostId, setEditPostId] = useState(null);
     const [editContent, setEditContent] = useState('');
-    const [showMenuId, setShowMenuId] = useState(null); // Controla la visibilidad del menú
+    const [showMenuId, setShowMenuId] = useState(null); 
 
     const handleEdit = (post) => {
         setEditPostId(post.id);
         setEditContent(post.content);
-        setShowMenuId(null); // Oculta el menú después de hacer clic en editar
+        setShowMenuId(null); 
     };
 
     const handleCancelEdit = () => {
-        setEditPostId(null); // Cancela la edición
+        setEditPostId(null); 
     };
 
     const handleDelete = async (postId) => {
         try {
-            if (confirm('Are you sure you want to delete this post?')) {
+            if (confirm('¿Estas seguro de querer eliminar la pubicación?')) {
                 await axios.delete(`/posts/${postId}`);
                 window.location.reload();
             }
@@ -31,8 +31,8 @@ export default function PostList({ posts }) {
     const handleUpdate = async (postId) => {
         try {
             await axios.put(`/posts/${postId}`, { content: editContent });
-            setEditPostId(null); // Oculta el formulario de edición
-            window.location.reload(); // Actualiza la página después de la edición
+            setEditPostId(null); 
+            window.location.reload(); 
         } catch (error) {
             console.error(error);
         }
@@ -61,7 +61,7 @@ export default function PostList({ posts }) {
     return (
         <div>
             {posts.map((post) => (
-                <div key={post.id} className="p-6 mb-3 bg-white rounded-md shadow-sm relative">
+                <div key={post.id} className="p-6 mb-3 bg-white rounded-md shadow-md relative ">
                     <div className="flex justify-between items-center mb-4">
                         <div className="text-sm text-gray-600">{post.user.name}</div>
                         <div className="text-xs text-gray-500">
@@ -101,7 +101,7 @@ export default function PostList({ posts }) {
                             <textarea
                                 value={editContent}
                                 onChange={(e) => setEditContent(e.target.value)}
-                                className="w-full p-2 border border-gray-300 rounded-md"
+                                className="w-full h-60 p-3 border border-gray-300 rounded-md"
                             />
                             <div className="flex space-x-2 mt-2">
                                 <button
