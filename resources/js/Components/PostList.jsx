@@ -107,13 +107,13 @@ export default function PostList({ posts }) {
                             <div className="flex space-x-2 mt-2">
                                 <button
                                     onClick={() => handleUpdate(post.id)}
-                                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                                 >
                                     Guardar
                                 </button>
                                 <button
                                     onClick={handleCancelEdit} // Botón para cancelar la edición
-                                    className="px-4 py-2 bg-gray-500 text-white rounded-md"
+                                    className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
                                 >
                                     Cancelar
                                 </button>
