@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { Pencil, Trash2, CircleChevronDown } from "lucide-react";
+import { Pencil, Trash2, CircleChevronDown, CircleAlert } from "lucide-react";
 import Modal from './Modal'; // Asegúrate de que el componente Modal esté importado
 
 export default function PostList({ posts }) {
@@ -71,7 +71,7 @@ export default function PostList({ posts }) {
 
     const isExpanded = (postId) => expandedPosts[postId];
 
-    const truncateText = (text, postId, limit = 500) => {
+    const truncateText = (text, postId, limit = 600) => {
         if (text.length <= limit) {
             return text;
         }
@@ -153,7 +153,7 @@ export default function PostList({ posts }) {
                         <div className="mb-2 text-gray-900">
                             <div dangerouslySetInnerHTML={processContent(post.content, post.id)} />
                             {/* Botón para expandir/contraer texto */}
-                            {post.content.length > 100 && (
+                            {post.content.length > 600 && (
                                 <button
                                     onClick={() => toggleExpand(post.id)}
                                     className="text-blue-500 hover:underline"
@@ -185,9 +185,15 @@ export default function PostList({ posts }) {
             {isModalOpen && (
                 <Modal onClose={closeModal}>
                     <div className="p-4">
-                        <h2 className="text-xl font-bold mb-4">Confirmar eliminación</h2>
+											<div className='w-full mb-2 flex items-center flex-col'>
+													<CircleAlert size={48} color="#ff0000" />
+											<h2 className="text-xl font-bold mb-1 mt-4">Eliminar Post</h2>
+											
+									
+                        
                         <p>¿Estás seguro de que deseas eliminar esta publicación?</p>
-                        <div className="flex justify-end mt-4">
+                        </div>
+												<div className="flex justify-end mt-4">
                             <button
                                 onClick={closeModal}
                                 className="mr-2 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
