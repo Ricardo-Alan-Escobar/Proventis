@@ -20,7 +20,7 @@ export default function PostList({ posts }) {
 
     const handleDelete = async (postId) => {
         try {
-            if (confirm('¿Estas seguro de querer eliminar la pubicación?')) {
+            if (confirm('¿Estas seguro de querer eliminar la publicación?')) {
                 await axios.delete(`/posts/${postId}`);
                 window.location.reload();
             }
