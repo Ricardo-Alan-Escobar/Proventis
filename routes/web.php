@@ -29,7 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::get('/posts/{post}/likes', [PostController::class, 'getLikes']);
+    Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
+    Route::get('/posts/likes', [PostController::class, 'getAllLikes']);
 
+    
 });
 
 require __DIR__.'/auth.php';

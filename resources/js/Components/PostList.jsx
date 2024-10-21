@@ -1,25 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
 import moment from 'moment';
-import { Pencil, Trash2, CircleChevronDown, CircleAlert } from "lucide-react";
-import Modal from './Modal'; // Asegúrate de que el componente Modal esté importado
+import { Pencil, Trash2, CircleChevronDown, CircleAlert, Heart } from "lucide-react";
+import Modal from './Modal'; 
 
 export default function PostList({ posts }) {
     const [editPostId, setEditPostId] = useState(null);
     const [editContent, setEditContent] = useState('');
-    const [showMenuId, setShowMenuId] = useState(null); 
+    const [showMenuId, setShowMenuId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [postToDelete, setPostToDelete] = useState(null);
-    const [expandedPosts, setExpandedPosts] = useState({}); // Estado para las publicaciones expandidas
+    const [expandedPosts, setExpandedPosts] = useState({});
+    const [likedPosts, setLikedPosts] = useState({}); // Estado para los likes de cada post
+    const [loadingLikes, setLoadingLikes] = useState(true); // Estado de carga para los likes
+
+    // Cargar likes desde el backend
+    useEffect(() => {
+        const fetchLikes = async () => {
+            try {
+                const likeData = {};
+                await Promise.all(posts.map(async (post) => {
+                    const response = await axios.get(`/posts/${post.id}/likes`); 
+                    likeData[post.id] = response.data.likes;
+                }));
+                setLikedPosts(likeData);
+                setLoadingLikes(false); // Termina la carga
+            } catch (error) {
+                console.error('Error al obtener los likes:', error);
+            }
+        };
+
+        fetchLikes();
+    }, [posts]);
 
     const handleEdit = (post) => {
         setEditPostId(post.id);
         setEditContent(post.content);
-        setShowMenuId(null); 
+        setShowMenuId(null);
     };
 
     const handleCancelEdit = () => {
-        setEditPostId(null); 
+        setEditPostId(null);
     };
 
     const openModal = (postId) => {
@@ -46,8 +67,8 @@ export default function PostList({ posts }) {
     const handleUpdate = async (postId) => {
         try {
             await axios.put(`/posts/${postId}`, { content: editContent });
-            setEditPostId(null); 
-            window.location.reload(); 
+            setEditPostId(null);
+            window.location.reload();
         } catch (error) {
             console.error(error);
         }
@@ -55,17 +76,30 @@ export default function PostList({ posts }) {
 
     const toggleMenu = (postId) => {
         if (showMenuId === postId) {
-            setShowMenuId(null); 
+            setShowMenuId(null);
         } else {
-            setShowMenuId(postId); 
+            setShowMenuId(postId);
         }
     };
 
-    // Función para recortar texto si es más largo que el límite
+    // Función para manejar likes
+    const handleLike = async (postId) => {
+        try {
+            const response = await axios.post(`/posts/${postId}/like`);
+            // Actualiza el número de likes basado en la respuesta del servidor
+            setLikedPosts((prevLikes) => ({
+                ...prevLikes,
+                [postId]: response.data.likes_count,
+            }));
+        } catch (error) {
+            console.error('Error al dar like:', error.response);
+        }
+    };
+
     const toggleExpand = (postId) => {
         setExpandedPosts(prev => ({
             ...prev,
-            [postId]: !prev[postId] // Alterna entre expandido y contraído
+            [postId]: !prev[postId]
         }));
     };
 
@@ -77,8 +111,8 @@ export default function PostList({ posts }) {
         }
 
         return isExpanded(postId)
-            ? text // Si está expandido, muestra todo el texto
-            : text.slice(0, limit) + '...'; // Si no, muestra solo el límite
+            ? text
+            : text.slice(0, limit) + ' ...';
     };
 
     const processContent = (content, postId) => {
@@ -100,13 +134,12 @@ export default function PostList({ posts }) {
                         <div className="text-xs text-gray-500">
                             {moment(post.created_at).format('MMMM Do YYYY, h:mm:ss a')}
                         </div>
-
                         <div className="relative">
                             <button
                                 className="text-gray-500 hover:text-gray-700"
                                 onClick={() => toggleMenu(post.id)}
                             >
-                               <CircleChevronDown />
+                                <CircleChevronDown />
                             </button>
                             {showMenuId === post.id && (
                                 <div className="absolute right-0 mt-2 w-10 bg-white border border-gray-300 rounded-md shadow-lg z-10">
@@ -114,11 +147,11 @@ export default function PostList({ posts }) {
                                         onClick={() => handleEdit(post)}
                                         className="block w-full px-2 py-2 text-left text-gray-700 hover:bg-gray-200"
                                     >
-                                        <Pencil /> 
+                                        <Pencil />
                                     </button>
                                     <button
                                         onClick={() => openModal(post.id)}
-                                        className="block w-full px-2 py-2 text-left text-red-500 hover:bg-gray-200"
+                                        className="block w-full px-2 py-2 text-red-500 hover:bg-gray-200"
                                     >
                                         <Trash2 />
                                     </button>
@@ -152,7 +185,6 @@ export default function PostList({ posts }) {
                     ) : (
                         <div className="mb-2 text-gray-900">
                             <div dangerouslySetInnerHTML={processContent(post.content, post.id)} />
-                            {/* Botón para expandir/contraer texto */}
                             {post.content.length > 600 && (
                                 <button
                                     onClick={() => toggleExpand(post.id)}
@@ -179,21 +211,30 @@ export default function PostList({ posts }) {
                             Descargar Archivo
                         </a>
                     )}
+
+                    {/* Sección de Likes */}
+                    <div className="flex items-center mt-4">
+                        <button
+                            className="flex items-center text-red-500 hover:underline"
+                            onClick={() => handleLike(post.id)}
+                            disabled={loadingLikes} // Deshabilitar botón mientras se cargan los likes
+                        >
+                            <Heart className="mr-1" />
+                            {likedPosts[post.id] !== undefined ? likedPosts[post.id] : '...'} {/* Muestra la cantidad de likes actualizada */}
+                        </button>
+                    </div>
                 </div>
             ))}
 
             {isModalOpen && (
                 <Modal onClose={closeModal}>
                     <div className="p-4">
-											<div className='w-full mb-2 flex items-center flex-col'>
-													<CircleAlert size={48} color="#ff0000" />
-											<h2 className="text-xl font-bold mb-1 mt-4">Eliminar Post</h2>
-											
-									
-                        
-                        <p>¿Estás seguro de que deseas eliminar esta publicación?</p>
+                        <div className='w-full mb-2 flex items-center flex-col'>
+                            <CircleAlert size={48} color="#ff0000" />
+                            <h2 className="text-xl font-bold mb-1 mt-4">Eliminar Post</h2>
+                            <p>¿Estás seguro de que deseas eliminar esta publicación?</p>
                         </div>
-												<div className="flex justify-end mt-4">
+                        <div className="flex justify-end mt-4">
                             <button
                                 onClick={closeModal}
                                 className="mr-2 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"

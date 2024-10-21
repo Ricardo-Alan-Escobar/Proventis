@@ -88,7 +88,36 @@ public function destroy(Post $post)
     return response()->json(['message' => 'Post deleted successfully']);
 }
 
+public function like(Post $post)
+{   
+    $user = auth()->user();
+
+    if ($post->likes()->where('user_id', $user->id)->exists()) {
+        $post->likes()->detach($user->id); // Eliminar el like
+    } else {
+        $post->likes()->attach($user->id); // Agregar el like
+    }
+
+    return response()->json(['likes_count' => $post->likes()->count()]);
 
 
+}
 
+public function getLikes(Post $post)
+{
+    return response()->json(['likes' => $post->likes()->count()]);
+}
+
+public function getAllLikes()
+{
+    $likes = Post::withCount('likes')->get()->pluck('likes_count', 'id');
+    return response()->json(['likes' => $likes]);
+}
+public function show(Post $post)
+{
+    return response()->json([
+        'post' => $post,
+        'likes_count' => $post->likes()->count(), // Incluye el conteo de likes
+    ]);
+}
 }
