@@ -113,6 +113,8 @@ public function getAllLikes()
     $likes = Post::withCount('likes')->get()->pluck('likes_count', 'id');
     return response()->json(['likes' => $likes]);
 }
+
+
 public function show(Post $post)
 {
     return response()->json([

@@ -214,15 +214,31 @@ export default function PostList({ posts }) {
 
                     {/* Sección de Likes */}
                     <div className="flex items-center mt-4">
-                        <button
-                            className="flex items-center text-red-500 hover:underline"
-                            onClick={() => handleLike(post.id)}
-                            disabled={loadingLikes} // Deshabilitar botón mientras se cargan los likes
-                        >
-                            <Heart className="mr-1" />
-                            {likedPosts[post.id] !== undefined ? likedPosts[post.id] : '...'} {/* Muestra la cantidad de likes actualizada */}
-                        </button>
-                    </div>
+    <button
+        className="flex items-center text-red-500 hover:underline"
+        onClick={() => handleLike(post.id)}
+        disabled={loadingLikes} // Deshabilitar botón mientras se cargan los likes
+    >
+        {/* Cambia el ícono dependiendo de si el post ha sido dado "like" o no */}
+        {likedPosts[post.id] ? (
+            // Ícono de corazón lleno (cuando el usuario ha dado "like")
+            <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="red"
+                xmlns="http://www.w3.org/2000/svg"
+                className="mr-1"
+            >
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+        ) : (
+            // Ícono de corazón vacío (cuando no se ha dado "like")
+            <Heart className="mr-1" />
+        )}
+        {likedPosts[post.id] !== undefined ? likedPosts[post.id] : '...'} {/* Muestra la cantidad de likes actualizada */}
+    </button>
+</div>
                 </div>
             ))}
 
