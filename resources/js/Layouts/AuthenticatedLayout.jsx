@@ -34,14 +34,14 @@ export default function Authenticated({ header, children }) {
                             </svg>
 
                             </NavLink>
-                            <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                            <NavLink href={route('tickets')} active={route().current('tickets')}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-ticket-percent">
                                     <path d="M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
                                     <path d="M9 9h.01" />
                                     <path d="m15 9-6 6" />
                                     <path d="M15 15h.01" />
                </svg></NavLink>
-                            <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                            <NavLink href={route('tickets')} active={route().current('tickets')}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-book-open-text">
                                     <path d="M12 7v14" />
                                     <path d="M16 12h2" />
@@ -51,13 +51,13 @@ export default function Authenticated({ header, children }) {
                                     <path d="M6 8h2" />
                                 </svg>
                             </NavLink>
-                            <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                            <NavLink href={route('tickets')} active={route().current('tickets')}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plane-takeoff">
                                     <path d="M2 22h20" />
                                     <path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" />
                                 </svg>
                             </NavLink>
-                            <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                            <NavLink href={route('tickets')} active={route().current('tickets')}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clipboard-type">
                                     <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
                                     <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />

@@ -211,11 +211,11 @@ export default function PostList({ posts }) {
                             Descargar Archivo
                         </a>
                     )}
-
+                    <hr className='mt-5' />
                     {/* Sección de Likes */}
-                    <div className="flex items-center mt-4">
+                    <div className="flex items-center mt-4 ">
     <button
-        className="flex items-center text-red-500 hover:underline"
+        className="flex items-center text-red-500 hover:bg-slate-100 p-3 px-4 rounded-full "
         onClick={() => handleLike(post.id)}
         disabled={loadingLikes} // Deshabilitar botón mientras se cargan los likes
     >

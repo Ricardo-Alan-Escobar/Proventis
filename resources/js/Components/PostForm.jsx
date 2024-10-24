@@ -49,7 +49,6 @@ export default function PostForm() {
             <form onSubmit={handleSubmit} className="p-1">
                 {error && <div className="text-red-500 mb-4">{error}</div>}
                 <div className="flex items-start space-x-4 mb-4">
-                    <div className="w-10 h-10 rounded-full bg-gray-300 flex-shrink-0"></div>
                     <textarea
                         value={data.content}
                         onChange={(e) => setData('content', e.target.value)}
