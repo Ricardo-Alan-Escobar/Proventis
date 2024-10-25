@@ -12,18 +12,20 @@ export default function Tickets() {
         <AuthenticatedLayout>
             <Head title="Tickets" />
 
-            <div className="py-12 flex flex-col lg:flex-row">
-                   <h2>Vista de Tickets</h2>
-                <div className="w-full lg:w-2/4">
-                   tickets 
-                   abiertos 
-                   cerrados
-                   en seguiomento
-                   pendiantes
-                   
+            <div className="py-12 w-full flex justify-center items-center flex-col">
+                  
+                <div className="w-11/12 flex p-5 rounded-lg mb-5 shadow-md justify-center bg-white">
+                    <h2 className='text-3xl'>Vista de Tickets</h2>
                 </div>
-                
-              
+
+                <div className='flex w-11/12'>
+                <div className="w-11/12 flex p-5 rounded-lg mr-3 shadow-md justify-center bg-white">
+                    <h2 className='text-3xl'>Abiertos</h2>
+                </div>
+                <div className="w-11/12 flex p-5 rounded-lg ml-3 shadow-md justify-center bg-white">
+                    <h2 className='text-3xl'>Cerrados</h2>
+                </div>
+                </div>
                
             </div>
         </AuthenticatedLayout>
