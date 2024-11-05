@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/{post}/likes', [PostController::class, 'getLikes']);
     Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
     Route::get('/posts/likes', [PostController::class, 'getAllLikes']);
-
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/posts/{post}/comments', [CommentController::class, 'index'])->name('comments.index');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    
     
 });
 

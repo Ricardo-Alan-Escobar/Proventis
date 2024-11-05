@@ -3,6 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { Pencil, Trash2, CircleChevronDown, CircleAlert, Heart } from "lucide-react";
 import Modal from './Modal'; 
+import CommentSection from './CommentSection';
 
 export default function PostList({ posts }) {
     const [editPostId, setEditPostId] = useState(null);
@@ -238,7 +239,9 @@ export default function PostList({ posts }) {
         )}
         {likedPosts[post.id] !== undefined ? likedPosts[post.id] : '...'} {/* Muestra la cantidad de likes actualizada */}
     </button>
+    
 </div>
+<CommentSection postId={post.id} />
                 </div>
             ))}
 
