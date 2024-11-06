@@ -55,6 +55,14 @@ export default function CommentSection({ postId }) {
         }
     };
 
+    // Función para obtener las iniciales del nombre del usuario
+    const getInitials = (name) => {
+        const words = name ? name.split(' ') : [];
+        const firstInitial = words[0] ? words[0][0] : '';
+        const secondInitial = words[1] ? words[1][0] : '';
+        return firstInitial + secondInitial;
+    };
+
     return (
         <div className="mt-4">
             <h3 className="text-lg font-semibold text-gray-700 mb-2">Comentarios</h3>
@@ -72,7 +80,7 @@ export default function CommentSection({ postId }) {
                     className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
                     disabled={loading}
                 >
-                    {loading ? 'Enviando...' :  <Send />}
+                    {loading ? 'Enviando...' : <Send />}
                 </button>
             </form>
             {/* Listado de comentarios */}
@@ -80,12 +88,18 @@ export default function CommentSection({ postId }) {
                 {comments.map(comment => (
                     <div key={comment.id} className="p-3 bg-gray-50 rounded-md relative">
                         <div className="flex justify-between items-center">
-                            <span className="text-gray-700 font-semibold">
-                                {comment.user ? comment.user.name : "Usuario"}
-                            </span>
+                            <div className="flex items-center space-x-2">
+                                {/* Div circular con las iniciales del nombre del usuario */}
+                                <div className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full text-sm font-bold">
+                                    {comment.user ? getInitials(comment.user.name) : "U"}
+                                </div>
+                                <span className="text-gray-700 font-semibold">
+                                    {comment.user ? comment.user.name : "Usuario"}
+                                </span>
+                            </div>
                             <div className="text-xs text-gray-500">
-                            {moment(comments.created_at).format('M/D/YY, h:mm a')}
-                        </div>
+                                {moment(comment.created_at).format('M/D/YY, h:mm a')}
+                            </div>
                             <button
                                 className="text-red-500 hover:bg-red-100 p-1 rounded-full"
                                 onClick={() => handleDelete(comment.id)}
@@ -97,8 +111,6 @@ export default function CommentSection({ postId }) {
                     </div>
                 ))}
             </div>
-
-            
         </div>
     );
 }
