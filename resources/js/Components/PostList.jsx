@@ -12,8 +12,8 @@ export default function PostList({ posts }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [postToDelete, setPostToDelete] = useState(null);
     const [expandedPosts, setExpandedPosts] = useState({});
-    const [likedPosts, setLikedPosts] = useState({}); // Estado para los likes de cada post
-    const [loadingLikes, setLoadingLikes] = useState(true); // Estado de carga para los likes
+    const [likedPosts, setLikedPosts] = useState({});
+    const [loadingLikes, setLoadingLikes] = useState(true); 
 
     // Cargar likes desde el backend
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function PostList({ posts }) {
                     likeData[post.id] = response.data.likes;
                 }));
                 setLikedPosts(likeData);
-                setLoadingLikes(false); // Termina la carga
+                setLoadingLikes(false); 
             } catch (error) {
                 console.error('Error al obtener los likes:', error);
             }
@@ -87,7 +87,6 @@ export default function PostList({ posts }) {
     const handleLike = async (postId) => {
         try {
             const response = await axios.post(`/posts/${postId}/like`);
-            // Actualiza el número de likes basado en la respuesta del servidor
             setLikedPosts((prevLikes) => ({
                 ...prevLikes,
                 [postId]: response.data.likes_count,
@@ -133,7 +132,8 @@ export default function PostList({ posts }) {
                     <div className="flex justify-between items-center mb-4">
                         <div className="text-sm text-gray-600">{post.user.name}</div>
                         <div className="text-xs text-gray-500">
-                            {moment(post.created_at).format('MMMM Do YYYY, h:mm:ss a')}
+                        {moment(posts.created_at).format('MM/DD/YYYY, h:mm a')}
+
                         </div>
                         <div className="relative">
                             <button
@@ -237,11 +237,11 @@ export default function PostList({ posts }) {
             // Ícono de corazón vacío (cuando no se ha dado "like")
             <Heart className="mr-1" />
         )}
-        {likedPosts[post.id] !== undefined ? likedPosts[post.id] : '...'} {/* Muestra la cantidad de likes actualizada */}
-    </button>
+            {likedPosts[post.id] !== undefined ? likedPosts[post.id] : '...'} {/* Muestra la cantidad de likes actualizada */}
+        </button>
     
-</div>
-<CommentSection postId={post.id} />
+            </div>
+            <CommentSection postId={post.id} />
                 </div>
             ))}
 

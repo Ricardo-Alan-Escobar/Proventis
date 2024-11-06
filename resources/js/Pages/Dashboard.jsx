@@ -10,7 +10,7 @@ export default function Dashboard() {
 
     return (
         <AuthenticatedLayout>
-            <Head title="Dashboard" />
+            <Head title="Inicio" />
 
             <div className="py-12 flex flex-col lg:flex-row">
                 <div className='hidden lg:block lg:w-1/4 px-4 lg:max-w-none lg:min-w-1050 '>
