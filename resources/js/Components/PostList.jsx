@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
 import moment from 'moment';
-import { Pencil, Trash2, Ellipsis, CircleAlert, Heart, MessageCircle } from "lucide-react"; // Importa el ícono de comentarios
+import { Pencil, Trash2, Ellipsis, CircleAlert, Heart, MessageCircle } from "lucide-react";
 import Modal from './Modal'; 
 import CommentSection from './CommentSection';
 
@@ -14,11 +14,14 @@ export default function PostList({ posts }) {
     const [expandedPosts, setExpandedPosts] = useState({});
     const [likedPosts, setLikedPosts] = useState({});
     const [loadingLikes, setLoadingLikes] = useState(true); 
-    const [visibleComments, setVisibleComments] = useState({}); // Estado para manejar la visibilidad de los comentarios
-    const [commentCount, setCommentCount] = useState(0);
-    
-
-    // Cargar likes desde el backend
+    const [commentCount, setCommentCount] = useState({});
+    const [visibleComments, setVisibleComments] = useState(
+        posts.reduce((acc, post) => {
+            acc[post.id] = true;  
+            return acc;
+        }, {})
+    );
+  
     useEffect(() => {
         const fetchLikes = async () => {
             try {
@@ -109,15 +112,19 @@ export default function PostList({ posts }) {
     const isExpanded = (postId) => expandedPosts[postId];
 
     const toggleComments = (postId) => {
-        setVisibleComments((prev) => {
-            const newVisibility = { ...prev, [postId]: !prev[postId] };
-            // Actualizamos el contador solo cuando mostramos los comentarios
-            if (!newVisibility[postId]) {
-                setCommentCount(0); // Reseteamos el contador cuando se cierra
-            }
-            return newVisibility;
-        });
+        setVisibleComments((prev) => ({
+            ...prev,
+            [postId]: !prev[postId]
+        }));
     };
+
+    const updateCommentCount = (postId, count) => {
+        setCommentCount((prevCounts) => ({
+            ...prevCounts,
+            [postId]: count
+        }));
+    };
+
 
     const truncateText = (text, postId, limit = 600) => {
         if (text.length <= limit) {
@@ -145,7 +152,7 @@ export default function PostList({ posts }) {
         const secondInitial = words[1] ? words[1][0] : '';
         return firstInitial + secondInitial;
     };
-
+ 
     return (
         <div>
             {posts.map((post) => (
@@ -158,7 +165,7 @@ export default function PostList({ posts }) {
                             <div>
                                 {post.user.name}
                                 <div className="text-sm text-gray-500">
-                                    {moment(posts.created_at).format('MM/DD/YYYY, h:mm a')}
+                                    {moment(post.created_at).format('MM/DD/YYYY, h:mm a')}
                                 </div>
                             </div>
                         </div>
@@ -243,25 +250,30 @@ export default function PostList({ posts }) {
                     )}
 
                     {/* Sección de Likes y Comentarios */}
-                    <div className="flex items-center mt-10">
+                    <div className="flex items-center justify-between mt-10">
                         <button
                             className="flex items-center text-red-500 hover:bg-slate-100 p-3 px-4 rounded-full"
                             onClick={() => handleLike(post.id)}
                         >
                             <Heart size={20} className="mr-2" /> 
-                            {loadingLikes ? '...' : likedPosts[post.id]} Likes
+                            {loadingLikes ? '.' : likedPosts[post.id]} Likes
                         </button>
                         <button
                             className="flex items-center text-blue-500 hover:bg-slate-100 p-3 px-4 rounded-full"
                             onClick={() => toggleComments(post.id)}
                         >
                             <MessageCircle size={20} className="mr-2" />
-                            {commentCount} Comentarios
+                            {commentCount[post.id] || 0} Comentarios
                         </button>
                     </div>
 
                     {/* Sección de comentarios */}
-                    {visibleComments[post.id] && <CommentSection postId={post.id} setCommentCount={setCommentCount} />}
+                    {visibleComments[post.id] && (
+                        <CommentSection
+                            postId={post.id}
+                            setCommentCount={(count) => updateCommentCount(post.id, count)}
+                        />
+                    )}
                 </div>
             ))}
   {isModalOpen && (
