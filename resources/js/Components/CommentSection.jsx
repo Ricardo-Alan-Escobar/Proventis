@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Trash2, Send } from "lucide-react";
+import { Trash2, Send, User } from "lucide-react";
 import moment from 'moment';
 
-export default function CommentSection({ postId }) {
+export default function CommentSection({ postId, setCommentCount }) {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [loading, setLoading] = useState(false);
@@ -18,6 +18,7 @@ export default function CommentSection({ postId }) {
         try {
             const response = await axios.get(`/posts/${postId}/comments`);
             setComments(response.data);
+            setCommentCount(response.data.length); // Establecer la cantidad de comentarios
         } catch (error) {
             console.error('Error al obtener los comentarios:', error);
         }
@@ -38,6 +39,7 @@ export default function CommentSection({ postId }) {
             });
             setComments([...comments, response.data]);
             setNewComment('');
+            setCommentCount(comments.length + 1); // Actualiza la cantidad de comentarios
         } catch (error) {
             console.error('Error al enviar el comentario:', error);
         } finally {
@@ -49,7 +51,9 @@ export default function CommentSection({ postId }) {
     const handleDelete = async (commentId) => {
         try {
             await axios.delete(`/comments/${commentId}`);
-            setComments(comments.filter(comment => comment.id !== commentId));
+            const updatedComments = comments.filter(comment => comment.id !== commentId);
+            setComments(updatedComments);
+            setCommentCount(updatedComments.length); // Actualiza la cantidad de comentarios
         } catch (error) {
             console.error('Error al eliminar el comentario:', error);
         }
@@ -64,10 +68,12 @@ export default function CommentSection({ postId }) {
     };
 
     return (
-        <div className="mt-4">
+        <div className="mt-1">
+            <hr className='my-5' />
             <h3 className="text-lg font-semibold text-gray-700 mb-2">Comentarios</h3>
             {/* Formulario para agregar un nuevo comentario */}
             <form onSubmit={handleSubmit} className="mt-4 flex items-center space-x-2 pb-4">
+                <User />
                 <input
                     type="text"
                     value={newComment}
@@ -86,19 +92,18 @@ export default function CommentSection({ postId }) {
             {/* Listado de comentarios */}
             <div className="space-y-4">
                 {comments.map(comment => (
-                    <div key={comment.id} className="p-3 bg-gray-50 rounded-md relative">
+                    <div key={comment.id} className="p-1  rounded-md relative">
                         <div className="flex justify-between items-center">
-                            <div className="flex items-center space-x-2">
-                                {/* Div circular con las iniciales del nombre del usuario */}
-                                <div className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full text-sm font-bold">
+                            <div className="flex items-center space-x-2 mb-3">
+                                <div className="w-10 h-10 bg-green-100  mr-1 flex items-center justify-center rounded-full text-sm font-bold">
                                     {comment.user ? getInitials(comment.user.name) : "U"}
                                 </div>
-                                <span className="text-gray-700 font-semibold">
-                                    {comment.user ? comment.user.name : "Usuario"}
-                                </span>
-                            </div>
-                            <div className="text-xs text-gray-500">
-                                {moment(comment.created_at).format('M/D/YY, h:mm a')}
+                                <div className="flex flex-col text-xs text-gray-500">
+                                    <span className="text-gray-700 text-base font-semibold">
+                                        {comment.user ? comment.user.name : "Usuario"}
+                                    </span>
+                                    {moment(comment.created_at).format('M/D/YY, h:mm a')}
+                                </div>
                             </div>
                             <button
                                 className="text-red-500 hover:bg-red-100 p-1 rounded-full"
@@ -107,7 +112,7 @@ export default function CommentSection({ postId }) {
                                 <Trash2 size={16} />
                             </button>
                         </div>
-                        <p className="text-gray-600 mt-1">{comment.content}</p>
+                        <p className=" ml-14 mr-7">{comment.content}</p>
                     </div>
                 ))}
             </div>

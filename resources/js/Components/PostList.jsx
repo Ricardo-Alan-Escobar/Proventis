@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
 import moment from 'moment';
-import { Pencil, Trash2, Ellipsis , CircleAlert, Heart } from "lucide-react";
+import { Pencil, Trash2, Ellipsis, CircleAlert, Heart, MessageCircle } from "lucide-react"; // Importa el ícono de comentarios
 import Modal from './Modal'; 
 import CommentSection from './CommentSection';
 
@@ -14,6 +14,9 @@ export default function PostList({ posts }) {
     const [expandedPosts, setExpandedPosts] = useState({});
     const [likedPosts, setLikedPosts] = useState({});
     const [loadingLikes, setLoadingLikes] = useState(true); 
+    const [visibleComments, setVisibleComments] = useState({}); // Estado para manejar la visibilidad de los comentarios
+    const [commentCount, setCommentCount] = useState(0);
+    
 
     // Cargar likes desde el backend
     useEffect(() => {
@@ -105,6 +108,17 @@ export default function PostList({ posts }) {
 
     const isExpanded = (postId) => expandedPosts[postId];
 
+    const toggleComments = (postId) => {
+        setVisibleComments((prev) => {
+            const newVisibility = { ...prev, [postId]: !prev[postId] };
+            // Actualizamos el contador solo cuando mostramos los comentarios
+            if (!newVisibility[postId]) {
+                setCommentCount(0); // Reseteamos el contador cuando se cierra
+            }
+            return newVisibility;
+        });
+    };
+
     const truncateText = (text, postId, limit = 600) => {
         if (text.length <= limit) {
             return text;
@@ -125,23 +139,35 @@ export default function PostList({ posts }) {
         return { __html: processedContent };
     };
 
+    const getInitials = (name) => {
+        const words = name ? name.split(' ') : [];
+        const firstInitial = words[0] ? words[0][0] : '';
+        const secondInitial = words[1] ? words[1][0] : '';
+        return firstInitial + secondInitial;
+    };
+
     return (
         <div>
             {posts.map((post) => (
                 <div key={post.id} className="p-6 mb-3 bg-white rounded-md shadow-md relative">
                     <div className="flex justify-between items-center mb-4">
-                        <div className="text-lg font-bold">{post.user.name}
-                        <div className="text-sm text-gray-500">
-                        {moment(posts.created_at).format('MM/DD/YYYY, h:mm a')}
-
-                        </div>
+                        <div className="text-lg flex font-bold">
+                            <div className="w-12 h-12 bg-green-500 text-white mr-3 flex items-center justify-center rounded-full text-lg font-bold">
+                                {post.user ? getInitials(post.user.name) : "U"}
+                            </div>
+                            <div>
+                                {post.user.name}
+                                <div className="text-sm text-gray-500">
+                                    {moment(posts.created_at).format('MM/DD/YYYY, h:mm a')}
+                                </div>
+                            </div>
                         </div>
                         <div className="relative">
                             <button
                                 className="text-gray-500 hover:bg-slate-50 p-2 rounded-md hover:text-gray-700"
                                 onClick={() => toggleMenu(post.id)}
                             >
-                               <Ellipsis />
+                                <Ellipsis />
                             </button>
                             {showMenuId === post.id && (
                                 <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-300 rounded-md shadow-lg z-10">
@@ -162,9 +188,7 @@ export default function PostList({ posts }) {
                         </div>
                     </div>
 
-
-                    <hr className='my-5' />
-
+                    <hr className="my-5" />
 
                     {editPostId === post.id ? (
                         <div>
@@ -207,7 +231,7 @@ export default function PostList({ posts }) {
                             <img
                                 src={`/storage/${post.image}`}
                                 alt="Post Image"
-                                className="rounded-lg w-full lg:w-7/12"
+                                className="rounded-lg w-full lg:w-10/12"
                             />
                         </div>
                     )}
@@ -217,40 +241,30 @@ export default function PostList({ posts }) {
                             Descargar Archivo
                         </a>
                     )}
-                    <hr className='mt-5' />
-                    {/* Sección de Likes */}
-                    <div className="flex items-center mt-4 ">
-    <button
-        className="flex items-center text-red-500 hover:bg-slate-100 p-3 px-4 rounded-full "
-        onClick={() => handleLike(post.id)}
-        disabled={loadingLikes} // Deshabilitar botón mientras se cargan los likes
-    >
-        {/* Cambia el ícono dependiendo de si el post ha sido dado "like" o no */}
-        {likedPosts[post.id] ? (
-            // Ícono de corazón lleno (cuando el usuario ha dado "like")
-            <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="red"
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-1"
-            >
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-        ) : (
-            // Ícono de corazón vacío (cuando no se ha dado "like")
-            <Heart className="mr-1" />
-        )}
-            {likedPosts[post.id] !== undefined ? likedPosts[post.id] : '...'} {/* Muestra la cantidad de likes actualizada */}
-        </button>
-    
-            </div>
-            <CommentSection postId={post.id} />
+
+                    {/* Sección de Likes y Comentarios */}
+                    <div className="flex items-center mt-10">
+                        <button
+                            className="flex items-center text-red-500 hover:bg-slate-100 p-3 px-4 rounded-full"
+                            onClick={() => handleLike(post.id)}
+                        >
+                            <Heart size={20} className="mr-2" /> 
+                            {loadingLikes ? '...' : likedPosts[post.id]} Likes
+                        </button>
+                        <button
+                            className="flex items-center text-blue-500 hover:bg-slate-100 p-3 px-4 rounded-full"
+                            onClick={() => toggleComments(post.id)}
+                        >
+                            <MessageCircle size={20} className="mr-2" />
+                            {commentCount} Comentarios
+                        </button>
+                    </div>
+
+                    {/* Sección de comentarios */}
+                    {visibleComments[post.id] && <CommentSection postId={post.id} setCommentCount={setCommentCount} />}
                 </div>
             ))}
-
-            {isModalOpen && (
+  {isModalOpen && (
                 <Modal onClose={closeModal}>
                     <div className="p-4">
                         <div className='w-full mb-2 flex items-center flex-col'>
@@ -275,6 +289,7 @@ export default function PostList({ posts }) {
                     </div>
                 </Modal>
             )}
+            
         </div>
     );
 }
