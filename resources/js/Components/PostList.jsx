@@ -180,13 +180,13 @@ export default function PostList({ posts }) {
                                 <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-300 rounded-md shadow-lg z-10">
                                     <button
                                         onClick={() => handleEdit(post)}
-                                        className="flex w-full px-2 py-2 text-left text-sm text-gray-700 hover:bg-gray-200"
+                                        className="flex w-full px-2 py-2 text-left text-sm text-gray-700 hover:bg-green-100"
                                     >
                                         <Pencil className='mr-3' size={17}/> Editar post
                                     </button>
                                     <button
                                         onClick={() => openModal(post.id)}
-                                        className="flex w-full px-2 py-2 text-sm hover:bg-gray-200"
+                                        className="flex w-full px-2 py-2 text-sm hover:bg-red-100"
                                     >
                                         <Trash2 className='mr-3' size={17} /> Eliminar post
                                     </button>
