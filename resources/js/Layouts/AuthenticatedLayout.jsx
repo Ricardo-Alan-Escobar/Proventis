@@ -1,8 +1,7 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Bell, Home, Menu, MessageCircle, Search, Users, ThumbsUp, Send } from "lucide-react";
+import { Home, Ticket } from "lucide-react";
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import LogoLayout from '@/Components/LogoLayout';
@@ -28,19 +27,13 @@ export default function Authenticated({ header, children }) {
                         {/* Iconos en el centro */}
                         <div className="hidden sm:flex sm:space-x-8 items-center justify-center">
                             <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-house">
-                            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-                            <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                            </svg>
+                            <Home />
 
                             </NavLink>
                             <NavLink href={route('tickets')} active={route().current('tickets')}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-ticket-percent">
-                                    <path d="M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
-                                    <path d="M9 9h.01" />
-                                    <path d="m15 9-6 6" />
-                                    <path d="M15 15h.01" />
-               </svg></NavLink>
+                                <Ticket />
+
+                                </NavLink>
                            
                           
                         </div>

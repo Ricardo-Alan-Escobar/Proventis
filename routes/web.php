@@ -25,16 +25,24 @@ Route::get('/tickets', function () {
 })->middleware(['auth', 'verified'])->name('tickets');
 
 Route::middleware('auth')->group(function () {
+
+    //Editar Perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //Post
     Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    //Likes
     Route::get('/posts/{post}/likes', [PostController::class, 'getLikes']);
     Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
     Route::get('/posts/likes', [PostController::class, 'getAllLikes']);
+
+    //Comentarios
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::get('/posts/{post}/comments', [CommentController::class, 'index'])->name('comments.index');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
