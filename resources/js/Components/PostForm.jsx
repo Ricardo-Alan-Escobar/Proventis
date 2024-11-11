@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { useForm } from '@inertiajs/react';
 
 export default function PostForm() {
@@ -11,14 +11,23 @@ export default function PostForm() {
     const [error, setError] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
     const [fileName, setFileName] = useState(null);
+    const [contentError, setContentError] = useState(false); 
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        
+        if (!data.content.trim()) {
+            setContentError(true);
+            return;
+        }
+
         post(route('posts.store'), {
             onSuccess: () => {
                 reset();
                 setImagePreview(null);
                 setFileName(null);
+                setContentError(false); 
             },
             onError: (errors) => setError(errors),
         });
@@ -45,18 +54,24 @@ export default function PostForm() {
     };
 
     return (
-        <div className="w-full bg-white rounded-lg  overflow-hidden">
+        <div className="w-full bg-white rounded-lg overflow-hidden">
             <form onSubmit={handleSubmit} className="p-1">
                 {error && <div className="text-red-500 mb-4">{error}</div>}
                 <div className="flex items-start space-x-4 mb-4">
                     <textarea
                         value={data.content}
-                        onChange={(e) => setData('content', e.target.value)}
+                        onChange={(e) => {
+                            setData('content', e.target.value);
+                            setContentError(false); 
+                        }}
                         className="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                         placeholder="¿Qué estás pensando?"
                         rows="3"
                     />
                 </div>
+                {contentError && (
+                    <div className="text-red-500 mb-4">El campo de texto no puede estar vacío.</div>
+                )}
                 {imagePreview && (
                     <div className="mt-4 relative">
                         <img src={imagePreview} alt="Preview" className="max-w-full h-auto rounded-lg" />
@@ -130,7 +145,7 @@ export default function PostForm() {
                     </div>
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg focus:outline-none hover:bg-blue-600"
                     >
                         Publicar
                     </button>

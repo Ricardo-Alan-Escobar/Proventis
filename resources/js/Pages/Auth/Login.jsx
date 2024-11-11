@@ -114,12 +114,16 @@ export default function Login({ status, canResetPassword }) {
             <hr className="my-5"/>
             <div className="text-center my-7  flex justify-center">
                 <a href="/login" className="p-4 px-20 bg-rose-600 rounded-lg text-white hover:bg-rose-800" >Iniciar sesión con Google</a>
-            </div>
+            </div> 
+          
         </GuestLayout>
-
+   
         </div>
-    
+    <div className=' fixed bottom-0 left-1/2 transform -translate-x-1/2 mb-4 text-xs '>
+    <p className='text-center bg-white mb-1 p-1 rounded-sm drop-shadow-md'>Proventis 2024. ©</p>
+    <p className='bg-white p-1 text-center rounded-sm drop-shadow-md'>Todos los derechos reservados.</p></div>
          </div>
+       
         
         </>
     );
