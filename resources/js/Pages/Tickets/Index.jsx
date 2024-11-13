@@ -165,22 +165,22 @@ export default function TicketsIndex({ auth, tickets }) {
                     inProgressTickets={inProgressTickets} 
                     closedTickets={closedTickets} 
                 />
-                <div className="flex justify-between w-full mb-2 ">
+                <div className="flex w-full mb-2 justify-between">
                 
-                    <div className="relative w-10/12">
+                    <div className="relative mr-2 w-10/12">
                         <input
                             type="text"
                             placeholder="Buscar por nombre..."
                             value={searchTerm}
                             onChange={handleSearch}
-                            className="block w-full px-4 py-2 pl-10 text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300"
+                            className="block w-11/12 px-4 py-2 pl-10 text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300"
                         />
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                         <FontAwesomeIcon icon={faMagnifyingGlass} className='text-gray-400' /> 
                         </div>
                     </div>
-                    <PrimaryButton onClick={() => openModal(1)} className="w-auto text-center">
-                    <FontAwesomeIcon icon={faUserPlus} className="" /> 
+                    <PrimaryButton onClick={() => openModal(1)} className="w-auto px-5 text-center">
+                    <FontAwesomeIcon icon={faUserPlus} className="px-2" /> 
                         Añadir Ticket
                     </PrimaryButton>
                 </div>
@@ -242,8 +242,8 @@ export default function TicketsIndex({ auth, tickets }) {
                             onPageChange={handlePageClick}
                             containerClassName="flex items-center space-x-2"
                             pageClassName="flex items-center"
-                            pageLinkClassName="px-3 py-2 rounded-lg bg-gray-200 focus:text-white focus:bg-gray-500 text-gray-700 hover:bg-gray-300"
-                            activeClassName="bg-gray-500 text-white"
+                            pageLinkClassName="px-3 py-2 rounded-lg  focus:bg-gray-300 text-gray-700 hover:bg-gray-300"
+                            activeClassName="bg-gray-300 rounded-lg text-white"
                         />
                     </div>
                 </div>
@@ -252,7 +252,7 @@ export default function TicketsIndex({ auth, tickets }) {
                 <h2 className="pl-4 my-4  text-lg font-medium text-gray-900 font">
                     {title}
                 </h2>
-                <form onSubmit={save} className="p-0 mr-4 ml-4">
+                <form onSubmit={save} className="p-2 mr-4 ml-4">
                     <div className='mt-2'>
                         <InputLabel htmlFor="Nombre" value="Nombre"></InputLabel>
                         <TextInput
