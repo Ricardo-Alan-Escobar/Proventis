@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('Nombre', 60);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('Departamento', 50);
             $table->string('Problema', 150);
             $table->string('Prioridad', 20);

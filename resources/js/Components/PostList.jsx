@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { Pencil, Trash2, Ellipsis, CircleAlert, Heart, MessageCircle } from "lucide-react";
-import Modal from './Modal'; 
+import Modal2 from './Modal2';
 import CommentSection from './CommentSection';
 
 export default function PostList({ posts }) {
@@ -277,7 +277,7 @@ export default function PostList({ posts }) {
                 </div>
             ))}
   {isModalOpen && (
-                <Modal onClose={closeModal}>
+                <Modal2 onClose={closeModal}>
                     <div className="p-4">
                         <div className='w-full mb-2 flex items-center flex-col'>
                             <CircleAlert size={48} color="#ff0000" />
@@ -299,7 +299,7 @@ export default function PostList({ posts }) {
                             </button>
                         </div>
                     </div>
-                </Modal>
+                </Modal2>
             )}
             
         </div>
