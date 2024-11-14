@@ -28,12 +28,16 @@ export default function Authenticated({ header, children }) {
                         <div className="hidden sm:flex sm:space-x-8 items-center justify-center">
                             <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                             <Home />
-
                             </NavLink>
+
                             <NavLink href={route('tickets.index')} active={route().current('tickets.index')}>
                                 <Ticket />
-
                                 </NavLink>
+
+                            <NavLink href={route('tickets.userTickets')} active={route().current('tickets.userTickets')}>
+                                <Ticket />
+                                </NavLink>
+                           
                            
                           
                         </div>

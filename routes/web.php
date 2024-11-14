@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TicketsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::patch('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
 
+    Route::get('/tickets/mis-tickets', [TicketsController::class, 'userTickets'])->name('tickets.userTickets');
     Route::resource('tickets', \App\Http\Controllers\TicketsController::class);
     
 });

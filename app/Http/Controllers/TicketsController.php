@@ -29,12 +29,12 @@ class TicketsController extends Controller
                 'Termino' => 'nullable|max:20'
             ]);
         
-            // Asignar el ID del usuario autenticado
+        
             $ticket = new Tickets($request->all());
-            $ticket->user_id = auth()->id();  // Agregar el ID del usuario autenticado
+            $ticket->user_id = auth()->id();  
             $ticket->save();
         
-            return redirect('tickets');
+           return back()->with('success', 'Ticket creado exitosamente');
         }
        
         public function update(Request $request, Tickets $tickets, $id){
@@ -47,4 +47,17 @@ class TicketsController extends Controller
             $ticket->delete();
             return redirect('tickets');
         }
+        
+        public function userTickets()
+        {
+            $userTickets = Tickets::where('user_id', auth()->id())->get();
+        
+            return Inertia::render('Tickets/UsuarioTickets', [
+                'userTickets' => $userTickets,
+                'user' => auth()->user(), 
+            ]);
+        }
+        
+
+        
 }
