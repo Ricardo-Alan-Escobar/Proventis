@@ -120,8 +120,8 @@ export default function Login({ status, canResetPassword }) {
    
         </div>
     <div className=' fixed bottom-0 left-1/2 transform -translate-x-1/2 mb-4 text-xs '>
-    <p className='text-center bg-white mb-1 p-1 rounded-sm drop-shadow-md'>Proventis 2024. ©</p>
-    <p className='bg-white p-1 text-center rounded-sm drop-shadow-md'>Todos los derechos reservados.</p></div>
+    <p className='box-decoration-slice rounded bg-gradient-to-r from-green-600 to-blue-500 text-center mb-1 text-white px-2'>Proventis 2024. ©</p>
+    <p className='box-decoration-slice rounded bg-gradient-to-r from-green-600 to-blue-500 text-white px-2'>Todos los derechos reservados.</p></div>
          </div>
        
         
