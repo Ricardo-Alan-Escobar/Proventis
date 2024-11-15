@@ -122,7 +122,7 @@ const UsuarioTickets = ({user, userTickets }) => {
             </div>
 
             <Modal show={modal} onClose={closeModal}>
-                <h2 className="pl-4 my-4 text-lg font-medium text-gray-900">Añadir Nuevo Ticket</h2>
+                <h2 className="pl-4 my-6 text-xl font-medium text-gray-900">Crear nuevo ticket</h2>
                 <form onSubmit={handleSubmit} className="p-2 mr-4 ml-4">
                     <div className='mt-2'>
                         <InputLabel htmlFor="Nombre" value="Nombre" />
@@ -133,12 +133,12 @@ const UsuarioTickets = ({user, userTickets }) => {
                             className="mt-1 block w-full"
                             autoComplete="Nombre"
                             isFocused
-                            disabled  // Aquí se desactiva el campo
+                            disabled  
                             required
                         />
                         <InputError message={errors.Nombre} className="mt-2" />
                     </div>
-                    <div className='mt-2'>
+                    <div className='mt-5'>
                         <InputLabel htmlFor="Departamento" value="Departamento" />
                         <TextInput
                             id="Departamento"
@@ -153,22 +153,22 @@ const UsuarioTickets = ({user, userTickets }) => {
                         <InputError message={errors.Departamento} className="mt-2" />
                     </div>
                     
-                    <div className='mt-2'>
+                    <div className='mt-5'>
                         <InputLabel htmlFor="Problema" value="Problema" />
                         <TextInput
                             id="Problema"
                             name="Problema"
                             ref={problemaInput}
                             value={data.Problema}
-                            className="mt-1 block w-full"
+                            className="mt-1 block w-full h-20"
                             autoComplete="Problema"
                             onChange={(e) => setData('Problema', e.target.value)}
                             required
                         />
                         <InputError message={errors.Problema} className="mt-2" />
                     </div>
-                    <div className='flex mt-2 px-4'>
-                        <InputLabel htmlFor="Creacion" value="Creación:" className='px-4 pt-3'></InputLabel>
+                    <div className=''>
+                        <InputLabel htmlFor="Creacion" value="Creación:" className='mt-5'></InputLabel>
                         <CustomDatePicker
                             id="Creacion"
                             name="Creacion"
@@ -177,14 +177,6 @@ const UsuarioTickets = ({user, userTickets }) => {
                         />
                         <InputError message={errors.Creacion} className="mt-2" />
                     
-                        <InputLabel htmlFor="Termino" value="Término:" className='px-4 pt-3'></InputLabel>
-                        <CustomDatePicker
-                            id="Termino"
-                            name="Termino"
-                            selected={data.Termino ? parseISO(data.Termino) : null}
-                            onChange={(e) => setData('Termino', e.target.value)}
-                        />
-                        <InputError message={errors.Termino} className="mt-2" />
                     </div>
                     <div className="flex justify-end mt-3 mb-4">
                         <SecondaryButton onClick={closeModal} className="mr-2">Cancelar</SecondaryButton>

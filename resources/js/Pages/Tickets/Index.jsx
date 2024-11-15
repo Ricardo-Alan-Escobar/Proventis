@@ -114,9 +114,17 @@ export default function TicketsIndex({ auth, tickets }) {
     }
 
     const ok = (mensaje) => {
-        reset();
-        closeModal();
-        Swal.fire({ title: mensaje, icon: 'success' });
+        Swal.fire({
+            title: mensaje,
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            didOpen: () => {
+                document.querySelector('.swal2-container').removeAttribute('aria-hidden');
+            }
+        }).then(() => {
+            reset();
+            closeModal();
+        });
     }
 
     const eliminar = (id, nombre) => {
