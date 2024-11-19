@@ -11,8 +11,10 @@ import InputError from '@/Components/InputError';
 import CustomDatePicker from '@/Components/DatePicker';
 import { parseISO } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus, faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
+import { Tickets, CirclePlus   } from 'lucide-react';
+import {faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import Hora from '@/Components/Hora';
 
 const UsuarioTickets = ({user, userTickets }) => {
     
@@ -52,17 +54,15 @@ const UsuarioTickets = ({user, userTickets }) => {
 
 
     const ok = (mensaje) => {
-        // Primero mostramos la alerta
+       
         Swal.fire({
             title: mensaje,
             icon: 'success',
             confirmButtonText: 'Aceptar',
             didOpen: () => {
-                // Asegúrate de que el contenedor de la alerta no tenga aria-hidden
                 document.querySelector('.swal2-container').removeAttribute('aria-hidden');
             }
         }).then(() => {
-            // Luego de que la alerta se haya cerrado, reseteamos y cerramos el modal
             reset();
             closeModal();
         });
@@ -73,13 +73,21 @@ const UsuarioTickets = ({user, userTickets }) => {
         <AuthenticatedLayout>
             <Head title="Mis Tickets" />
 
-            <div className='p-6'>
-                <PrimaryButton onClick={openModal}>
-                    <FontAwesomeIcon icon={faUserPlus} className="mr-2" />
-                    Añadir Ticket
+            <div className='p-6'> 
+                <div className='bg-white rounded-lg p-5 mb-5 justify-between flex drop-shadow-md' >
+                 <div>
+                    <h2 className="text-2xl font-extrabold mb-5 flex items-center">
+                    <Tickets className="mr-2 text-lg text-gray-600" />
+                    Mis Tickets
+                    </h2>
+                <PrimaryButton onClick={openModal} className='py-3 drop-shadow-md'>
+                <CirclePlus size={22} className='mr-2'/>
+                    Crear Nuevo Ticket
                 </PrimaryButton>
-
-                <h2 className="text-xl font-bold mt-8 mb-4">Mis Tickets</h2>
+                </div>
+                <div><Hora /></div>
+                </div>
+              
 
                 <div className="w-full overflow-hidden bg-white rounded-lg shadow-md ">
                     <table className="min-w-full leading-normal">
@@ -186,6 +194,7 @@ const UsuarioTickets = ({user, userTickets }) => {
                     </div>
                 </form>
             </Modal>
+          
         </AuthenticatedLayout>
     );
 };
