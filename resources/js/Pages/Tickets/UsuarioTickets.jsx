@@ -66,8 +66,7 @@ const UsuarioTickets = ({ user, userTickets }) => {
             closeModal();
         });
     };
-
-    // Lógica para paginación
+    
     const pageCount = Math.ceil(userTickets.length / itemsPerPage);
     const handlePageClick = (selected) => setCurrentPage(selected.selected);
 
