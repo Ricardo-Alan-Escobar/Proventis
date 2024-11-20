@@ -74,64 +74,74 @@ const UsuarioTickets = ({user, userTickets }) => {
             <Head title="Mis Tickets" />
 
             <div className='p-6'> 
-                <div className='bg-white rounded-lg p-5 mb-5 justify-between flex drop-shadow-md' >
-                 <div>
+
+
+                <div className="bg-white rounded-lg p-5 mb-5 justify-between flex drop-shadow-md">
+             <div>
                     <h2 className="text-2xl font-extrabold mb-5 flex items-center">
-                    <Tickets className="mr-2 text-lg text-gray-600" />
-                    Mis Tickets
+            <Tickets className="mr-2 text-lg text-gray-600" />
+            Mis Tickets
                     </h2>
-                <PrimaryButton onClick={openModal} className='py-3 drop-shadow-md'>
-                <CirclePlus size={22} className='mr-2'/>
-                    Crear Nuevo Ticket
-                </PrimaryButton>
-                </div>
-                <div><Hora /></div>
-                </div>
+                    <PrimaryButton onClick={openModal} className="py-3 drop-shadow-md">
+            <CirclePlus size={22} className="mr-2" />
+            Crear Nuevo Ticket
+        </PrimaryButton>
+             </div>
+             <div className="hidden md:block">
+        <Hora />
+              </div>
+            </div>
+
               
 
                 <div className="w-full overflow-hidden bg-white rounded-lg shadow-md ">
-                    <table className="min-w-full leading-normal">
-                        <thead>
-                            <tr className="bg-green-300 text-gray-700">
-                                <th className="px-4 py-2 text-center">Id</th>
-                                <th className="px-4 py-2 text-center">Nombre</th>
-                                <th className="px-4 py-2 text-center">Departamento</th>
-                                <th className="px-4 py-2 text-center">Problema</th>
-                                <th className="px-4 py-2 text-center">Prioridad</th>
-                                <th className="px-4 py-2 text-center">Estado</th>
-                                <th className="px-4 py-2 text-center">Creación</th>
-                                <th className="px-4 py-2 text-center">Término</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {userTickets.map((ticket, index) => (
-                                <tr key={ticket.id} className={index % 2 === 0 ? 'bg-emerald-50' : 'bg-white'}>
-                                    <td className="px-4 py-2 text-center">{index + 1}</td>
-                                    <td className="px-4 py-2 text-center">{ticket.Nombre}</td>
-                                    <td className="px-4 py-2 text-center">{ticket.Departamento}</td>
-                                    <td className="px-4 py-2 text-center">{ticket.Problema}</td>
-                                    <td className={`px-4 py-2 text-center ${ticket.Prioridad === 'Urgente' ? 'text-orange-500' : 'text-black'}`}>{ticket.Prioridad}</td>
-                                    <td className="px-4 py-2 text-center">
-                                        <div className={`inline-block px-2 py-1 rounded-lg ${
-                                          ticket.Estado === 'Abierto' ? 'bg-blue-400 text-white' :
-                                          ticket.Estado === 'Cerrado' ? 'bg-green-500 text-white' :
-                                          ticket.Estado === 'En Seguimiento' ? 'bg-gray-200 text-black' : ''
-                                      }`}>
-                                          {ticket.Estado}
-                                      </div>
-                                    </td>
-                                    <td className="px-4 py-2 text-center">{ticket.Creacion}</td>
-                                    <td className="px-4 py-2 text-center">{ticket.Termino}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                <div className="overflow-x-auto">
+            <table className="min-w-full leading-normal">
+                <thead>
+                    <tr className="bg-green-300 text-gray-700">
+                <th className="px-4 py-2 text-center">Id</th>
+                <th className="px-4 py-2 text-center">Nombre</th>
+                <th className="px-4 py-2 text-center">Departamento</th>
+                <th className="px-4 py-2 text-center">Problema</th>
+                <th className="px-4 py-2 text-center">Prioridad</th>
+                <th className="px-4 py-2 text-center">Estado</th>
+                <th className="px-4 py-2 text-center">Creación</th>
+                <th className="px-4 py-2 text-center">Término</th>
+            </tr>
+              </thead>
+              <tbody>
+            {userTickets.map((ticket, index) => (
+                <tr key={ticket.id} className={index % 2 === 0 ? 'bg-white' : 'bg-emerald-50'}>
+                    <td className="px-4 py-2 text-center">{index + 1}</td>
+                    <td className="px-4 py-2 text-center">{ticket.Nombre}</td>
+                    <td className="px-4 py-2 text-center">{ticket.Departamento}</td>
+                    <td className="px-4 py-2 text-center">{ticket.Problema}</td>
+                    <td className={`px-4 py-2 text-center ${ticket.Prioridad === 'Urgente' ? 'text-orange-500' : 'text-black'}`}>{ticket.Prioridad}</td>
+                    <td className="px-4 py-2 text-center">
+                        <div className={`inline-block px-2 py-1 rounded-lg ${
+                            ticket.Estado === 'Abierto' ? 'bg-blue-400 text-white' :
+                            ticket.Estado === 'Cerrado' ? 'bg-green-500 text-white' :
+                            ticket.Estado === 'En Seguimiento' ? 'bg-gray-200 text-black' : ''
+                        }`}>
+                            {ticket.Estado}
+                        </div>
+                    </td>
+                    <td className="px-4 py-2 text-center">{ticket.Creacion}</td>
+                    <td className="px-4 py-2 text-center">{ticket.Termino}</td>
+                </tr>
+            ))}
+                   </tbody>
+             </table>
+            </div>
+
                 </div>
             </div>
 
-            <Modal show={modal} onClose={closeModal}>
+
+
+            <Modal show={modal} onClose={closeModal} >
                 <h2 className="pl-4 my-6 text-xl font-medium text-gray-900">Crear nuevo ticket</h2>
-                <form onSubmit={handleSubmit} className="p-2 mr-4 ml-4">
+                <form onSubmit={handleSubmit} className="p- mr-4 ml-4">
                     <div className='mt-2'>
                         <InputLabel htmlFor="Nombre" value="Nombre" />
                         <TextInput

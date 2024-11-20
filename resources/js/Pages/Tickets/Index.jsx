@@ -187,57 +187,60 @@ export default function TicketsIndex({ auth, tickets }) {
                         <FontAwesomeIcon icon={faMagnifyingGlass} className='text-gray-400' /> 
                         </div>
                     </div>
-                    <PrimaryButton onClick={() => openModal(1)} className="w-auto px-5 text-center">
+                    <PrimaryButton onClick={() => openModal(1)} className="w-full sm:w-auto px-3 py-2 sm:px-5 text-center bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
                     <FontAwesomeIcon icon={faUserPlus} className="px-2" /> 
                         Añadir Ticket
                     </PrimaryButton>
                 </div>
                 <div className="w-full overflow-hidden bg-white rounded-lg shadow-md ">
-                    <table className="min-w-full leading-normal">
-                        <thead>
-                            <tr className="bg-green-300 text-gray-700">
-                                <th className="px-4 py-2 text-center">Id</th>
-                                <th className="px-4 py-2 text-center">Nombre</th>
-                                <th className="px-4 py-2 text-center">Departamento</th>
-                                <th className="px-4 py-2 text-center">Problema</th>
-                                <th className="px-4 py-2 text-center">Prioridad</th>
-                                <th className="px-4 py-2 text-center">Estado</th>
-                                <th className="px-4 py-2 text-center">Creación</th>
-                                <th className="px-4 py-2 text-center">Término</th>
-                                <th className="px-4 py-2 text-center">Acciones</th>
+                <div className="overflow-x-auto">
+             <table className="min-w-full leading-normal">
+                  <thead>
+            <tr className="bg-green-300 text-gray-700">
+                <th className="px-4 py-2 text-center">Id</th>
+                <th className="px-4 py-2 text-center">Nombre</th>
+                <th className="px-4 py-2 text-center">Departamento</th>
+                <th className="px-4 py-2 text-center">Problema</th>
+                <th className="px-4 py-2 text-center">Prioridad</th>
+                <th className="px-4 py-2 text-center">Estado</th>
+                <th className="px-4 py-2 text-center">Creación</th>
+                <th className="px-4 py-2 text-center">Término</th>
+                <th className="px-4 py-2 text-center">Acciones</th>
+            </tr>
+                 </thead>
+                  <tbody>
+                 {currentTickets.map((ticket, i) => (
+                <tr key={ticket.id} className={i % 2 === 0 ? 'bg-white' : 'bg-emerald-50'}>
+                    <td className="px-4 py-2 text-center">{startIndex + i + 1}</td>
+                    <td className="px-4 py-2 text-center">{ticket.Nombre}</td>
+                    <td className="px-4 py-2 text-center">{ticket.Departamento}</td>
+                    <td className="px-4 py-2 text-center">{ticket.Problema}</td>
+                    <td className={`px-4 py-2 text-center ${ticket.Prioridad === 'Urgente' ? 'text-orange-500' : 'text-black'}`}>{ticket.Prioridad}</td>
+                    <td className="px-4 py-2 text-center">
+                        <div className={`inline-block px-2 py-1 rounded-lg ${
+                            ticket.Estado === 'Abierto' ? 'bg-blue-400 text-white' :
+                            ticket.Estado === 'Cerrado' ? 'bg-green-500 text-white' :
+                            ticket.Estado === 'En Seguimiento' ? 'bg-gray-200 text-black' : ''
+                        }`}>
+                            {ticket.Estado}
+                        </div>
+                    </td>
+                    <td className="px-4 py-2 text-center">{ticket.Creacion}</td>
+                    <td className="px-4 py-2 text-center">{ticket.Termino}</td>
+                    <td className="px-4 py-2 text-center">
+                        <WarningButton onClick={() => openModal(2, ticket.id, ticket.Nombre, ticket.Departamento, ticket.Problema, ticket.Prioridad, ticket.Estado, ticket.Creacion, ticket.Termino)} className="mr-2">
+                            <FontAwesomeIcon icon={faPenToSquare} />
+                        </WarningButton>
+                        <DangerButton onClick={() => eliminar(ticket.id, ticket.Nombre)}>
+                            <FontAwesomeIcon icon={faTrash} />
+                        </DangerButton>
+                               </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {currentTickets.map((ticket, i) => (
-                                <tr key={ticket.id} className={i % 2 === 0 ? 'bg-emerald-50' : 'bg-white'}>
-                                    <td className="px-4 py-2 text-center">{startIndex + i + 1}</td>
-                                    <td className="px-4 py-2 text-center">{ticket.Nombre}</td>
-                                    <td className="px-4 py-2 text-center">{ticket.Departamento}</td>
-                                    <td className="px-4 py-2 text-center">{ticket.Problema}</td>
-                                    <td className={`px-4 py-2 text-center ${ticket.Prioridad === 'Urgente' ? 'text-orange-500' : 'text-black'}`}>{ticket.Prioridad}</td>
-                                    <td className="px-4 py-2 text-center">
-                                    <div className={`inline-block px-2 py-1 rounded-lg ${
-                                      ticket.Estado === 'Abierto' ? 'bg-blue-400 text-white' :
-                                      ticket.Estado === 'Cerrado' ? 'bg-green-500 text-white' :
-                                      ticket.Estado === 'En Seguimiento' ? 'bg-gray-200 text-black' : ''
-                                  }`}>
-                                      {ticket.Estado}
-                                  </div>
-                                  </td>
-                                    <td className="px-4 py-2 text-center">{ticket.Creacion}</td>
-                                    <td className="px-4 py-2 text-center">{ticket.Termino}</td>
-                                    <td className="px-4 py-2 text-center">
-                                        <WarningButton onClick={() => openModal(2, ticket.id, ticket.Nombre, ticket.Departamento, ticket.Problema, ticket.Prioridad, ticket.Estado, ticket.Creacion, ticket.Termino)} className="mr-2">
-                                        <FontAwesomeIcon icon={faPenToSquare} />
-                                        </WarningButton>
-                                        <DangerButton onClick={() => eliminar(ticket.id, ticket.Nombre)}>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                        </DangerButton>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                     ))}
+                    </tbody>
+                </table>
+            </div>
+
                     <div className="flex justify-center mt-2 mb-2">
                         <ReactPaginate
                            previousLabel={<button className="px-3 py-2 rounded-lg bg-green-500 text-white hover:bg-green-700"><FontAwesomeIcon icon={faArrowLeft} /></button>}
