@@ -243,18 +243,20 @@ export default function TicketsIndex({ auth, tickets }) {
 
                     <div className="flex justify-center mt-2 mb-2">
                         <ReactPaginate
-                           previousLabel={<button className="px-3 py-2 rounded-lg bg-green-500 text-white hover:bg-green-700"><FontAwesomeIcon icon={faArrowLeft} /></button>}
-                            nextLabel={<button className="px-3 py-2 rounded-lg bg-green-500 text-white hover:bg-green-700"><FontAwesomeIcon icon={faArrowRight} /></button>}
-                            breakLabel={<span className="px-3 py-2">...</span>}
+                           previousLabel="Anterior"
+                           nextLabel="Siguiente"
+                           breakLabel="..."
                             breakClassName={'break-me'}
                             pageCount={Math.ceil(filteredTickets.length / itemsPerPage)}
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={10}
                             onPageChange={handlePageClick}
-                            containerClassName="flex items-center space-x-2"
-                            pageClassName="flex items-center"
-                            pageLinkClassName="px-3 py-2 rounded-lg  focus:bg-gray-300 text-gray-700 hover:bg-gray-300"
-                            activeClassName="bg-gray-300 rounded-lg text-white"
+                            containerClassName="pagination flex justify-center my-5"
+                            previousClassName="px-3 py-1 border rounded hover:bg-gray-50"
+                            pageClassName="mx-2 px-3 py-1 border rounded hover:bg-green-300"
+                            nextClassName="px-3 py-1 border rounded hover:bg-gray-50"
+                            activeClassName="bg-green-300"
+                            disabledClassName="opacity-50 cursor-not-allowed"
                         />
                     </div>
                 </div>
