@@ -3,6 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { Pencil, Trash2, Ellipsis, CircleAlert, Heart, MessageCircle } from "lucide-react";
 import Modal2 from './Modal2';
+import UserAvatar from './UserAvatar';
 import CommentSection from './CommentSection';
 
 export default function PostList({ posts }) {
@@ -146,12 +147,7 @@ export default function PostList({ posts }) {
         return { __html: processedContent };
     };
 
-    const getInitials = (name) => {
-        const words = name ? name.split(' ') : [];
-        const firstInitial = words[0] ? words[0][0] : '';
-        const secondInitial = words[1] ? words[1][0] : '';
-        return firstInitial + secondInitial;
-    };
+    
  
     return (
         <div>
@@ -159,8 +155,11 @@ export default function PostList({ posts }) {
                 <div key={post.id} className="p-6 mb-3 bg-white rounded-md shadow-md relative">
                     <div className="flex justify-between items-center mb-4">
                         <div className="text-lg flex font-bold">
-                            <div className="w-12 h-12 bg-green-500 text-white mr-3 flex items-center justify-center rounded-full text-lg font-bold">
-                                {post.user ? getInitials(post.user.name) : "U"}
+                           <div  className='mr-2'>
+                            <UserAvatar
+                                name={post.user?.name || "U"}
+                                size="w-12 h-12 text-lg"
+                            />
                             </div>
                             <div>
                                 {post.user.name}

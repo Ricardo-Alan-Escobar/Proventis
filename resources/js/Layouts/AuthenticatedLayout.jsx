@@ -42,7 +42,7 @@ export default function Authenticated({ header, children }) {
                           
                         </div>
 
-                        {/* Usuario a la derecha */}
+                     
                         <div className="hidden sm:flex sm:items-center">
                             <div className="relative ms-3">
                                 <Dropdown>

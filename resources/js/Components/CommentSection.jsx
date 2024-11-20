@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Trash2, Send, Edit3, User, MoreHorizontal, Save, CircleX } from "lucide-react";
 import moment from 'moment';
+import UserAvatar from './UserAvatar';
 
 export default function CommentSection({ postId, setCommentCount }) {
     const [comments, setComments] = useState([]);
@@ -39,7 +40,7 @@ export default function CommentSection({ postId, setCommentCount }) {
             return;
         }
 
-        setError(''); // Resetea el error si se envía correctamente
+        setError(''); 
 
         try {
             setLoading(true);
@@ -83,18 +84,12 @@ export default function CommentSection({ postId, setCommentCount }) {
         }
     };
 
-    const getInitials = (name) => {
-        const words = name ? name.split(' ') : [];
-        const firstInitial = words[0] ? words[0][0] : '';
-        const secondInitial = words[1] ? words[1][0] : '';
-        return firstInitial + secondInitial;
-    };
 
     return (
         <div className="mt-1">
             <hr className='my-5' />
             <h3 className="text-lg font-semibold text-gray-700 mb-2">Comentarios</h3>
-            {/* Formulario para agregar un nuevo comentario */}
+         
             <form onSubmit={handleSubmit} className="mt-4 flex flex-col space-y-2">
                 <div className="flex items-center space-x-2">
                     <User />
@@ -113,21 +108,19 @@ export default function CommentSection({ postId, setCommentCount }) {
                         {loading ? 'Enviando...' : <Send />}
                     </button>
                 </div>
-                {/* Mensaje de error si se excede el límite de caracteres */}
                 {newComment.length > CHARACTER_LIMIT && (
                     <p className="text-red-500 text-sm">
                         Has excedido el límite de {CHARACTER_LIMIT} caracteres.
                     </p>
                 )}
             </form>
-            {/* Listado de comentarios */}
             <div className="space-y-4 pt-5">
                 {comments.map(comment => (
                     <div key={comment.id} className="p-1 rounded-md relative">
                         <div className="flex justify-between items-center">
                             <div className="flex items-center space-x-2 mb-3">
                                 <div className="w-10 h-10 bg-green-100 mr-1 flex items-center justify-center rounded-full text-sm font-bold">
-                                    {comment.user ? getInitials(comment.user.name) : "U"}
+                                <UserAvatar name={comment.user?.name || "Usuario"} />
                                 </div>
                                 <div className="flex flex-col text-xs text-gray-500">
                                     <span className="text-gray-700 text-base font-semibold">
