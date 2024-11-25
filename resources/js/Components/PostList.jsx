@@ -12,7 +12,7 @@ export default function PostList({ posts }) {
     const [showMenuId, setShowMenuId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [postToDelete, setPostToDelete] = useState(null);
-    const [expandedPosts, setExpandedPosts] = useState
+    const [expandedPosts, setExpandedPosts] = useState({});
     
 
  
@@ -65,6 +65,7 @@ export default function PostList({ posts }) {
         setIsModalOpen(false);
         setPostToDelete(null);
     };
+
 
     const confirmDelete = async () => {
         try {

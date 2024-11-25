@@ -2,7 +2,7 @@ import React from 'react';
 
 const generateColor = (name) => {
     const colors = [
-        '#F39C12', '#8E44AD', '#1ABC9C', '#E74C3C',
+        '#2A58EB', '#628971', '#1ABC9C', '#060404',
         '#FF5733', '#33FF57', '#3357FF', '#FF33A8',
         '#2ECC71', '#3498DB', '#C0392B', '#D35400',
         '#16A085', '#2980B9', '#8E44AD', '#2C3E50',
