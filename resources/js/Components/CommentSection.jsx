@@ -130,32 +130,34 @@ export default function CommentSection({ postId, setCommentCount }) {
                                 </div>
                             </div>
                             <div className="relative">
-                                <button
-                                    className="text-gray-500 hover:bg-gray-100 p-1 rounded-full"
-                                    onClick={() => setShowMenuId(showMenuId === comment.id ? null : comment.id)}
-                                >
-                                    <MoreHorizontal size={16} />
-                                </button>
-                                {showMenuId === comment.id && (
+                            {comment.isOwner && (
+                                 <button
+                                     onClick={() => setShowMenuId(showMenuId === comment.id ? null : comment.id)}
+                                     className="ml-auto p-1 text-gray-500 hover:text-gray-700 focus:outline-none"
+                                 >
+                                     <MoreHorizontal size={16} />
+                                 </button>
+                                    )}
+                                {showMenuId === comment.id && comment.isOwner && (
                                     <div className="absolute right-0 text-sm mt-2 w-26 bg-white border border-gray-200 rounded shadow-lg z-10">
                                         <button
-                                            className="w-full flex text-left px-2 py-1 text-gray-700  hover:bg-green-100"
+                                            className="w-full flex text-left px-2 py-1 text-gray-700 hover:bg-green-100"
                                             onClick={() => {
                                                 setEditingCommentId(comment.id);
                                                 setEditContent(comment.content);
                                                 setShowMenuId(null);
                                             }}
                                         >
-                                           <Edit3 size={16} className='mr-2' /> Editar
+                                            <Edit3 size={16} className='mr-2' /> Editar
                                         </button>
                                         <button
                                             className="w-full flex text-left px-2 py-1 hover:bg-red-100"
                                             onClick={() => handleDelete(comment.id)}
                                         >
-                                           <Trash2 size={16} className='mr-2'/> Eliminar
+                                            <Trash2 size={16} className='mr-2' /> Eliminar
                                         </button>
                                     </div>
-                                )}
+                                        )}
                             </div>
                         </div>
                         {editingCommentId === comment.id ? (

@@ -21,6 +21,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/usuario', function () {
+    return Inertia::render('Usuario');
+})->middleware(['auth', 'verified'])->name('usuario');
+
 Route::middleware('auth')->group(function () {
 
     //Editar Perfil

@@ -28,13 +28,17 @@ class CommentController extends Controller
 
     public function index(Post $post)
     {
-        $comments = $post->comments()->with('user')->get();
+        $userId = Auth::id();
+        $comments = $post->comments()->with('user')->get()->map(function ($comment) use ($userId) {
+            $comment->isOwner = $comment->user_id === $userId;
+            return $comment;
+        });
+    
         return response()->json($comments);
     }
 
     public function update(Request $request, Comment $comment)
     {
-        // Verifica si el usuario autenticado es el propietario del comentario
         if (Auth::id() !== $comment->user_id) {
             Log::error('No autorizado: el usuario ' . Auth::id() . ' intentó editar un comentario que no posee.');
             return response()->json(['error' => 'No tienes permiso para editar este comentario.'], 403);
@@ -45,7 +49,6 @@ class CommentController extends Controller
         ]);
 
         try {
-            // Actualiza el contenido del comentario
             $comment->content = $request->input('content');
             $comment->save();
 
