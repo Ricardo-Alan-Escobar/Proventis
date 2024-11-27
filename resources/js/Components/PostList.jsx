@@ -13,10 +13,6 @@ export default function PostList({ posts }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [postToDelete, setPostToDelete] = useState(null);
     const [expandedPosts, setExpandedPosts] = useState({});
-    
-
- 
-
 
     const [likedPosts, setLikedPosts] = useState({});
     const [loadingLikes, setLoadingLikes] = useState(true); 
@@ -66,7 +62,6 @@ export default function PostList({ posts }) {
         setPostToDelete(null);
     };
 
-
     const confirmDelete = async () => {
         try {
             await axios.delete(`/posts/${postToDelete}`);
@@ -96,7 +91,7 @@ export default function PostList({ posts }) {
         }
     };
 
-    
+    // Función para manejar likes
     const handleLike = async (postId) => {
         try {
             const response = await axios.post(`/posts/${postId}/like`);
@@ -261,7 +256,7 @@ export default function PostList({ posts }) {
                             onClick={() => handleLike(post.id)}
                         >
                             <Heart size={20} className="mr-2" /> 
-                            {loadingLikes ? '' : likedPosts[post.id]} Likes
+                            {loadingLikes ? '.' : likedPosts[post.id]} Likes
                         </button>
                         <button
                             className="flex items-center text-blue-500 hover:bg-slate-100 p-3 px-4 rounded-full"
@@ -306,7 +301,12 @@ export default function PostList({ posts }) {
                     </div>
                 </Modal2>
             )}
-            
+           <div className='flex justify-center py-5'> 
+            <span className='text-gray-400 text-lg'> Fin de las publicaciones :(</span>
+            </div>
         </div>
     );
 }
+console.log('%c¡Advertencia!', 'color: red; font-size: 50px;');
+console.log('%cNo escribas ni pegues ningún código aquí. Podrías comprometer la seguridad de tu cuenta.', 'color: orange; font-size: 16px;');
+console.log('%cEstas siendo monitoreado', 'color: orange; font-size: 16px;');
