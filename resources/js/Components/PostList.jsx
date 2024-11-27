@@ -96,7 +96,7 @@ export default function PostList({ posts }) {
         }
     };
 
-    // Función para manejar likes
+    
     const handleLike = async (postId) => {
         try {
             const response = await axios.post(`/posts/${postId}/like`);
@@ -261,7 +261,7 @@ export default function PostList({ posts }) {
                             onClick={() => handleLike(post.id)}
                         >
                             <Heart size={20} className="mr-2" /> 
-                            {loadingLikes ? '.' : likedPosts[post.id]} Likes
+                            {loadingLikes ? '' : likedPosts[post.id]} Likes
                         </button>
                         <button
                             className="flex items-center text-blue-500 hover:bg-slate-100 p-3 px-4 rounded-full"
