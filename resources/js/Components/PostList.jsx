@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
 import moment from 'moment';
-import { Pencil, Trash2, Ellipsis, CircleAlert, Heart, MessageCircle } from "lucide-react";
+import { Pencil, Trash2, Ellipsis, CircleAlert, Heart, MessageCircle, Flag, Share2 } from "lucide-react";
 import Modal2 from './Modal2';
 import UserAvatar from './UserAvatar';
 import CommentSection from './CommentSection';
@@ -153,8 +153,20 @@ export default function PostList({ posts }) {
         return { __html: processedContent };
     };
 
-    
- 
+    const handleReport = (postId) => {
+        console.log(`Post ${postId} reportado`);
+        alert('Reporte enviado.');
+    };
+    const handleShare = (postId) => {
+        const postUrl = `${window.location.origin}/posts/${postId}`; 
+        navigator.clipboard.writeText(postUrl).then(() => {
+            alert('El enlace del post ha sido copiado al portapapeles.');
+        }).catch((error) => {
+            console.error('Error al copiar el enlace:', error);
+            alert('No se pudo copiar el enlace. Por favor, intenta nuevamente.');
+        });
+    };
+
     return (
         <div>
             {posts.map((post) => (
@@ -182,21 +194,41 @@ export default function PostList({ posts }) {
                                 <Ellipsis />
                             </button>
                             {showMenuId === post.id && (
-                                <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-300 rounded-md shadow-lg z-10">
-                                    <button
-                                        onClick={() => handleEdit(post)}
-                                        className="flex w-full px-2 py-2 text-left text-sm text-gray-700 hover:bg-green-100"
-                                    >
-                                        <Pencil className='mr-3' size={17}/> Editar post
-                                    </button>
-                                    <button
-                                        onClick={() => openModal(post.id)}
-                                        className="flex w-full px-2 py-2 text-sm hover:bg-red-100"
-                                    >
-                                        <Trash2 className='mr-3' size={17} /> Eliminar post
-                                    </button>
-                                </div>
-                            )}
+    <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+        {post.isOwner ? ( // Si el usuario es dueño del post
+            <>
+                <button
+                    onClick={() => handleEdit(post)}
+                    className="flex w-full px-2 py-2 text-left text-sm text-gray-700 hover:bg-green-100"
+                >
+                    <Pencil className="mr-3" size={17} /> Editar post
+                </button>
+                <button
+                    onClick={() => openModal(post.id)}
+                    className="flex w-full px-2 py-2 text-sm hover:bg-red-100"
+                >
+                    <Trash2 className="mr-3" size={17} /> Eliminar post
+                </button>
+            </>
+        ) : ( // Si el usuario no es dueño del post
+            <>
+                <button
+                    onClick={() => handleReport(post.id)}
+                    className="flex w-full px-2 py-2 text-left text-sm text-gray-700 hover:bg-yellow-100"
+                >
+                    <Flag className="mr-3" size={17} /> Reportar post
+                </button>
+                <button
+                    onClick={() => handleShare(post.id)}
+                    className="flex w-full px-2 py-2 text-sm hover:bg-blue-100"
+                >
+                    <Share2 className="mr-3" size={17} /> Compartir post
+                </button>
+            </>
+        )}
+    </div>
+)}
+
                         </div>
                     </div>
 
@@ -256,7 +288,7 @@ export default function PostList({ posts }) {
 
                     {/* Sección de Likes y Comentarios */}
                     <div className="flex items-center justify-between mt-10">
-                    <button
+                        <button
                         className="flex items-center text-red-500 hover:bg-slate-100 p-3 px-4 rounded-full"
                         onClick={() => handleLike(post.id)}
                     >
