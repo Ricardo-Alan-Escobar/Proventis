@@ -28,11 +28,14 @@ export default function PostList({ posts }) {
             try {
                 const likeData = {};
                 await Promise.all(posts.map(async (post) => {
-                    const response = await axios.get(`/posts/${post.id}/likes`); 
-                    likeData[post.id] = response.data.likes;
+                    const response = await axios.get(`/posts/${post.id}/likes`);
+                    likeData[post.id] = {
+                        count: response.data.likes,
+                        likedByUser: response.data.likedByUser, // Almacena si el usuario ha dado like
+                    };
                 }));
                 setLikedPosts(likeData);
-                setLoadingLikes(false); 
+                setLoadingLikes(false);
             } catch (error) {
                 console.error('Error al obtener los likes:', error);
             }
@@ -96,7 +99,10 @@ export default function PostList({ posts }) {
             const response = await axios.post(`/posts/${postId}/like`);
             setLikedPosts((prevLikes) => ({
                 ...prevLikes,
-                [postId]: response.data.likes_count,
+                [postId]: {
+                    count: response.data.likes_count,
+                    likedByUser: !prevLikes[postId].likedByUser, // Cambia el estado de like del usuario
+                },
             }));
         } catch (error) {
             console.error('Error al dar like:', error.response);
@@ -250,13 +256,16 @@ export default function PostList({ posts }) {
 
                     {/* Sección de Likes y Comentarios */}
                     <div className="flex items-center justify-between mt-10">
-                        <button
-                            className="flex items-center text-red-500 hover:bg-slate-100 p-3 px-4 rounded-full"
-                            onClick={() => handleLike(post.id)}
-                        >
-                            <Heart size={20} className="mr-2" /> 
-                            {loadingLikes ? '.' : likedPosts[post.id]} Likes
-                        </button>
+                    <button
+                        className="flex items-center text-red-500 hover:bg-slate-100 p-3 px-4 rounded-full"
+                        onClick={() => handleLike(post.id)}
+                    >
+                        <Heart
+                            size={20}
+                            className={`mr-2 ${likedPosts[post.id]?.likedByUser ? 'fill-current text-red-500' : ''}`}
+                        />
+                        {loadingLikes ? '.' : likedPosts[post.id]?.count} Likes
+                    </button>
                         <button
                             className="flex items-center text-blue-500 hover:bg-slate-100 p-3 px-4 rounded-full"
                             onClick={() => toggleComments(post.id)}

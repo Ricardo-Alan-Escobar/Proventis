@@ -89,23 +89,32 @@ public function destroy(Post $post)
 }
 
 public function like(Post $post)
-{   
+{
     $user = auth()->user();
 
     if ($post->likes()->where('user_id', $user->id)->exists()) {
         $post->likes()->detach($user->id); // Eliminar el like
+        $likedByUser = false;
     } else {
         $post->likes()->attach($user->id); // Agregar el like
+        $likedByUser = true;
     }
 
-    return response()->json(['likes_count' => $post->likes()->count()]);
-
-
+    return response()->json([
+        'likes_count' => $post->likes()->count(),
+        'likedByUser' => $likedByUser, // Añadido para saber si el usuario ha dado like
+    ]);
 }
 
 public function getLikes(Post $post)
 {
-    return response()->json(['likes' => $post->likes()->count()]);
+    $user = auth()->user();
+    $likedByUser = $post->likes()->where('user_id', $user->id)->exists();
+
+    return response()->json([
+        'likes' => $post->likes()->count(),
+        'likedByUser' => $likedByUser, // Devolver si el usuario ha dado like
+    ]);
 }
 
 public function getAllLikes()
