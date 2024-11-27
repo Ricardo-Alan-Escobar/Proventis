@@ -13,7 +13,6 @@ export default function PostList({ posts }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [postToDelete, setPostToDelete] = useState(null);
     const [expandedPosts, setExpandedPosts] = useState({});
-
     const [likedPosts, setLikedPosts] = useState({});
     const [loadingLikes, setLoadingLikes] = useState(true); 
     const [commentCount, setCommentCount] = useState({});
