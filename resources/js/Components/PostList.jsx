@@ -141,7 +141,7 @@ export default function PostList({ posts }) {
         return isExpanded(postId)
             ? text
             : text.slice(0, limit) + ' ...';
-    };
+    };  
 
     const processContent = (content, postId) => {
         const processedContent = truncateText(content, postId)
@@ -166,11 +166,11 @@ export default function PostList({ posts }) {
             alert('No se pudo copiar el enlace. Por favor, intenta nuevamente.');
         });
     };
-
     return (
         <div>
             {posts.map((post) => (
                 <div key={post.id} className="p-6 mb-3 bg-white rounded-md shadow-md relative">
+                    
                     <div className="flex justify-between items-center mb-4">
                         <div className="text-lg flex font-bold">
                            <div  className='mr-2'>

@@ -12,11 +12,15 @@ export default function Dashboard() {
         <AuthenticatedLayout>
             <Head title="MiPerfil" />
 
-            <div className="py-12 flex justify-center flex-col lg:flex-row">
+            <div className="py-12 flex px-5 justify-center flex-col lg:flex-row">
                 <div className='bg-white rounded drop-shadow-sm'>
 
-                s
+                Pagina de usuario
                 </div>
+                <div className='w-full h-screen bg-white rounded drop-shadow-sm'>
+
+Pagina de usuario
+</div>
 
                 
                

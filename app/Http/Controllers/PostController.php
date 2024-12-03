@@ -35,19 +35,21 @@ class PostController extends Controller
 
     public function index()
 {
-    $userId = auth()->id(); // Obtén el ID del usuario autenticado
+    $userId = auth()->id(); 
 
     $posts = Post::with('user')->latest()->get()->map(function ($post) use ($userId) {
         return [
             'id' => $post->id,
             'title' => $post->title,
             'content' => $post->content,
+            'image' => $post->image,
+            'file' => $post->file,
             'created_at' => $post->created_at,
-            'user' => $post->user, // Incluye los datos del usuario
+            'user' => $post->user, 
             'likes_count' => $post->likes()->count(), // Número de likes
             'isOwner' => $post->user_id === $userId, // Verifica si es el dueño
         ];
-    });
+    }); 
 
     return inertia('Dashboard', ['posts' => $posts]);
 }
