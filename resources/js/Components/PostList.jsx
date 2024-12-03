@@ -93,7 +93,7 @@ export default function PostList({ posts }) {
         }
     };
 
-    // Función para manejar likes
+   
     const handleLike = async (postId) => {
         try {
             const response = await axios.post(`/posts/${postId}/like`);

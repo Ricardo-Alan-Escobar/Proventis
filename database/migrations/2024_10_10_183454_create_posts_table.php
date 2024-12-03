@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('content')->nullable();
-            $table->string('image')->nullable(); // Para almacenar la URL de la imagen
-            $table->string('file')->nullable();  // Para almacenar la URL del archivo
+            $table->string('image')->nullable(); 
+            $table->string('file')->nullable(); 
+            $table->string('video_url')->nullable(); 
             $table->timestamps();
         });
     }

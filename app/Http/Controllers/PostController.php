@@ -14,6 +14,7 @@ class PostController extends Controller
             'content' => 'required|string',
             'image' => 'nullable|image',
             'file' => 'nullable|file',
+            'video' => 'nullable|file|mimetypes:video/mp4,video/avi,video/mov,video/wmv|max:20000',
         ]);
 
         $post = new Post();
@@ -26,6 +27,10 @@ class PostController extends Controller
 
         if ($request->hasFile('file')) {
             $post->file = $request->file('file')->store('files', 'public');
+        }
+
+        if ($request->hasFile('video')) {
+            $post->video_url = $request->file('video')->store('videos', 'public'); // Guardar el video
         }
 
         $post->save();
@@ -44,10 +49,11 @@ class PostController extends Controller
             'content' => $post->content,
             'image' => $post->image,
             'file' => $post->file,
+            'video_url' => $post->video_url,
             'created_at' => $post->created_at,
             'user' => $post->user, 
-            'likes_count' => $post->likes()->count(), // Número de likes
-            'isOwner' => $post->user_id === $userId, // Verifica si es el dueño
+            'likes_count' => $post->likes()->count(), 
+            'isOwner' => $post->user_id === $userId, 
         ];
     }); 
 
@@ -58,30 +64,37 @@ class PostController extends Controller
     
 public function update(Request $request, Post $post)
 {
-   
     if (auth()->id() !== $post->user_id) {
-        return response()->json(['message' => 'Unauthorized'], 403); 
+        return response()->json(['message' => 'Unauthorized'], 403);
     }
 
     $request->validate([
         'content' => 'required|string',
         'image' => 'nullable|image',
+        'video' => 'nullable|file|mimetypes:video/mp4,video/avi,video/mov,video/wmv|max:20000',
     ]);
 
     $post->content = $request->content;
 
     if ($request->hasFile('image')) {
-        // Borra la imagen antigua si existe
         if ($post->image) {
             Storage::disk('public')->delete($post->image);
         }
         $post->image = $request->file('image')->store('images', 'public');
     }
 
+    if ($request->hasFile('video')) {
+        if ($post->video_url) {
+            Storage::disk('public')->delete($post->video_url);
+        }
+        $post->video_url = $request->file('video')->store('videos', 'public');
+    }
+
     $post->save();
 
     return response()->json(['message' => 'Post updated successfully', 'post' => $post]);
 }
+
 
 
 public function destroy(Post $post)
@@ -97,6 +110,10 @@ public function destroy(Post $post)
 
     if ($post->file) {
         Storage::disk('public')->delete($post->file);
+    }
+
+    if ($post->video_url) {
+        Storage::disk('public')->delete($post->video_url);
     }
 
     $post->delete();
