@@ -14,7 +14,7 @@ class PostController extends Controller
             'content' => 'required|string',
             'image' => 'nullable|image',
             'file' => 'nullable|file',
-            'video' => 'nullable|file|mimetypes:video/mp4,video/avi,video/mov,video/wmv|max:20000',
+            'video_url' => 'nullable|file|mimetypes:video/mp4,video/avi,video/mov,video/wmv|max:20000',
         ]);
 
         $post = new Post();
@@ -29,9 +29,10 @@ class PostController extends Controller
             $post->file = $request->file('file')->store('files', 'public');
         }
 
-        if ($request->hasFile('video')) {
-            $post->video_url = $request->file('video')->store('videos', 'public'); // Guardar el video
+        if ($request->hasFile('video_url')) {
+            $post->video_url = $request->file('video_url')->store('videos', 'public');
         }
+        
 
         $post->save();
 
@@ -71,7 +72,7 @@ public function update(Request $request, Post $post)
     $request->validate([
         'content' => 'required|string',
         'image' => 'nullable|image',
-        'video' => 'nullable|file|mimetypes:video/mp4,video/avi,video/mov,video/wmv|max:20000',
+        'video_url' => 'nullable|file|mimetypes:video/mp4,video/avi,video/mov,video/wmv|max:20000',
     ]);
 
     $post->content = $request->content;
@@ -83,11 +84,11 @@ public function update(Request $request, Post $post)
         $post->image = $request->file('image')->store('images', 'public');
     }
 
-    if ($request->hasFile('video')) {
+    if ($request->hasFile('video_url')) {
         if ($post->video_url) {
             Storage::disk('public')->delete($post->video_url);
         }
-        $post->video_url = $request->file('video')->store('videos', 'public');
+        $post->video_url = $request->file('video_url')->store('videos', 'public');
     }
 
     $post->save();
@@ -126,16 +127,16 @@ public function like(Post $post)
     $user = auth()->user();
 
     if ($post->likes()->where('user_id', $user->id)->exists()) {
-        $post->likes()->detach($user->id); // Eliminar el like
+        $post->likes()->detach($user->id); 
         $likedByUser = false;
     } else {
-        $post->likes()->attach($user->id); // Agregar el like
+        $post->likes()->attach($user->id); 
         $likedByUser = true;
     }
 
     return response()->json([
         'likes_count' => $post->likes()->count(),
-        'likedByUser' => $likedByUser, // Añadido para saber si el usuario ha dado like
+        'likedByUser' => $likedByUser, 
     ]);
 }
 

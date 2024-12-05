@@ -31,7 +31,7 @@ export default function PostList({ posts }) {
                     const response = await axios.get(`/posts/${post.id}/likes`);
                     likeData[post.id] = {
                         count: response.data.likes,
-                        likedByUser: response.data.likedByUser, // Almacena si el usuario ha dado like
+                        likedByUser: response.data.likedByUser, 
                     };
                 }));
                 setLikedPosts(likeData);
@@ -101,7 +101,7 @@ export default function PostList({ posts }) {
                 ...prevLikes,
                 [postId]: {
                     count: response.data.likes_count,
-                    likedByUser: !prevLikes[postId].likedByUser, // Cambia el estado de like del usuario
+                    likedByUser: !prevLikes[postId].likedByUser,
                 },
             }));
         } catch (error) {
@@ -194,9 +194,9 @@ export default function PostList({ posts }) {
                                 <Ellipsis />
                             </button>
                             {showMenuId === post.id && (
-    <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-300 rounded-md shadow-lg z-10">
-        {post.isOwner ? ( // Si el usuario es dueño del post
-            <>
+                  <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                      {post.isOwner ? ( // Si el usuario es dueño del post
+                          <>
                 <button
                     onClick={() => handleEdit(post)}
                     className="flex w-full px-2 py-2 text-left text-sm text-gray-700 hover:bg-green-100"
@@ -285,8 +285,15 @@ export default function PostList({ posts }) {
                             Descargar Archivo
                         </a>
                     )}
-
-                    {/* Sección de Likes y Comentarios */}
+                    {post.video_url && (
+                        <div className="mb-2 my-5 flex justify-center">
+                            <video controls className="rounded-lg w-full lg:w-10/12">
+                                <source src={`/storage/${post.video_url}`} type="video/mp4" />
+                                Tu navegador no soporta la etiqueta de video.
+                            </video>
+                        </div>
+                    )}
+                  
                     <div className="flex items-center justify-between mt-10">
                         <button
                         className="flex items-center text-red-500 hover:bg-slate-100 p-3 px-4 rounded-full"
