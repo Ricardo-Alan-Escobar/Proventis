@@ -29,6 +29,7 @@ export default function PostForm() {
                 reset();
                 setImagePreview(null);
                 setFileName(null);
+                setVideoPreview(null);
                 setContentError(false); 
             },
             onError: (errors) => setError(errors),
