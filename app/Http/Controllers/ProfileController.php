@@ -12,7 +12,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 
 class ProfileController extends Controller
-{
+{ 
     /**
      * Display the user's profile form.
      */
@@ -35,6 +35,12 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        $request->user()->bio = $request->input('bio'); 
+        $request->user()->location = $request->input('location');
+        $request->user()->education = $request->input('education');
+        $request->user()->work = $request->input('work');
+        $request->user()->phone = $request->input('phone');
+        $request->user()->website = $request->input('website');
         $request->user()->save();
 
         return Redirect::route('profile.edit');

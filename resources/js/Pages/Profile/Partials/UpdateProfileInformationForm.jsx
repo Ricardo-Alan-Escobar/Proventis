@@ -4,6 +4,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
+import Textarea from '@/Components/Textarea';
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -16,6 +17,12 @@ export default function UpdateProfileInformation({
         useForm({
             name: user.name,
             email: user.email,
+            bio: user.bio || '',
+            location: user.location || '',
+            education: user.education || '',
+            work: user.work || '',
+            phone: user.phone || '',
+            website: user.website || '',
         });
 
     const submit = (e) => {
@@ -52,6 +59,93 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.name} />
                 </div>
+
+                <div>
+                   <InputLabel htmlFor="location" value="Localidad" />
+
+                   <TextInput
+                       id="location"
+                       className="mt-1 block w-full"
+                       value={data.location || ''}
+                       onChange={(e) => setData('location', e.target.value)}
+                       autoComplete="location"
+                   />
+
+                   <InputError className="mt-2" message={errors.location} />
+                </div>
+
+
+                <div>
+                   <InputLabel htmlFor="education" value="Educación" />
+
+                   <TextInput
+                       id="education"
+                       className="mt-1 block w-full"
+                       value={data.education || ''}
+                       onChange={(e) => setData('education', e.target.value)}
+                       autoComplete="education"
+                   />
+
+                   <InputError className="mt-2" message={errors.education} />
+                </div>
+
+                <div>
+                   <InputLabel htmlFor="work" value="Empresa" />
+
+                   <TextInput
+                       id="work"
+                       className="mt-1 block w-full"
+                       value={data.work || ''}
+                       onChange={(e) => setData('work', e.target.value)}
+                       autoComplete="work"
+                   />
+
+                   <InputError className="mt-2" message={errors.work} />
+                </div>
+
+                <div>
+                   <InputLabel htmlFor="phone" value="Telefono" />
+
+                   <TextInput
+                       id="phone"
+                       className="mt-1 block w-full"
+                       value={data.phone || ''}
+                       onChange={(e) => setData('phone', e.target.value)}
+                       autoComplete="phone"
+                   />
+
+                   <InputError className="mt-2" message={errors.phone} />
+                </div>
+
+                <div>
+                   <InputLabel htmlFor="website" value="Cumpleaños" />
+
+                   <TextInput
+                       id="website"
+                       className="mt-1 block w-full"
+                       value={data.website || ''}
+                       onChange={(e) => setData('website', e.target.value)}
+                       autoComplete="website"
+                   />
+
+                   <InputError className="mt-2" message={errors.websie} />
+                </div>
+
+                <div>
+                   <InputLabel htmlFor="bio" value="Biografía" />
+
+                   <Textarea
+                       id="bio"
+                       className="mt-1 block w-full"
+                       value={data.bio || ''}
+                       onChange={(e) => setData('bio', e.target.value)}
+                       autoComplete="bio"
+                   />
+
+                   <InputError className="mt-2" message={errors.bio} />
+                </div>
+
+
 
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
