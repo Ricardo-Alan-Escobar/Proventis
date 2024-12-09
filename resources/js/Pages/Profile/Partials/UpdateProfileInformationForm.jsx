@@ -5,6 +5,8 @@ import TextInput from '@/Components/TextInput';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import Textarea from '@/Components/Textarea';
+import CustomYearPicker from '@/Components/CustomYearPicker';
+import { parseISO } from 'date-fns';
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -120,13 +122,13 @@ export default function UpdateProfileInformation({
                 <div>
                    <InputLabel htmlFor="website" value="Cumpleaños" />
 
-                   <TextInput
-                       id="website"
-                       className="mt-1 block w-full"
-                       value={data.website || ''}
-                       onChange={(e) => setData('website', e.target.value)}
-                       autoComplete="website"
-                   />
+                  <CustomYearPicker
+                     id="website"
+                     name="website"
+                     selected={data.website ? new Date(data.website) : null}
+                     onChange={(e) => setData('website', e.target.value)}
+                />
+
 
                    <InputError className="mt-2" message={errors.websie} />
                 </div>
