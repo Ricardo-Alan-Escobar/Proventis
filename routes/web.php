@@ -26,6 +26,8 @@ Route::get('/usuario', [UserController::class, 'show'])
     ->middleware(['auth', 'verified'])
     ->name('usuario');
 
+
+    
 Route::middleware('auth')->group(function () {
 
     //Editar Perfil
