@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -21,9 +22,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/usuario', function () {
-    return Inertia::render('Usuario');
-})->middleware(['auth', 'verified'])->name('usuario');
+Route::get('/usuario', [UserController::class, 'show'])
+    ->middleware(['auth', 'verified'])
+    ->name('usuario');
 
 Route::middleware('auth')->group(function () {
 

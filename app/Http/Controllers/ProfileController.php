@@ -19,6 +19,19 @@ class ProfileController extends Controller
     public function edit(Request $request): Response
     {
         return Inertia::render('Profile/Edit', [
+            'user' => [
+                'id' => $request->user()->id,
+                'name' => $request->user()->name,
+                'email' => $request->user()->email,
+                'emailVerified' => $request->user()->email_verified_at !== null,
+                'bio' => $request->user()->bio,
+                'location' => $request->user()->location,
+                'education' => $request->user()->education,
+                'work' => $request->user()->work,
+                'phone' => $request->user()->phone,
+                'website' => $request->user()->website,
+                'occupation' => $request->user()->occupation,
+            ],
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
@@ -41,6 +54,8 @@ class ProfileController extends Controller
         $request->user()->work = $request->input('work');
         $request->user()->phone = $request->input('phone');
         $request->user()->website = $request->input('website');
+        $request->user()->occupation = $request->input('occupation');
+        
         $request->user()->save();
 
         return Redirect::route('profile.edit');

@@ -25,6 +25,7 @@ export default function UpdateProfileInformation({
             work: user.work || '',
             phone: user.phone || '',
             website: user.website || '',
+            occupation: user.occupation || '',
         });
 
     const submit = (e) => {
@@ -74,6 +75,20 @@ export default function UpdateProfileInformation({
                    />
 
                    <InputError className="mt-2" message={errors.location} />
+                </div>
+
+                <div>
+                   <InputLabel htmlFor="occupation" value="Ocupación" />
+
+                   <TextInput
+                       id="occupation"
+                       className="mt-1 block w-full"
+                       value={data.occupation || ''}
+                       onChange={(e) => setData('occupation', e.target.value)}
+                       autoComplete="occupation"
+                   />
+
+                   <InputError className="mt-2" message={errors.occupation} />
                 </div>
 
 
