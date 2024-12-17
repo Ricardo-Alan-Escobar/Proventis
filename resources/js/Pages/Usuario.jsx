@@ -11,7 +11,7 @@ export default function Usuario({ user }) {
     if (!user) {
         return (
             <AuthenticatedLayout>
-                <Head title="MiPerfil" />
+               <Head title={`Perfil de ${user.name}`} />
                 <div className="py-12 text-center">
                     <p className="text-gray-500">No se pudo cargar la información del usuario.</p>
                 </div>
@@ -21,7 +21,7 @@ export default function Usuario({ user }) {
 
     return (
         <AuthenticatedLayout>
-            <Head title="MiPerfil" />
+           <Head title={`${user.name}`} />
 
             <div className="flex flex-col items-center bg-white lg:flex-row lg:justify-center">
                 <div className="w-full lg:w-3/4">

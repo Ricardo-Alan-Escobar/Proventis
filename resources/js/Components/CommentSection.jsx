@@ -4,7 +4,7 @@ import { Trash2, Send, Edit3, User, MoreHorizontal, Save, CircleX } from "lucide
 import moment from 'moment';
 import UserAvatar from './UserAvatar';
 import Modal2 from './Modal2';
-
+import { Link } from '@inertiajs/react';
 export default function CommentSection({ postId, setCommentCount }) {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -136,8 +136,17 @@ export default function CommentSection({ postId, setCommentCount }) {
                                     <UserAvatar name={comment.user?.name || "Usuario"} />
                                 </div>
                                 <div className="flex flex-col text-xs text-gray-500">
-                                    <span className="text-gray-700 text-base font-semibold">
-                                        {comment.user ? comment.user.name : "Usuario"}
+                                <span className="text-gray-700 text-base font-semibold">
+                                    {comment.user ? (
+                                        <Link 
+                                            href={route('usuario', { id: comment.user.id })} 
+                                            className="text-green-900 hover:text-black"
+                                        >
+                                            {comment.user.name}
+                                        </Link>
+                                    ) : (
+                                        "Usuario"
+                                    )}
                                     </span>
                                     {moment(comment.created_at).format('M/D/YY, h:mm a')}
                                 </div>

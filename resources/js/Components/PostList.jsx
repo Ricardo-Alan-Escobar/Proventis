@@ -4,6 +4,7 @@ import moment from 'moment';
 import { Pencil, Trash2, Ellipsis, CircleAlert, Heart, MessageCircle, Flag, Share2 } from "lucide-react";
 import Modal2 from './Modal2';
 import UserAvatar from './UserAvatar';
+import { Link } from '@inertiajs/react';
 import CommentSection from './CommentSection';
 
 export default function PostList({ posts }) {
@@ -180,7 +181,12 @@ export default function PostList({ posts }) {
                             />
                             </div>
                             <div>
-                                {post.user.name}
+                            <Link 
+                              href={route('usuario', { id: post.user.id })} 
+                              className="text-gray-900 hover:text-gray-700"
+                                >
+                                   <strong>{post.user.name}</strong>
+                                </Link>
                                 <div className="text-sm text-gray-500">
                                     {moment(post.created_at).format('MM/DD/YYYY, h:mm a')}
                                 </div>

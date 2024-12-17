@@ -72,9 +72,9 @@ export default function Authenticated({ header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('usuario')}>
-                                            Perfil
-                                        </Dropdown.Link>
+                                    <Dropdown.Link href={route('usuario', { id: user.id })}>
+                                      Perfil
+                                    </Dropdown.Link>
                                         <Dropdown.Link href={route('profile.edit')}>
                                             Configuracion de  cuenta
                                         </Dropdown.Link>
