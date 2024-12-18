@@ -36,7 +36,7 @@ export default function Usuario({ user }) {
                             alt="Foto de Portada"
                             className="w-full h-48 rounded-md sm:h-64 md:h-80 lg:h-[400px] object-cover"
                         />
-                        {/* UserAvatar encima de la portada */}
+                        {/* UserAvatar  */}
                         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
                             <UserAvatar
                                 name={user?.name || 'U'}
