@@ -12,7 +12,7 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
+        'canRegister' =>false,
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::patch('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
 
+    //Tickets
     Route::get('/tickets/mis-tickets', [TicketsController::class, 'userTickets'])->name('tickets.userTickets');
     Route::resource('tickets', \App\Http\Controllers\TicketsController::class);
     
