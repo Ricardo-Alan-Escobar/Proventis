@@ -19,6 +19,10 @@ export default function Usuario({ user }) {
         );
     }
 
+    const subirDatos=()=> {
+            alert('Esta función aun esta en construcción 😔');
+    }
+
     return (
         <AuthenticatedLayout>
            <Head title={`${user.name}`} />
@@ -50,7 +54,7 @@ export default function Usuario({ user }) {
                         <div className="my-6 flex flex-col sm:flex-row text-sm">
 
 
-                        <a className=" group relative bg-black inline-flex py-2 px-8 items-center justify-center overflow-hidden rounded-md bg-nprimary text-white font-medium duration-500 "
+                        <a className=" group relative bg-green-600 inline-flex py-2 px-8 items-center justify-center overflow-hidden rounded-md bg-nprimary text-white font-medium duration-500 "
                          href="/profile"
                           target="_blank"> 
                           <div className=" flex translate-x-0 opacity-100 transition group-hover:-translate-x-[150%] group-hover:opacity-0 font-semibold ">
@@ -64,7 +68,7 @@ export default function Usuario({ user }) {
 
 
                             <a
-                                href="#"
+                                onClick={subirDatos}
                                 className="sm:ml-2 flex items-center justify-center bg-white rounded-md border-2 px-4 py-3"
                             >
                                 <Camera size={20} className="mr-2" />
@@ -73,23 +77,23 @@ export default function Usuario({ user }) {
                         </div>
 
                         {/* Tabs */}
-                        <div className="w-full px-4">
-                            <nav className="flex justify-center space-x-2 sm:space-x-4" aria-label="Tabs">
+                        <div className="w-10/12 px-4 ">
+                            <nav className="flex justify-center bg-slate-200 p-1 rounded space-x-2 sm:space-x-4" aria-label="Tabs">
                                 <button
-                                    className={`py-2 px-4 text-sm font-medium w-5/12 rounded-md transition-all duration-200 ${
+                                    className={`py-2 px-4 text-sm font-medium w-full rounded-sm transition-all duration-200 ${
                                         activeTab === 'datos'
-                                            ? 'bg-white text-black shadow-lg'
-                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                            ? 'bg-white text-black shadow-lg font-bold '
+                                            : ' text-gray-500 '
                                     }`}
                                     onClick={() => setActiveTab('datos')}
                                 >
                                     Sobre mí
                                 </button>
                                 <button
-                                    className={`py-2 px-4 text-sm font-medium w-5/12 rounded-md transition-all duration-200 ${
+                                    className={`py-2 px-4 text-sm font-medium w-full rounded-sm transition-all duration-200 ${
                                         activeTab === 'construccion'
                                             ? 'bg-white text-black shadow-lg'
-                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                            : ' text-gray-500'
                                     }`}
                                     onClick={() => setActiveTab('construccion')}
                                 >
@@ -101,7 +105,7 @@ export default function Usuario({ user }) {
                         {/* Contenido de las Tabs */}
                         <div className="p-6 bg-white my-5 rounded-md w-full mb-7 sm:w-10/12">
                             {activeTab === 'datos' && (
-                                <div>
+                                <div className='mb-3'>
                                     <div className="text-start mb-5">
                                         <strong className="text-lg sm:text-xl">Biografía</strong>
                                         <p className="text-gray-700 px-2 pt-2">{user.bio || 'N/A'}</p>
@@ -109,25 +113,41 @@ export default function Usuario({ user }) {
 
                                     <div className="flex flex-col sm:flex-row">
                                         <div className="w-full text-start">
-                                            <strong className="text-lg flex mt-4"><Mail className="pr-1 mr-1" />Email</strong>
-                                            <p className="text-gray-700">{user.email || 'N/A'}</p>
 
-                                            <strong className="text-lg mt-4 flex"><GraduationCap className="pr-1 mr-1" />Educación</strong>
-                                            <p className="text-gray-700">{user.education || 'N/A'}</p>
+                                            <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
+                                            <strong className="text-lg flex mt-4 px-2 pt-4"><Mail className="pr-1 mr-1" />Email</strong>
+                                            <p className="text-gray-800 px-2 pb-4">{user.email || 'N/A'}</p>
+                                            </div>
 
-                                            <strong className="text-lg mt-4 flex"><Cake className="pr-1 mr-1" />Cumpleaños</strong>
-                                            <p className="text-gray-700">{user.website || 'N/A'}</p>
+                                            <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
+                                            <strong className="text-lg mt-4 flex px-2 pt-4"><GraduationCap className="pr-1 mr-1" />Educación</strong>
+                                            <p className="text-gray-800 px-2 pb-4">{user.education || 'N/A'}</p>
+                                            </div>
+
+                                            <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
+                                            <strong className="text-lg mt-4 px-2 pt-4 flex"><Cake className="pr-1 mr-1" />Cumpleaños</strong>
+                                            <p className="text-gray-800 px-2 pb-4">{user.website || 'N/A'}</p>
+                                            </div>
+                                       
                                         </div>
 
                                         <div className="w-full text-start mt-4 sm:mt-0">
-                                            <strong className="text-lg mt-4 flex"><MapPin className="pr-1 mr-1" />Localidad</strong>
-                                            <p className="text-gray-700">{user.location || 'N/A'}</p>
 
-                                            <strong className="text-lg mt-4 flex"><Phone className="pr-1 mr-1" />Teléfono</strong>
-                                            <p className="text-gray-700">{user.phone || 'N/A'}</p>
+                                        <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
+                                            <strong className="text-lg mt-4 px-2 pt-4 flex"><MapPin className="pr-1 mr-1" />Localidad</strong>
+                                            <p className="text-gray-800 px-2 pb-4">{user.location || 'N/A'}</p>
+                                            </div>
 
-                                            <strong className="text-lg mt-4 flex"><Building2 className="pr-1 mr-1" />Empresa</strong>
-                                            <p className="text-gray-700">{user.work || 'N/A'}</p>
+                                         <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
+                                            <strong className="text-lg mt-4 px-2 pt-4 flex"><Phone className="pr-1 mr-1" />Teléfono</strong>
+                                            <p className="text-gray-800 px-2 pb-4">{user.phone || 'N/A'}</p>
+                                            </div>
+
+                                        <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
+                                            <strong className="text-lg mt-4 px-2 pt-4 flex"><Building2 className="pr-1 mr-1" />Empresa</strong>
+                                            <p className="text-gray-800 px-2 pb-4">{user.work || 'N/A'}</p>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
