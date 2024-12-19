@@ -1,17 +1,21 @@
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Home, Ticket } from "lucide-react";
+import { Home, Ticket, Settings, LogOut, UserRound } from "lucide-react";
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import LogoLayout from '@/Components/LogoLayout';
 
 export default function Authenticated({ header, children }) {
     const user = usePage().props.auth.user;
-
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
+        
+        const toggleMenu = () => {
+            setIsMenuOpen((prev) => !prev);
+        };
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="border-b border-gray-100 bg-white">
@@ -93,42 +97,97 @@ export default function Authenticated({ header, children }) {
                     </div>
                 </div>
 
+
+
+
+
+
+
                 {/* Responsive Navigation Menu */}
-                <div className="sm:hidden">
-                    <div className="space-y-1 pb-3 pt-2">
+                    <div className="sm:hidden fixed bottom-0 inset-x-0 bg-white shadow-md border-t border-gray-200 flex justify-around items-center z-50">
+                        {/* Dashboard Link */}
                         <ResponsiveNavLink
                             href={route('dashboard')}
                             active={route().current('dashboard')}
+                            className="flex flex-col items-center text-gray-600 hover:text-green-600 transition duration-300"
                         >
-                            Dashboard
+                           <Home />
+                            <span className="text-xs mt-1">Inicio</span>
                         </ResponsiveNavLink>
+
+                        {/* Ticket Link */}
+                        <ResponsiveNavLink
+                            href={route('tickets.index')}
+                            active={route().current('tickets.index')}
+                            className="flex flex-col items-center text-gray-600 hover:text-green-600 transition duration-300"
+                        >
+                          <Ticket />
+                            <span className="text-xs mt-1">Tickets</span>
+                        </ResponsiveNavLink>
+
+                        {/* Profile Link */}
+                        <ResponsiveNavLink
+                            href={route('usuario', { id: user.id })}
+                            active={route().current('usuario')}
+                            className="flex flex-col items-center text-gray-600 hover:text-green-600 transition duration-300"
+                        >
+                            <UserRound />
+                            <span className="text-xs mt-1">Perfil</span>
+                        </ResponsiveNavLink>
+
+                      
+                       
                     </div>
 
-                    {/* Responsive Settings Options */}
-                    <div className="border-t border-gray-200 pb-1 pt-4">
-                        <div className="px-4">
-                            <div className="text-base font-medium text-gray-800">
-                                {user.name}
+                    {/* User Info Section */}
+                    <div className="fixed top-0 left-0 w-full bg-white shadow-md border-b border-gray-200 py-4 px-4 z-50 sm:hidden">
+                        <div className="flex items-center justify-between">
+                            <div className="text-lg font-medium text-gray-800">
+                                Hola, {user.name.split(" ")[0]} 👋
                             </div>
-                            <div className="text-sm font-medium text-gray-500">
-                                {user.email}
-                            </div>
-                        </div>
-
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>
-                                Perfil
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
-                                method="post"
-                                href={route('logout')}
-                                as="button"
+                            <button
+                                onClick={toggleMenu} // Cambia el estado del menú
+                                className="text-gray-600 hover:text-green-600 focus:outline-none transition duration-300"
                             >
-                                Cerrar Sesión
-                            </ResponsiveNavLink>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        {/* Menú desplegable (visible solo si isMenuOpen es true) */}
+                        <div
+                            className={`transition-all duration-300 overflow-hidden ${
+                                isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+                            }`}
+                        >
+                            <div className="space-y-1 pb-3 pt-2">
+                                <ResponsiveNavLink href={route("profile.edit")}>
+                                <Settings size={19} className='mr-2'/>   Configuración de la cuenta
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink
+                                    method="post"
+                                    href={route("logout")}
+                                    as="button"
+                                    className='text-red-500'
+                                >
+                                    <LogOut size={19} className='mr-2'/>  Cerrar Sesión
+                                </ResponsiveNavLink>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+
+
+
+
+
             </nav>
 
             {/* Page Heading */}
