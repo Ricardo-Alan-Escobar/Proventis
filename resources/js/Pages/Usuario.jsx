@@ -51,7 +51,7 @@ export default function Usuario({ user }) {
                         <strong className="text-xl sm:text-3xl text-gray-800 mt-3">{user.name || 'N/A'}</strong>
                         <p className="text-sm sm:text-xl text-gray-500">{user.occupation || 'N/A'}</p>
 
-                        <div className="my-6 flex flex-col sm:flex-row text-sm">
+                        <div className="my-6 flex flex-col sm:flex-row sm:gap-4 gap-2 text-sm">
 
 
                         <a className=" group relative bg-green-600 inline-flex py-2 px-8 items-center justify-center overflow-hidden rounded-md bg-nprimary text-white font-medium duration-500 "
@@ -106,51 +106,60 @@ export default function Usuario({ user }) {
                         <div className="p-6 bg-white my-5 rounded-md w-full mb-7 sm:w-10/12">
                             {activeTab === 'datos' && (
                                 <div className='mb-3'>
-                                    <div className="text-start mb-5">
-                                        <strong className="text-lg sm:text-xl">Biografía</strong>
-                                        <p className="text-gray-700 px-2 pt-2">{user.bio || 'N/A'}</p>
-                                    </div>
-
-                                    <div className="flex flex-col sm:flex-row">
-                                        <div className="w-full text-start">
-
-                                            <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
-                                            <strong className="text-lg flex mt-4 px-2 pt-4"><Mail className="pr-1 mr-1" />Email</strong>
-                                            <p className="text-gray-800 px-2 pb-4">{user.email || 'N/A'}</p>
-                                            </div>
-
-                                            <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
-                                            <strong className="text-lg mt-4 flex px-2 pt-4"><GraduationCap className="pr-1 mr-1" />Educación</strong>
-                                            <p className="text-gray-800 px-2 pb-4">{user.education || 'N/A'}</p>
-                                            </div>
-
-                                            <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
-                                            <strong className="text-lg mt-4 px-2 pt-4 flex"><Cake className="pr-1 mr-1" />Cumpleaños</strong>
-                                            <p className="text-gray-800 px-2 pb-4">{user.website || 'N/A'}</p>
-                                            </div>
-                                       
-                                        </div>
-
-                                        <div className="w-full text-start mt-4 sm:mt-0">
-
-                                        <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
-                                            <strong className="text-lg mt-4 px-2 pt-4 flex"><MapPin className="pr-1 mr-1" />Localidad</strong>
-                                            <p className="text-gray-800 px-2 pb-4">{user.location || 'N/A'}</p>
-                                            </div>
-
-                                         <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
-                                            <strong className="text-lg mt-4 px-2 pt-4 flex"><Phone className="pr-1 mr-1" />Teléfono</strong>
-                                            <p className="text-gray-800 px-2 pb-4">{user.phone || 'N/A'}</p>
-                                            </div>
-
-                                        <div className='bg-emerald-50 px-2 w-11/12 rounded-md drop-shadow-md'>
-                                            <strong className="text-lg mt-4 px-2 pt-4 flex"><Building2 className="pr-1 mr-1" />Empresa</strong>
-                                            <p className="text-gray-800 px-2 pb-4">{user.work || 'N/A'}</p>
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                <div className="text-start mb-5">
+                                  <strong className="text-lg sm:text-xl">Biografía</strong>
+                                  <p className="text-gray-700 px-2 pt-2">{user.bio || 'N/A'}</p>
                                 </div>
+                              
+                                <div className="flex flex-col sm:flex-row sm:space-x-6">  {/* Espaciado entre columnas en pantallas más grandes */}
+                                  <div className="w-full text-start">
+                                    <div className='bg-emerald-50 px-2 w-full sm:w-11/12 rounded-md drop-shadow-md'>
+                                      <strong className="text-lg flex mt-4 px-2 pt-4">
+                                        <Mail className="pr-1 mr-1" />Email
+                                      </strong>
+                                      <p className="text-gray-800 px-2 pb-4">{user.email || 'N/A'}</p>
+                                    </div>
+                              
+                                    <div className='bg-emerald-50 px-2 w-full sm:w-11/12 rounded-md drop-shadow-md'>
+                                      <strong className="text-lg mt-4 flex px-2 pt-4">
+                                        <GraduationCap className="pr-1 mr-1" />Educación
+                                      </strong>
+                                      <p className="text-gray-800 px-2 pb-4">{user.education || 'N/A'}</p>
+                                    </div>
+                              
+                                    <div className='bg-emerald-50 px-2 w-full sm:w-11/12 rounded-md drop-shadow-md'>
+                                      <strong className="text-lg mt-4 px-2 pt-4 flex">
+                                        <Cake className="pr-1 mr-1" />Cumpleaños
+                                      </strong>
+                                      <p className="text-gray-800 px-2 pb-4">{user.website || 'N/A'}</p>
+                                    </div>
+                                  </div>
+                              
+                                  <div className="w-full text-start mt-4 sm:mt-0">
+                                    <div className='bg-emerald-50 px-2 w-full sm:w-11/12 rounded-md drop-shadow-md'>
+                                      <strong className="text-lg mt-4 px-2 pt-4 flex">
+                                        <MapPin className="pr-1 mr-1" />Localidad
+                                      </strong>
+                                      <p className="text-gray-800 px-2 pb-4">{user.location || 'N/A'}</p>
+                                    </div>
+                              
+                                    <div className='bg-emerald-50 px-2 w-full sm:w-11/12 rounded-md drop-shadow-md'>
+                                      <strong className="text-lg mt-4 px-2 pt-4 flex">
+                                        <Phone className="pr-1 mr-1" />Teléfono
+                                      </strong>
+                                      <p className="text-gray-800 px-2 pb-4">{user.phone || 'N/A'}</p>
+                                    </div>
+                              
+                                    <div className='bg-emerald-50 px-2 w-full sm:w-11/12 rounded-md drop-shadow-md'>
+                                      <strong className="text-lg mt-4 px-2 pt-4 flex">
+                                        <Building2 className="pr-1 mr-1" />Empresa
+                                      </strong>
+                                      <p className="text-gray-800 px-2 pb-4">{user.work || 'N/A'}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
                             )}
 
                             {activeTab === 'construccion' && (

@@ -4,6 +4,7 @@ import PostForm from '@/Components/PostForm';
 import PostList from '@/Components/PostList';
 import Menu from '@/Components/Menu';
 import Notificaciones from '@/Components/Notificaciones';
+import ListUsers from '@/Components/ListUsers';
 
 export default function Dashboard() {
     const { posts } = usePage().props;
@@ -33,6 +34,7 @@ export default function Dashboard() {
                 
                 <div className="hidden lg:block lg:w-1/4 px-4 lg:max-w-none lg:min-w-1050">
                 <Notificaciones />
+                <ListUsers />
                 </div>
 
                
