@@ -11,7 +11,6 @@ export default function ListUsers() {
         
         </div>
       <hr />
-      
 
       <div className="w-full flex h-2/3 justify-center items-center">
          <p className=" text-gray-400">sin usuarios aun</p>

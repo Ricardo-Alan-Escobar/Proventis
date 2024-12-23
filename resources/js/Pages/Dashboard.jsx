@@ -5,6 +5,7 @@ import PostList from '@/Components/PostList';
 import Menu from '@/Components/Menu';
 import Notificaciones from '@/Components/Notificaciones';
 import ListUsers from '@/Components/ListUsers';
+import ModernGreenCalendar from '@/Components/ModernGreenCalendar';
 
 export default function Dashboard() {
     const { posts } = usePage().props;
@@ -16,6 +17,7 @@ export default function Dashboard() {
             <div className="py-12 flex flex-col lg:flex-row">
                 <div className='hidden lg:block lg:w-1/4 px-4 lg:max-w-none lg:min-w-1050 '>
                     <Menu />
+                    <ModernGreenCalendar />
                 </div>
 
                 <div className="w-full lg:w-2/4   ">
