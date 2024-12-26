@@ -16,7 +16,7 @@ class UserController extends Controller
         'user' => [
             'id' => $user->id,
             'name' => $user->name,
-            'email' => $user->email,
+            'email' => $user->email, 
             'bio' => $user->bio,
             'location' => $user->location,
             'education' => $user->education,
@@ -26,8 +26,13 @@ class UserController extends Controller
             'occupation' => $user->occupation,
         ],
     ]);
+    
 }
 
-
+public function index()
+{
+    // Devuelve todos los usuarios como respuesta JSON
+    return response()->json(User::all());
+}
 
 }

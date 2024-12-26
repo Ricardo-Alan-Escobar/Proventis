@@ -58,6 +58,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/tickets/mis-tickets', [TicketsController::class, 'userTickets'])->name('tickets.userTickets');
     Route::resource('tickets', \App\Http\Controllers\TicketsController::class);
     
+
+    Route::get('/usuarios', [UserController::class, 'index'])->middleware(['auth', 'verified']);
+
 });
 
 require __DIR__.'/auth.php';
