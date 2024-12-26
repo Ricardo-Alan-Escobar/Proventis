@@ -13,7 +13,8 @@ export default function ModernGreenCalendar() {
   const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
 
-  
+  const prevMonth = () => setDate(new Date(date.getFullYear(), date.getMonth() - 1, 1));
+  const nextMonth = () => setDate(new Date(date.getFullYear(), date.getMonth() + 1, 1));
 
   const isToday = (day) => {
     const today = new Date();
@@ -37,9 +38,13 @@ export default function ModernGreenCalendar() {
             <h1 className="text-xl font-bold">Calendario</h1>
           </div>
           <div className="flex items-center space-x-2">
-            
-            <span className="text-lg font-semibold">{MONTHS[date.getMonth()]} {date.getFullYear()}</span>
-          
+            <button onClick={prevMonth} className="p-2 rounded-full hover:bg-green-500 transition-colors">
+              <ChevronLeft size={20} />
+            </button>
+            <span className=" font-semibold">{MONTHS[date.getMonth()]} {date.getFullYear()}</span>
+            <button onClick={nextMonth} className="p-2 rounded-full hover:bg-green-500 transition-colors">
+              <ChevronRight size={20} />
+            </button>  
           </div>
         </div>
         <div className="grid grid-cols-7 gap-2 text-center">
