@@ -125,6 +125,16 @@ export default function Authenticated({ header, children }) {
                             <span className="text-xs mt-1">Tickets</span>
                         </ResponsiveNavLink>
 
+                        {/* Ticket usuario Link */}
+                        <ResponsiveNavLink
+                            href={route('tickets.userTickets')}
+                            active={route().current('tickets.userTickets')}
+                            className="flex flex-col items-center text-gray-600 hover:text-green-600 transition duration-300"
+                        >
+                          <Ticket />
+                            <span className="text-xs mt-1">Tickets</span>
+                        </ResponsiveNavLink>
+
                         {/* Profile Link */}
                         <ResponsiveNavLink
                             href={route('usuario', { id: user.id })}
