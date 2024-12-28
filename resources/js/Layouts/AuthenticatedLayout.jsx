@@ -41,6 +41,7 @@ export default function Authenticated({ header, children }) {
                             <NavLink href={route('tickets.userTickets')} active={route().current('tickets.userTickets')}>
                                 <Ticket />
                                 </NavLink>
+                                
                            
                            
                           
@@ -125,6 +126,7 @@ export default function Authenticated({ header, children }) {
                             <span className="text-xs mt-1">Tickets</span>
                         </ResponsiveNavLink>
 
+                        
                         {/* Ticket usuario Link */}
                         <ResponsiveNavLink
                             href={route('tickets.userTickets')}
