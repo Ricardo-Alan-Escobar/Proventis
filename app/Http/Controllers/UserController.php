@@ -24,6 +24,7 @@ class UserController extends Controller
             'phone' => $user->phone,
             'website' => $user->website,
             'occupation' => $user->occupation,
+            'role' => $user->role,
         ],
     ]);
     

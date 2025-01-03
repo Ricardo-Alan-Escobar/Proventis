@@ -26,6 +26,7 @@ export default function UpdateProfileInformation({
             phone: user.phone || '',
             website: user.website || '',
             occupation: user.occupation || '',
+            role: user.role || '',
         });
 
     const submit = (e) => {
@@ -178,6 +179,20 @@ export default function UpdateProfileInformation({
                     />
 
                     <InputError className="mt-2" message={errors.email} />
+                </div>
+
+                <div>
+                   <InputLabel htmlFor="role" value="role" />
+
+                   <TextInput
+                       id="role"
+                       className="mt-1 block w-full"
+                       value={data.role || ''}
+                       onChange={(e) => setData('role', e.target.value)}
+                       autoComplete="role"
+                   />
+
+                   <InputError className="mt-2" message={errors.role} />
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (

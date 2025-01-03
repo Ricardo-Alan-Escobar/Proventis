@@ -31,6 +31,7 @@ class ProfileController extends Controller
                 'phone' => $request->user()->phone,
                 'website' => $request->user()->website,
                 'occupation' => $request->user()->occupation,
+                'role' => $request->user()->role,
             ],
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
@@ -55,7 +56,8 @@ class ProfileController extends Controller
         $request->user()->phone = $request->input('phone');
         $request->user()->website = $request->input('website');
         $request->user()->occupation = $request->input('occupation');
-        
+        $request->user()->role = $request->input('role');
+
         $request->user()->save();
 
         return Redirect::route('profile.edit');
