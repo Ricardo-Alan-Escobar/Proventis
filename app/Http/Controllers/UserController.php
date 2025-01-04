@@ -36,4 +36,26 @@ public function index()
     return response()->json(User::all());
 }
 
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+        'role' => 'required|string|in:admin,user,moderator',
+    ]);
+
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+        'role' => $request->role,
+    ]);
+
+    return redirect()->route('crearusuario')->with('success', 'Usuario creado exitosamente.');
+}
+
+
+
+
 }

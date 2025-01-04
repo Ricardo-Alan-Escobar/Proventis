@@ -61,6 +61,14 @@ Route::middleware('auth')->group(function () {
     //Usuarios
     Route::get('/usuarios', [UserController::class, 'index'])->middleware(['auth', 'verified']);
 
+
+    // Crear Usuario
+    Route::get('/crearusuario', function () {
+        return Inertia::render('CrearUsuario');
+    })->name('crearusuario');
+
+    Route::post('/crearusuario', [UserController::class, 'store'])
+        ->name('usuarios.store');
 });
 
 
