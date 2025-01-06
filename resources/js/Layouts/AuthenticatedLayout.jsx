@@ -1,7 +1,7 @@
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Home, Ticket, Settings, LogOut, UserRound } from "lucide-react";
+import { Home, Ticket, Settings, LogOut, UserRound, UserPlus } from "lucide-react";
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import LogoLayout from '@/Components/LogoLayout';
@@ -40,6 +40,10 @@ export default function Authenticated({ header, children }) {
 
                             <NavLink href={route('tickets.userTickets')} active={route().current('tickets.userTickets')}>
                                 <Ticket />
+                                </NavLink>
+
+                                <NavLink href={route('crearusuario')} active={route().current('crearusuario')}>
+                                <UserPlus />
                                 </NavLink>
                                 
                            

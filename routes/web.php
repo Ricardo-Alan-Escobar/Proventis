@@ -69,6 +69,12 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/crearusuario', [UserController::class, 'store'])
         ->name('usuarios.store');
+
+    //Eliminar Usuario
+    Route::delete('/usuarios/{id}', [UserController::class, 'destroy'])
+        ->name('usuarios.destroy');
+
+
 });
 
 

@@ -55,7 +55,13 @@ public function store(Request $request)
     return redirect()->route('crearusuario')->with('success', 'Usuario creado exitosamente.');
 }
 
+public function destroy($id)
+{
+    $user = User::findOrFail($id);
+    $user->delete();
 
+    return response()->json(['message' => 'Usuario eliminado exitosamente.'], 200);
+}
 
 
 }
