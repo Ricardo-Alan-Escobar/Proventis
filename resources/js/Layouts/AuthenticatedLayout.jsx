@@ -8,6 +8,8 @@ import LogoLayout from '@/Components/LogoLayout';
 
 export default function Authenticated({ header, children }) {
     const user = usePage().props.auth.user;
+    const { auth } = usePage().props;
+    const role = auth?.user?.role;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -34,18 +36,29 @@ export default function Authenticated({ header, children }) {
                             <Home />
                             </NavLink>
 
-                            <NavLink href={route('tickets.index')} active={route().current('tickets.index')}>
-                                <Ticket />
-                                </NavLink>
 
-                            <NavLink href={route('tickets.userTickets')} active={route().current('tickets.userTickets')}>
-                                <Ticket />
-                                </NavLink>
 
+
+                            {role === 'admin' && (
+                <NavLink href={route('tickets.index')} active={route().current('tickets.index')}>
+                    <Ticket />
+                </NavLink>
+            )}
+            
+            {/* Muestra tickets.userTickets para user y moderator */}
+            {(role === 'user' || role === 'moderator') && (
+                <NavLink href={route('tickets.userTickets')} active={route().current('tickets.userTickets')}>
+                    <Ticket />
+                </NavLink>
+            )}
+
+
+
+                    {role === 'admin' && (
                                 <NavLink href={route('crearusuario')} active={route().current('crearusuario')}>
                                 <UserPlus />
                                 </NavLink>
-                                
+                                )}
                            
                            
                           
@@ -141,6 +154,17 @@ export default function Authenticated({ header, children }) {
                             <span className="text-xs mt-1">Tickets</span>
                         </ResponsiveNavLink>
 
+                            {/* crear usuario Link */}
+                        <ResponsiveNavLink
+                            href={route('crearusuario')}
+                            active={route().current('crearusuario')}
+                            className="flex flex-col items-center text-gray-600 hover:text-green-600 transition duration-300"
+                        >
+                          <UserPlus />
+                            <span className="text-xs mt-1">Nuevo</span>
+                        </ResponsiveNavLink>
+                    
+
                         {/* Profile Link */}
                         <ResponsiveNavLink
                             href={route('usuario', { id: user.id })}
@@ -152,7 +176,6 @@ export default function Authenticated({ header, children }) {
                         </ResponsiveNavLink>
 
                       
-                       
                     </div>
 
                     {/* User Info Section */}

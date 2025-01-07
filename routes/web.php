@@ -28,7 +28,7 @@ Route::get('/usuario/{id}', [UserController::class, 'show'])
     ->middleware(['auth', 'verified'])
     ->name('usuario');
 
-
+ 
     
 Route::middleware('auth')->group(function () {
 

@@ -51,7 +51,7 @@ public function store(Request $request)
         'password' => bcrypt($request->password),
         'role' => $request->role,
     ]);
-
+ 
     return redirect()->route('crearusuario')->with('success', 'Usuario creado exitosamente.');
 }
 
