@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Application;
@@ -55,24 +56,29 @@ Route::middleware('auth')->group(function () {
     Route::patch('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
 
     //Tickets
-    Route::get('/tickets/mis-tickets', [TicketsController::class, 'userTickets'])->name('tickets.userTickets');
-    Route::resource('tickets', \App\Http\Controllers\TicketsController::class);
+    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+        Route::get('/tickets', [TicketsController::class, 'index'])->name('tickets.index');
+    });
+
+    Route::middleware([RoleMiddleware::class . ':user,moderator'])->group(function () {
+        Route::get('/tickets/mis-tickets', [TicketsController::class, 'userTickets'])->name('tickets.userTickets');
+    });
     
     //Usuarios
     Route::get('/usuarios', [UserController::class, 'index'])->middleware(['auth', 'verified']);
 
 
-    // Crear Usuario
-    Route::get('/crearusuario', function () {
-        return Inertia::render('CrearUsuario');
-    })->name('crearusuario');
-
-    Route::post('/crearusuario', [UserController::class, 'store'])
-        ->name('usuarios.store');
-
-    //Eliminar Usuario
-    Route::delete('/usuarios/{id}', [UserController::class, 'destroy'])
-        ->name('usuarios.destroy');
+    Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+        // Crear Usuario
+        Route::get('/crearusuario', function () {
+            return Inertia::render('CrearUsuario');
+        })->name('crearusuario');
+    
+        Route::post('/crearusuario', [UserController::class, 'store'])->name('usuarios.store');
+    
+        // Eliminar Usuario
+        Route::delete('/usuarios/{id}', [UserController::class, 'destroy'])->name('usuarios.destroy');
+    });
 
 
 });
