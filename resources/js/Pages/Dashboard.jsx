@@ -14,7 +14,7 @@ export default function Dashboard() {
         <AuthenticatedLayout>
             <Head title="Inicio" />
 
-            <div className="py-12 flex flex-col lg:flex-row">
+            <div className="py-7 flex pb-14 flex-col lg:flex-row">
                 <div className='hidden lg:block lg:w-1/4 px-4 lg:max-w-none lg:min-w-1050 '>
                     <Menu />
                     <ModernGreenCalendar />

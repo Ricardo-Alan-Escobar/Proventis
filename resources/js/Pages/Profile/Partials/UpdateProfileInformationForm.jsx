@@ -26,6 +26,7 @@ export default function UpdateProfileInformation({
             phone: user.phone || '',
             website: user.website || '',
             occupation: user.occupation || '',
+            role: user.role,
             
         });
 
@@ -180,8 +181,6 @@ export default function UpdateProfileInformation({
 
                     <InputError className="mt-2" message={errors.email} />
                 </div>
-
-               
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>

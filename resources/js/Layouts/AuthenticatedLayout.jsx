@@ -134,6 +134,7 @@ export default function Authenticated({ header, children }) {
                         </ResponsiveNavLink>
 
                         {/* Ticket Link */}
+                        {role === 'admin' && (
                         <ResponsiveNavLink
                             href={route('tickets.index')}
                             active={route().current('tickets.index')}
@@ -142,9 +143,10 @@ export default function Authenticated({ header, children }) {
                           <Ticket />
                             <span className="text-xs mt-1">Tickets</span>
                         </ResponsiveNavLink>
-
+                        )}
                         
                         {/* Ticket usuario Link */}
+                        {(role === 'user' || role === 'moderator') && (
                         <ResponsiveNavLink
                             href={route('tickets.userTickets')}
                             active={route().current('tickets.userTickets')}
@@ -153,8 +155,9 @@ export default function Authenticated({ header, children }) {
                           <Ticket />
                             <span className="text-xs mt-1">Tickets</span>
                         </ResponsiveNavLink>
-
+                        )}
                             {/* crear usuario Link */}
+                            {role === 'admin' && (
                         <ResponsiveNavLink
                             href={route('crearusuario')}
                             active={route().current('crearusuario')}
@@ -163,7 +166,7 @@ export default function Authenticated({ header, children }) {
                           <UserPlus />
                             <span className="text-xs mt-1">Nuevo</span>
                         </ResponsiveNavLink>
-                    
+                            )}
 
                         {/* Profile Link */}
                         <ResponsiveNavLink

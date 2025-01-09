@@ -27,7 +27,7 @@ export default function Usuario({ user }) {
         <AuthenticatedLayout>
            <Head title={`${user.name}`} />
 
-            <div className="flex flex-col items-center bg-white lg:flex-row lg:justify-center">
+            <div className="flex flex-col items-center pb-4 bg-white lg:flex-row lg:justify-center">
                 <div className="w-full lg:w-3/4">
                     {/* Foto de Portada */}
                     <div className="relative flex justify-center mb-5">

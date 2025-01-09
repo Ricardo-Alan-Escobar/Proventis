@@ -13,8 +13,6 @@ import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Modal from '@/Components/Modal';
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
@@ -165,7 +163,7 @@ export default function TicketsIndex({ auth, tickets }) {
         <AuthenticatedLayout>
             
             <Head title="Tickets"  />
-            <div className='p-6'>
+            <div className='p-6 pb-20'>
                 <Card 
                 
                     totalTickets={totalTickets} 

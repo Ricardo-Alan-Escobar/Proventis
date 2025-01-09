@@ -16,6 +16,7 @@ import { Tickets, CirclePlus   } from 'lucide-react';
 import {faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Hora from '@/Components/Hora';
+import confetti from 'canvas-confetti';
 
 const UsuarioTickets = ({ user, userTickets }) => {
     const { data, setData, post, reset, errors, processing } = useForm({
@@ -53,6 +54,16 @@ const UsuarioTickets = ({ user, userTickets }) => {
         });
     };
 
+    const handleConfetti = () => { 
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+       
+      };
+
+
     const ok = (mensaje) => {
         Swal.fire({
             title: mensaje,
@@ -79,7 +90,7 @@ const UsuarioTickets = ({ user, userTickets }) => {
         <AuthenticatedLayout>
             <Head title="Mis Tickets" />
 
-            <div className='p-6'>
+            <div className='p-6 pb-20'>
                 <div className="bg-white rounded-lg p-5 mb-5 justify-between flex drop-shadow-md">
                     <div>
                         <h2 className="text-2xl font-extrabold mb-5 flex items-center">
@@ -211,7 +222,7 @@ const UsuarioTickets = ({ user, userTickets }) => {
                     </div>
                     <div className="flex justify-end mt-3 mb-4">
                         <SecondaryButton onClick={closeModal} className="mr-2">Cancelar</SecondaryButton>
-                        <PrimaryButton type="submit" disabled={processing}>
+                        <PrimaryButton type="submit" onClick={handleConfetti}  disabled={processing}>
                             <FontAwesomeIcon icon={faFloppyDisk} className='pr-2' /> Guardar
                         </PrimaryButton>
                     </div>
