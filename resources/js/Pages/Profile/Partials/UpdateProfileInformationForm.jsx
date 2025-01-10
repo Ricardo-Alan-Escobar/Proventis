@@ -6,7 +6,7 @@ import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import Textarea from '@/Components/Textarea';
 import CustomYearPicker from '@/Components/CustomYearPicker';
-import { parseISO } from 'date-fns';
+
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -26,6 +26,7 @@ export default function UpdateProfileInformation({
             phone: user.phone || '',
             website: user.website || '',
             occupation: user.occupation || '',
+            departamento: user.departamento || '',
             role: user.role,
             
         });
@@ -180,6 +181,20 @@ export default function UpdateProfileInformation({
                     />
 
                     <InputError className="mt-2" message={errors.email} />
+                </div>
+
+                <div>
+                   <InputLabel htmlFor="departamento" value="Departamento" />
+
+                   <TextInput
+                       id="departamento"
+                       className="mt-1 block w-full"
+                       value={data.departamento || ''}
+                       onChange={(e) => setData('departamento', e.target.value)}
+                       autoComplete="departamento"
+                   />
+
+                   <InputError className="mt-2" message={errors.departamento} />
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (

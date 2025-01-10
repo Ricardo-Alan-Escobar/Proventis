@@ -27,6 +27,7 @@ class User extends Authenticatable
         'phone',
         'website',
         'occupation',
+        'departamento',
         'role',
         
     ];

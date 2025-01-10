@@ -33,6 +33,7 @@ class ProfileUpdateRequest extends FormRequest
             'website' => ['nullable', 'string', 'max:255'],
             'occupation' => ['nullable', 'string', 'max:255'],
             'role' => ['nullable', 'string', 'max:255'],
+            'departamento' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

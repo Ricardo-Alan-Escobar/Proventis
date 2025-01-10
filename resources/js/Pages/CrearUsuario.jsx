@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { UserPlus, Trash, Users } from "lucide-react";
+import { UserPlus, Trash, Users, ArrowRight, ArrowLeft } from "lucide-react";
 import Modal from '@/Components/Modal';
 import Swal from 'sweetalert2';
 import SelectInput from '@/Components/Select';
+import ReactPaginate from 'react-paginate';
 import confetti from 'canvas-confetti';
 
 export default function Usuarios() {
@@ -95,6 +96,20 @@ export default function Usuarios() {
     const filteredUsers = users.filter(user =>
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+
+
+    const itemsPerPage = 10; // Número de usuarios por página
+const [currentPage, setCurrentPage] = useState(0);
+
+// Obtener los usuarios para la página actual
+const offset = currentPage * itemsPerPage;
+const currentUsers = filteredUsers.slice(offset, offset + itemsPerPage);
+
+// Función para manejar el cambio de página
+const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+};
 
     return (
         <AuthenticatedLayout>
@@ -239,8 +254,28 @@ export default function Usuarios() {
                                 ))}
                             </tbody>
                         </table>
+                       
                     </div>
-                )}
+                )} 
+                
+                <div className="flex justify-center mt-6">
+    <ReactPaginate
+        previousLabel={<ArrowLeft />}
+        nextLabel={<ArrowRight />}
+        breakLabel={"..."}
+        pageCount={Math.ceil(filteredUsers.length / itemsPerPage)}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageClick}
+        containerClassName="flex space-x-3 bg-white shadow-md p-2 rounded-lg"
+        activeClassName="bg-green-500 text-white"
+        previousLinkClassName="px-3 flex py-1 border rounded-md hover:bg-gray-100 text-gray-700"
+        nextLinkClassName="px-3 flex py-1 border rounded-md hover:bg-gray-100 text-gray-700"
+        disabledClassName="opacity-50 cursor-not-allowed"
+        pageClassName="flex items-center justify-center w-8 h-8 text-gray-700 hover:bg-green-100 rounded-md"
+        pageLinkClassName="w-full h-full flex items-center justify-center"
+    />
+</div>
             </div>
         </div>
     </AuthenticatedLayout>

@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function show(Request $request, $id)
 {
-    $user = User::findOrFail($id); // Asegúrate de importar el modelo User
+    $user = User::findOrFail($id); 
     
     return Inertia::render('Usuario', [
         'user' => [
@@ -24,6 +24,7 @@ class UserController extends Controller
             'phone' => $user->phone,
             'website' => $user->website,
             'occupation' => $user->occupation,
+            'departamento' => $user->departamento,
             'role' => $user->role,
         ],
     ]);
@@ -32,7 +33,7 @@ class UserController extends Controller
 
 public function index()
 {
-    // Devuelve todos los usuarios como respuesta JSON
+    
     return response()->json(User::all());
 }
 
