@@ -21,11 +21,11 @@ import confetti from 'canvas-confetti';
 const UsuarioTickets = ({ user, userTickets }) => {
     const { data, setData, post, reset, errors, processing } = useForm({
         Nombre: user ? user.name : '',
-        Departamento: '',
+        Departamento: user ? user.departamento : '',
         Problema: '',
         Prioridad: 'Normal',
         Estado: 'Abierto',
-        Creacion: '',
+        Creacion: new Date().toISOString().slice(0, 10),
         Termino: ''
     });
 
