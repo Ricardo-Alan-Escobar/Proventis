@@ -33,7 +33,6 @@ const UsuarioTickets = ({ user, userTickets }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 10;
 
-    const nombreInput = useRef(null);
     const departamentoInput = useRef(null);
     const problemaInput = useRef(null);
 
