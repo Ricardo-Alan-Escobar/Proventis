@@ -35,6 +35,7 @@ export default function Usuario({ user }) {
                             src={Banner}
                             alt="Foto de Portada"
                             className="w-full h-48 rounded-md sm:h-64 md:h-80 lg:h-[400px] object-cover"
+                              loading="lazy"
                         />
                         {/* UserAvatar  */}
                         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
