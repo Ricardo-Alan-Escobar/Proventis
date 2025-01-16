@@ -26,7 +26,7 @@ const UsuarioTickets = ({ user, userTickets }) => {
         Prioridad: 'Normal',
         Estado: 'Abierto',
         Creacion: new Date().toISOString().slice(0, 10),
-        Termino: ''
+        Termino: '0000-00-00',
     });
 
     const [modal, setModal] = useState(false);
