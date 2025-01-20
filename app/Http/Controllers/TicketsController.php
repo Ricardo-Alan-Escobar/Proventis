@@ -57,7 +57,20 @@ class TicketsController extends Controller
                 'user' => auth()->user(), 
             ]);
         }
-        
+
+        public function close($id)
+            {
+                $ticket = Tickets::findOrFail($id);
+                $ticket->Estado = 'Cerrado';
+                $ticket->save();
+            
+                return Inertia::render('Tickets/Index', [
+                    'tickets' => Tickets::all(),
+                    'success' => 'Ticket cerrado correctamente'
+                ]);
+            }
+            
+
 
         
 }

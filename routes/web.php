@@ -68,10 +68,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/tickets/mis-tickets', [TicketsController::class, 'userTickets'])->name('tickets.userTickets');
     });
     
-    // Acciones públicas (sin middleware)
+    // Creacion de Tickets
     Route::post('/tickets', [TicketsController::class, 'store'])->name('tickets.store');
     Route::put('/tickets/{id}', [TicketsController::class, 'update'])->name('tickets.update');
     Route::delete('/tickets/{id}', [TicketsController::class, 'destroy'])->name('tickets.destroy');
+    Route::put('/tickets/{id}/close', [TicketsController::class, 'close'])->name('tickets.close');
+
     
     //Usuarios
     Route::get('/usuarios', [UserController::class, 'index'])->middleware(['auth', 'verified']);

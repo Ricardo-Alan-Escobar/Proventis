@@ -159,6 +159,33 @@ export default function TicketsIndex({ auth, tickets }) {
         setCurrentPage(0);
     };
 
+    const cerrarTicket = (id) => {
+        Swal.fire({
+            title: '¿Estás seguro de cerrar este ticket?',
+            text: 'Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, cerrar',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                put(route('tickets.close', id), {
+                    onSuccess: () => {
+                        ok('¡Ticket cerrado!');
+                    },
+                    onError: (error) => {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'No se pudo cerrar el ticket.',
+                            icon: 'error',
+                        });
+                    },
+                });
+            }
+        });
+    };
+    
+
     return (
         <AuthenticatedLayout>
             
@@ -232,6 +259,11 @@ export default function TicketsIndex({ auth, tickets }) {
                         <DangerButton onClick={() => eliminar(ticket.id, ticket.Nombre)}>
                             <FontAwesomeIcon icon={faTrash} />
                         </DangerButton>
+                        {ticket.Estado !== 'Cerrado' && (
+        <WarningButton onClick={() => cerrarTicket(ticket.id)} className="ml-2 ">
+            Cerrar
+        </WarningButton>
+    )}
                                </td>
                             </tr>
                      ))}
