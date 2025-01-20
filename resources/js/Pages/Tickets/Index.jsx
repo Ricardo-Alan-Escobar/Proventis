@@ -162,7 +162,7 @@ export default function TicketsIndex({ auth, tickets }) {
     const cerrarTicket = (id) => {
         Swal.fire({
             title: '¿Estás seguro de cerrar este ticket?',
-            text: 'Esta acción no se puede deshacer.',
+            text: 'Se dara por terminado el ticket.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Sí, cerrar',
