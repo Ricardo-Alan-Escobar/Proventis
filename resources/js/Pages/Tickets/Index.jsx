@@ -23,6 +23,7 @@ import DangerButton from '@/Components/DangerButton';
 import { parseISO } from 'date-fns';
 import Card from '@/Components/Cards';
 
+
 export default function TicketsIndex({ auth, tickets }) {
     const [modal, setModal] = useState(false);
     const [title, setTitle] = useState('');
@@ -36,19 +37,21 @@ export default function TicketsIndex({ auth, tickets }) {
     const estadoInput = useRef();
     const creacionInput = useRef();
     const terminoInput = useRef();
+    const temasAyudaInput = useRef();
+    const asignadoInput = useRef();
     const { data, setData, delete: destroy, post, put, processing, reset, errors } = useForm({
-        Nombre: '', Departamento:'',  Problema: '', Prioridad: '', Estado: '',  Creacion: '', Termino: ''
+        Nombre: '', Departamento:'',  Problema: '', Prioridad: '', Estado: '',  Creacion: '', Termino: '', TemasAyuda: '', Asignado: ''
     });
 
-    const openModal = (op, id = '', Nombre= '', Departamento='', Problema= '', Prioridad= '', Estado= '',  Creacion= '', Termino= '') => {
+    const openModal = (op, id = '', Nombre= '', Departamento='', Problema= '', Prioridad= '', Estado= '',  Creacion= '', Termino= '', TemasAyuda= '', Asignado=''  ) => {
         setModal(true);
         setOperation(op);
         if (op === 1) {
             setTitle('Añadir Ticket');
-            setData({ Nombre: '', Departamento:'', Problema: '', Prioridad: '', Estado: '',  Creacion: '', Termino: ''});
+            setData({ Nombre: '', Departamento:'', Problema: '', Prioridad: '', Estado: '',  Creacion: '', Termino: '', TemasAyuda: '', Asignado: '' });
         } else {
             setTitle('Editar Ticket');
-            setData({ id, Nombre, Departamento, Problema, Prioridad, Estado,  Creacion, Termino});
+            setData({ id, Nombre, Departamento, Problema, Prioridad, Estado,  Creacion, Termino, TemasAyuda, Asignado });
         }
     }
     const countTicketsByStatus = (status) => {
@@ -108,6 +111,14 @@ export default function TicketsIndex({ auth, tickets }) {
         if (errors.Termino) {
             reset('Termino');
             terminoInput.current.focus();
+        }
+        if (errors.TemasAyuda) {
+            reset('TemasAyuda');
+            temasAyudaInput.current.focus();
+        }
+        if (errors.Asignado) {
+            reset('Asignado');
+            asignadoInput.current.focus();
         }
     }
 
@@ -228,8 +239,10 @@ export default function TicketsIndex({ auth, tickets }) {
                 <th className="px-4 py-2 text-center">Problema</th>
                 <th className="px-4 py-2 text-center">Prioridad</th>
                 <th className="px-4 py-2 text-center">Estado</th>
+                <th className="px-4 py-2 text-center">Categoria</th>
                 <th className="px-4 py-2 text-center">Creación</th>
                 <th className="px-4 py-2 text-center">Término</th>
+                <th className="px-4 py-2 text-center">Asignado a</th>
                 <th className="px-4 py-2 text-center">Acciones</th>
             </tr>
                  </thead>
@@ -250,20 +263,22 @@ export default function TicketsIndex({ auth, tickets }) {
                             {ticket.Estado}
                         </div>
                     </td>
+                    <td className="px-4 py-2 text-center">{ticket.TemasAyuda}</td>
                     <td className="px-4 py-2 text-center">{ticket.Creacion}</td>
                     <td className="px-4 py-2 text-center">{ticket.Termino}</td>
+                    <td className="px-4 py-2 text-center">{ticket.Asignado}</td>
                     <td className="px-4 py-2 text-center">
-                        <WarningButton onClick={() => openModal(2, ticket.id, ticket.Nombre, ticket.Departamento, ticket.Problema, ticket.Prioridad, ticket.Estado, ticket.Creacion, ticket.Termino)} className="mr-2">
+                        <WarningButton onClick={() => openModal(2, ticket.id, ticket.Nombre, ticket.Departamento, ticket.Problema, ticket.Prioridad, ticket.Estado, ticket.Creacion, ticket.Termino)} className='mx-1 hover:bg-amber-400'>
                             <FontAwesomeIcon icon={faPenToSquare} />
                         </WarningButton>
-                        <DangerButton onClick={() => eliminar(ticket.id, ticket.Nombre)}>
-                            <FontAwesomeIcon icon={faTrash} />
-                        </DangerButton>
                         {ticket.Estado !== 'Cerrado' && (
-        <WarningButton onClick={() => cerrarTicket(ticket.id)} className="ml-2 ">
+        <WarningButton onClick={() => cerrarTicket(ticket.id)} className="mx-1 ">
             Cerrar
         </WarningButton>
     )}
+    <DangerButton onClick={() => eliminar(ticket.id, ticket.Nombre)} className='mx-1'>
+                            <FontAwesomeIcon icon={faTrash} />
+                        </DangerButton>
                                </td>
                             </tr>
                      ))}
@@ -369,6 +384,33 @@ export default function TicketsIndex({ auth, tickets }) {
                             required
                         />
                         <InputError message={errors.Problema} className="mt-2" />
+                    </div>
+                    <div className='mt-2'>
+                        <InputLabel htmlFor="TemasAyuda " value="Categoria"></InputLabel>
+                        <SelectInput
+                            id="TemasAyuda"
+                            name="TemasAyuda"
+                            ref={temasAyudaInput}
+                            value={data.TemasAyuda}
+                            className="mt-1 block w-full"
+                            autoComplete="TemasAyuda"
+                            handleChange={(e) => setData('TemasAyuda', e.target.value)}
+                            options={['Instalación Hardware', 
+                                'Instalación Software',
+                                 'Problema en General',
+                                'Problema de Red', 
+                                'Problema de Impresión', 
+                                'Problema de Correo', 
+                                'Salida de Herramientas',
+                                'Solicitud de Validación de factura',
+                                'Solicitud de Toner',
+                                'Soporte AGCO solutions',
+                                'Soporte CONTPAQi',
+                                'Soporte SAI',
+                                'Verif. Equipo de Cómputo']}
+                            required
+                        />
+                        <InputError message={errors.TemasAyuda} className="mt-2" />
                     </div>
                     <div className='flex mt-2 px-4'>
                         <InputLabel htmlFor="Creacion" value="Creación:" className='px-4 pt-3'></InputLabel>

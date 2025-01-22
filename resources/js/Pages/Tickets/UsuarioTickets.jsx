@@ -15,8 +15,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tickets, CirclePlus   } from 'lucide-react';
 import {faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import Textarea from '@/Components/Textarea';
 import Hora from '@/Components/Hora';
 import confetti from 'canvas-confetti';
+import SelectInput from '@/Components/Select';
 
 const UsuarioTickets = ({ user, userTickets }) => {
     const { data, setData, post, reset, errors, processing } = useForm({
@@ -25,6 +27,7 @@ const UsuarioTickets = ({ user, userTickets }) => {
         Problema: '',
         Prioridad: 'Normal',
         Estado: 'Abierto',
+        TemasAyuda: '',
         Creacion: new Date().toISOString().slice(0, 10),
         Termino: '2025-01-01',
     });
@@ -36,6 +39,7 @@ const UsuarioTickets = ({ user, userTickets }) => {
 
     const departamentoInput = useRef(null);
     const problemaInput = useRef(null);
+    const temasAyudaInput = useRef(null);
 
     const openModal = () => setModal(true);
     const closeModal = () => {
@@ -118,6 +122,7 @@ const UsuarioTickets = ({ user, userTickets }) => {
                                     <th className="px-4 py-2 text-center">Problema</th>
                                     <th className="px-4 py-2 text-center">Prioridad</th>
                                     <th className="px-4 py-2 text-center">Estado</th>
+                                    <th className="px-4 py-2 text-center">Categoria</th>
                                     <th className="px-4 py-2 text-center">Creación</th>
                                     <th className="px-4 py-2 text-center">Término</th>
                                 </tr>
@@ -139,6 +144,7 @@ const UsuarioTickets = ({ user, userTickets }) => {
                                                 {ticket.Estado}
                                             </div>
                                         </td>
+                                        <td className="px-4 py-2 text-center">{ticket.TemasAyuda}</td>
                                         <td className="px-4 py-2 text-center">{ticket.Creacion}</td>
                                         <td className="px-4 py-2 text-center">{ticket.Termino}</td>
                                     </tr>
@@ -194,10 +200,41 @@ const UsuarioTickets = ({ user, userTickets }) => {
                         />
                         <InputError message={errors.Departamento} className="mt-2" />
                     </div>
+
+                    <div className='mt-2'>
+                    <InputLabel htmlFor="TemasAyuda" value="Categoria"></InputLabel>
+                    <SelectInput
+                        id="TemasAyuda"
+                        name="TemasAyuda"
+                        ref={temasAyudaInput}
+                        value={data.TemasAyuda}
+                        className="mt-1 block w-full"
+                        autoComplete="TemasAyuda"
+                        handleChange={(e) => setData('TemasAyuda', e.target.value)}
+                        options={[
+                            'Instalación Hardware',
+                            'Instalación Software',
+                            'Problema en General',
+                            'Problema de Red',
+                            'Problema de Impresión',
+                            'Problema de Correo',
+                            'Salida de Herramientas',
+                            'Solicitud de Validación de factura',
+                            'Solicitud de Toner',
+                            'Soporte AGCO solutions',
+                            'Soporte CONTPAQi',
+                            'Soporte SAI',
+                            'Verif. Equipo de Cómputo',
+                        ]}
+                        required
+                    />
+                    <InputError message={errors.TemasAyuda} className="mt-2" />
+                </div>
+
                     
                     <div className='mt-5'>
                         <InputLabel htmlFor="Problema" value="Problema" />
-                        <TextInput
+                        <Textarea
                             id="Problema"
                             name="Problema"
                             ref={problemaInput}

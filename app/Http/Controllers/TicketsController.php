@@ -26,7 +26,9 @@ class TicketsController extends Controller
                 'Prioridad' => 'required|string|max:20',
                 'Estado' => 'required|string|max:20',
                 'Creacion' => 'required|max:20',
-                'Termino' => 'nullable|max:20'
+                'Termino' => 'nullable|max:20',
+                'TemasAyuda' => 'nullable|string|max:100',
+                'Asignado' => 'nullable|string|max:100',  
             ]);
         
         
@@ -42,6 +44,8 @@ class TicketsController extends Controller
         $ticket ->fill($request->input())->saveOrFail();
         return redirect('tickets');
         }
+
+        
         public function destroy($id){
             $ticket = Tickets::find($id);
             $ticket->delete();
@@ -69,7 +73,7 @@ class TicketsController extends Controller
                     'success' => 'Ticket cerrado correctamente'
                 ]);
             }
-            
+
 
 
         
