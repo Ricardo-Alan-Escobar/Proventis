@@ -43,7 +43,7 @@ export default function TicketsIndex({ auth, tickets }) {
         Nombre: '', Departamento:'',  Problema: '', Prioridad: '', Estado: '',  Creacion: '', Termino: '', TemasAyuda: '', Asignado: ''
     });
 
-    const openModal = (op, id = '', Nombre= '', Departamento='', Problema= '', Prioridad= '', Estado= '',  Creacion= '', Termino= '', TemasAyuda= '', Asignado=''  ) => {
+    const openModal = (op, id = '', Nombre= '', Departamento='', Problema= '', Prioridad= '', Estado= '',  Creacion= '', Termino= '', TemasAyuda= '', Asignado= ''  ) => {
         setModal(true);
         setOperation(op);
         if (op === 1) {
@@ -230,61 +230,62 @@ export default function TicketsIndex({ auth, tickets }) {
                 </div>
                 <div className="w-full overflow-hidden bg-white rounded-lg shadow-md ">
                 <div className="overflow-x-auto">
-             <table className="min-w-full leading-normal">
-                  <thead>
+         <table className="min-w-full leading-normal">
+           <thead>
             <tr className="bg-green-300 text-gray-700">
-                <th className="px-4 py-2 text-center">Id</th>
-                <th className="px-4 py-2 text-center">Nombre</th>
-                <th className="px-4 py-2 text-center">Departamento</th>
-                <th className="px-4 py-2 text-center">Problema</th>
-                <th className="px-4 py-2 text-center">Prioridad</th>
-                <th className="px-4 py-2 text-center">Estado</th>
-                <th className="px-4 py-2 text-center">Categoria</th>
-                <th className="px-4 py-2 text-center">Creación</th>
-                <th className="px-4 py-2 text-center">Término</th>
-                <th className="px-4 py-2 text-center">Asignado a</th>
-                <th className="px-4 py-2 text-center">Acciones</th>
-            </tr>
-                 </thead>
-                  <tbody>
-                 {currentTickets.map((ticket, i) => (
-                <tr key={ticket.id} className={i % 2 === 0 ? 'bg-white' : 'bg-emerald-50'}>
-                    <td className="px-4 py-2 text-center">{startIndex + i + 1}</td>
-                    <td className="px-4 py-2 text-center">{ticket.Nombre}</td>
-                    <td className="px-4 py-2 text-center">{ticket.Departamento}</td>
-                    <td className="px-4 py-2 text-center">{ticket.Problema}</td>
-                    <td className={`px-4 py-2 text-center ${ticket.Prioridad === 'Urgente' ? 'text-orange-500' : 'text-black'}`}>{ticket.Prioridad}</td>
-                    <td className="px-4 py-2 text-center">
-                        <div className={`inline-block px-2 py-1 rounded-lg ${
-                            ticket.Estado === 'Abierto' ? 'bg-blue-400 text-white' :
-                            ticket.Estado === 'Cerrado' ? 'bg-green-500 text-white' :
-                            ticket.Estado === 'En Seguimiento' ? 'bg-gray-200 text-black' : ''
-                        }`}>
-                            {ticket.Estado}
-                        </div>
-                    </td>
-                    <td className="px-4 py-2 text-center">{ticket.TemasAyuda}</td>
-                    <td className="px-4 py-2 text-center">{ticket.Creacion}</td>
-                    <td className="px-4 py-2 text-center">{ticket.Termino}</td>
-                    <td className="px-4 py-2 text-center">{ticket.Asignado}</td>
-                    <td className="px-4 py-2 text-center">
-                        <WarningButton onClick={() => openModal(2, ticket.id, ticket.Nombre, ticket.Departamento, ticket.Problema, ticket.Prioridad, ticket.Estado, ticket.Creacion, ticket.Termino)} className='mx-1 hover:bg-amber-400'>
-                            <FontAwesomeIcon icon={faPenToSquare} />
-                        </WarningButton>
-                        {ticket.Estado !== 'Cerrado' && (
-        <WarningButton onClick={() => cerrarTicket(ticket.id)} className="mx-1 ">
-            Cerrar
-        </WarningButton>
-    )}
-    <DangerButton onClick={() => eliminar(ticket.id, ticket.Nombre)} className='mx-1'>
-                            <FontAwesomeIcon icon={faTrash} />
-                        </DangerButton>
-                               </td>
+                <th className="px-4 py-2 text-center whitespace-nowrap">Id</th>
+                <th className="px-4 py-2 text-center whitespace-nowrap">Nombre</th>
+                <th className="px-4 py-2 text-center whitespace-nowrap">Departamento</th>
+                <th className="px-4 py-2 text-center whitespace-normal min-w-[25rem]">Problema</th>
+                <th className="px-4 py-2 text-center whitespace-nowrap">Prioridad</th>
+                <th className="px-4 py-2 text-center whitespace-nowrap">Estado</th>
+                <th className="px-4 py-2 text-center whitespace-nowrap">Categoria</th>
+                <th className="px-4 py-2 text-center whitespace-nowrap">Creación</th>
+                <th className="px-4 py-2 text-center whitespace-nowrap">Término</th>
+                <th className="px-4 py-2 text-center whitespace-nowrap">Asignado a</th>
+                <th className="px-4 py-2 text-center whitespace-nowrap">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {currentTickets.map((ticket, i) => (
+                            <tr key={ticket.id} className={i % 2 === 0 ? 'bg-white' : 'bg-emerald-50'}>
+                                <td className="px-4 py-2 text-center whitespace-nowrap">{startIndex + i + 1}</td>
+                                <td className="px-4 py-2 text-center whitespace-nowrap">{ticket.Nombre}</td>
+                                <td className="px-4 py-2 text-center whitespace-nowrap">{ticket.Departamento}</td>
+                                <td className="px-4 py-2 text-center whitespace-normal min-w-[25rem]">{ticket.Problema}</td>
+                                <td className={`px-4 py-2 text-center whitespace-nowrap ${ticket.Prioridad === 'Urgente' ? 'text-orange-500' : 'text-black'}`}>{ticket.Prioridad}</td>
+                                <td className="px-4 py-2 text-center whitespace-nowrap">
+                                    <div className={`inline-block px-2 py-1 rounded-lg ${
+                                        ticket.Estado === 'Abierto' ? 'bg-blue-400 text-white' :
+                                        ticket.Estado === 'Cerrado' ? 'bg-green-500 text-white' :
+                                        ticket.Estado === 'En Seguimiento' ? 'bg-gray-200 text-black' : ''
+                                    }`}>
+                                        {ticket.Estado}
+                                    </div>
+                                </td>
+                                <td className="px-4 py-2 text-center whitespace-nowrap">{ticket.TemasAyuda}</td>
+                                <td className="px-4 py-2 text-center whitespace-nowrap">{ticket.Creacion}</td>
+                                <td className="px-4 py-2 text-center whitespace-nowrap">{ticket.Termino}</td>
+                                <td className="px-4 py-2 text-center whitespace-nowrap">{ticket.Asignado}</td>
+                                <td className="px-4 py-2 text-center whitespace-nowrap">
+                                    <WarningButton onClick={() => openModal(2, ticket.id, ticket.Nombre, ticket.Departamento, ticket.Problema, ticket.Prioridad, ticket.Estado, ticket.Creacion, ticket.Termino, ticket.TemasAyuda, ticket.Asignado)} className='mx-1 hover:bg-amber-400'>
+                                        <FontAwesomeIcon icon={faPenToSquare} />
+                                    </WarningButton>
+                                    {ticket.Estado !== 'Cerrado' && (
+                                        <WarningButton onClick={() => cerrarTicket(ticket.id)} className="mx-1">
+                                            Cerrar
+                                        </WarningButton>
+                                    )}
+                                    <DangerButton onClick={() => eliminar(ticket.id, ticket.Nombre)} className='mx-1'>
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </DangerButton>
+                                </td>
                             </tr>
-                     ))}
+                        ))}
                     </tbody>
                 </table>
             </div>
+
 
                     <div className="flex justify-center mt-2 mb-2">
                         <ReactPaginate
@@ -335,7 +336,6 @@ export default function TicketsIndex({ auth, tickets }) {
                             value={data.Departamento}
                             className="mt-1 block w-full"
                             autoComplete="Departamento"
-                            isFocused={true}
                             onChange={(e) => setData('Departamento', e.target.value)}
                             required
                         />
@@ -412,6 +412,25 @@ export default function TicketsIndex({ auth, tickets }) {
                         />
                         <InputError message={errors.TemasAyuda} className="mt-2" />
                     </div>
+
+                    <div className='mt-2'>
+                        <InputLabel htmlFor="Asignado " value="Asignar a"></InputLabel>
+                        <SelectInput
+                            id="Asignado"
+                            name="Asignado"
+                            ref={asignadoInput}
+                            value={data.Asignado}
+                            className="mt-1 block w-full"
+                            handleChange={(e) => setData('Asignado', e.target.value)}
+                            options={['Ricardo Escobar', 
+                                'Luis Cruz',
+                                 'David Corpi',
+                                'Jorge Silva']}
+                            required
+                        />
+                        <InputError message={errors.Asignado} className="mt-2" />
+                    </div>
+
                     <div className='flex mt-2 px-4'>
                         <InputLabel htmlFor="Creacion" value="Creación:" className='px-4 pt-3'></InputLabel>
                         <CustomDatePicker
