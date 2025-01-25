@@ -57,7 +57,7 @@ export default function ListUsers() {
                     {user.name}
                   </strong>
                 </Link>
-                <p className="text-gray-400">({user.email})</p>
+                <p className="text-gray-400">{user.departamento}</p>
               </li>
             ))}
           </ul>
