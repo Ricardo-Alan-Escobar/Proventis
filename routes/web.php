@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/tickets/{id}', [TicketsController::class, 'update'])->name('tickets.update');
     Route::delete('/tickets/{id}', [TicketsController::class, 'destroy'])->name('tickets.destroy');
     Route::put('/tickets/{id}/close', [TicketsController::class, 'close'])->name('tickets.close');
+    Route::get('/api/notifications', [TicketsController::class, 'getNotifications']);
 
     
     //Usuarios

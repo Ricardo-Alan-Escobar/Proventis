@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tickets;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Notifications\TicketCreatedNotification;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -35,6 +37,12 @@ class TicketsController extends Controller
             $ticket = new Tickets($request->all());
             $ticket->user_id = auth()->id();  
             $ticket->save();
+
+            $admins = User::where('role', 'admin')->get();
+
+            foreach ($admins as $admin) {
+                $admin->notify(new TicketCreatedNotification($ticket));
+            }
         
            return back()->with('success', 'Ticket creado exitosamente');
         }
@@ -74,7 +82,11 @@ class TicketsController extends Controller
                 ]);
             }
 
-
+            public function getNotifications()
+            {
+                $notifications = Auth::user()->unreadNotifications;
+                return response()->json($notifications);
+            }
 
         
 }
