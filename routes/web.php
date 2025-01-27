@@ -74,6 +74,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/tickets/{id}', [TicketsController::class, 'destroy'])->name('tickets.destroy');
     Route::put('/tickets/{id}/close', [TicketsController::class, 'close'])->name('tickets.close');
     Route::get('/api/notifications', [TicketsController::class, 'getNotifications']);
+    Route::delete('/api/notifications/{id}', function ($id) {
+        return auth()->user()->notifications()->where('id', $id)->delete();
+    });
+    
 
     
     //Usuarios
