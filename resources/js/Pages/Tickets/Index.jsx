@@ -247,7 +247,7 @@ export default function TicketsIndex({ auth, tickets }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentTickets.map((ticket, i) => (
+                        {currentTickets.slice().reverse().map((ticket, i) => (
                             <tr key={ticket.id} className={i % 2 === 0 ? 'bg-white' : 'bg-emerald-50'}>
                                 <td className="px-4 py-2 text-center whitespace-nowrap">{startIndex + i + 1}</td>
                                 <td className="px-4 py-2 text-center whitespace-nowrap">{ticket.Nombre}</td>

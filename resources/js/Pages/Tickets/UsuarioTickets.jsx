@@ -128,7 +128,7 @@ const UsuarioTickets = ({ user, userTickets }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {displayedTickets.map((ticket, index) => (
+                                {displayedTickets.slice().reverse().map((ticket, index) => (
                                     <tr key={ticket.id} className={index % 2 === 0 ? 'bg-white' : 'bg-emerald-50'}>
                                         <td className="px-4 py-2 text-center">{index + 1 + currentPage * itemsPerPage}</td>
                                         <td className="px-4 py-2 text-center">{ticket.Nombre}</td>
