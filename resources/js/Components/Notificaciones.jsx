@@ -7,19 +7,18 @@ export default function Notificaciones() {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    // Obtener las notificaciones al cargar el componente
     axios.get("/api/notifications").then((response) => {
       setNotifications(response.data);
     });
   }, []);
 
   const handleDelete = (id) => {
-    // Eliminar notificación del servidor
     axios
       .delete(`/api/notifications/${id}`)
       .then(() => {
-        // Actualizar la lista de notificaciones después de eliminar
-        setNotifications((prev) => prev.filter((notification) => notification.id !== id));
+        setNotifications((prev) =>
+          prev.filter((notification) => notification.id !== id)
+        );
       })
       .catch((error) => {
         console.error("Error al eliminar la notificación:", error);
@@ -43,22 +42,38 @@ export default function Notificaciones() {
             >
               <Link href={route("tickets.index")} className="w-full">
                 <div>
-                  <p className="text-gray-700">
-                    Nuevo ticket creado: <strong>{notification.data.nombre}</strong>
-                  </p>
-                  <p className="text-gray-500 text-sm">
-                    Departamento: {notification.data.departamento}
-                  </p>
-                  <p className="text-gray-500 text-sm">
-                    Prioridad: {notification.data.prioridad}
-                  </p>
+                  {notification.data.accion && notification.data.nombre ? (
+                  
+                    <>
+                      <p className="text-gray-700">
+                        Tu ticket <strong>{notification.data.nombre}</strong> ha sido{" "}
+                        <strong>{notification.data.accion}</strong>.
+                      </p>
+                      <p className="text-gray-500 text-sm">
+                        Departamento: {notification.data.departamento}
+                      </p>
+                    </>
+                  ) : (
+                   
+                    <>
+                      <p className="text-gray-700">
+                        Nuevo ticket creado: <strong>{notification.data.nombre}</strong>
+                      </p>
+                      <p className="text-gray-500 text-sm">
+                        Departamento: {notification.data.departamento}
+                      </p>
+                      <p className="text-gray-500 text-sm">
+                        Prioridad: {notification.data.prioridad}
+                      </p>
+                    </>
+                  )}
                 </div>
               </Link>
               <button
                 onClick={() => handleDelete(notification.id)}
                 className=" mb-10 text-red-500 hover:bg-red-600 hover:text-white rounded-full p-1"
               >
-                <X size={15}/>
+                <X size={15} />
               </button>
             </div>
           ))

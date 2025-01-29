@@ -77,7 +77,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/api/notifications/{id}', function ($id) {
         return auth()->user()->notifications()->where('id', $id)->delete();
     });
-    
 
     
     //Usuarios

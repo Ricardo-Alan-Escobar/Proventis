@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Notifications\TicketCreatedNotification;
+use App\Notifications\TicketUpdatedNotification;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -20,7 +21,7 @@ class TicketsController extends Controller
         return Inertia::render('Tickets/Index',['tickets'=>$tickets]);
         }
         
-        public function store(Request $request){
+    public function store(Request $request){
             $request->validate([
                 'Nombre' => 'required|string|max:60',
                 'Departamento' => 'required|string|max:50',
@@ -47,11 +48,19 @@ class TicketsController extends Controller
            return back()->with('success', 'Ticket creado exitosamente');
         }
        
-        public function update(Request $request, Tickets $tickets, $id){
-        $ticket = Tickets::find($id);
-        $ticket ->fill($request->input())->saveOrFail();
-        return redirect('tickets');
+        public function update(Request $request, Tickets $tickets, $id)
+        {
+            $ticket = Tickets::find($id);
+            $ticket->fill($request->input())->saveOrFail();
+        
+            $ticketOwner = User::find($ticket->user_id);
+            if ($ticketOwner) {
+                $ticketOwner->notify(new TicketUpdatedNotification($ticket, 'Asignado'));
+            }
+        
+            return redirect('tickets')->with('success', 'Ticket actualizado correctamente');
         }
+
 
         
         public function destroy($id){
@@ -71,16 +80,20 @@ class TicketsController extends Controller
         }
 
         public function close($id)
-            {
-                $ticket = Tickets::findOrFail($id);
-                $ticket->Estado = 'Cerrado';
-                $ticket->save();
-            
-                return Inertia::render('Tickets/Index', [
-                    'tickets' => Tickets::all(),
-                    'success' => 'Ticket cerrado correctamente'
-                ]);
+        {
+            $ticket = Tickets::findOrFail($id);
+            $ticket->Estado = 'Cerrado';
+            $ticket->save();
+        
+          
+            $ticketOwner = User::find($ticket->user_id);
+            if ($ticketOwner) {
+                $ticketOwner->notify(new TicketUpdatedNotification($ticket, 'Cerrado'));
             }
+        
+            return redirect()->route('tickets.index')->with('success', 'Ticket cerrado correctamente');
+        }
+        
 
             public function getNotifications()
             {
