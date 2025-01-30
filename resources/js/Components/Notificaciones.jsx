@@ -38,12 +38,12 @@ export default function Notificaciones() {
           notifications.map((notification) => (
             <div
               key={notification.id}
-              className="w-full flex items-center justify-between bg-blue-50 p-3 mb-3 rounded-md shadow-sm hover:bg-blue-100"
+              className="w-full flex items-center justify-between cursor-pointer bg-blue-50 p-3 mb-3 rounded-md shadow-sm hover:bg-blue-100"
             >
-              <Link href={route("tickets.index")} className="w-full">
+            
                 <div>
                   {notification.data.accion && notification.data.nombre ? (
-                  
+                   <Link href={route("tickets.userTickets")} className="w-full">
                     <>
                       <p className="text-gray-700">
                         Tu ticket ha sido{" "}
@@ -52,10 +52,11 @@ export default function Notificaciones() {
                       <p className="text-gray-500 text-sm">
                         Departamento: {notification.data.departamento}
                       </p>
-                    </>
+                    </></Link>
                   ) : (
-                   
+                    <Link href={route("tickets.index")} className="w-full">
                     <>
+                    <div className="w-full">
                       <p className="text-gray-700">
                         Nuevo ticket creado: <strong>{notification.data.nombre}</strong>
                       </p>
@@ -65,10 +66,12 @@ export default function Notificaciones() {
                       <p className="text-gray-500 text-sm">
                         Prioridad: {notification.data.prioridad}
                       </p>
+                      </div>
                     </>
+                    </Link>
                   )}
                 </div>
-              </Link>
+              
               <button
                 onClick={() => handleDelete(notification.id)}
                 className=" mb-10 text-red-500 hover:bg-red-600 hover:text-white rounded-full p-1"
