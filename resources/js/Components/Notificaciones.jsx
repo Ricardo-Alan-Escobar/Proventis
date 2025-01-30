@@ -46,7 +46,7 @@ export default function Notificaciones() {
                   
                     <>
                       <p className="text-gray-700">
-                        Tu ticket <strong>{notification.data.nombre}</strong> ha sido{" "}
+                        Tu ticket ha sido{" "}
                         <strong>{notification.data.accion}</strong>.
                       </p>
                       <p className="text-gray-500 text-sm">
