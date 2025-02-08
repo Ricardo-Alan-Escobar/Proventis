@@ -31,11 +31,19 @@ class UserController extends Controller
     
 }
 
-public function index()
+public function index(Request $request)
 {
-    
-    return response()->json(User::all());
+    $query = User::query();
+
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $query->where('name', 'LIKE', "%{$search}%")
+              ->orWhere('email', 'LIKE', "%{$search}%");
+    }
+
+    return response()->json($query->get());
 }
+
 
 public function store(Request $request)
 {

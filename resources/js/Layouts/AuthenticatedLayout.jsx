@@ -1,16 +1,20 @@
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Home, Ticket, Settings, LogOut, UserRound, UserPlus } from "lucide-react";
+import { Home, Ticket, Settings, LogOut, UserRound, 
+    UserPlus, Search, Bell } from "lucide-react";
 import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LogoLayout from '@/Components/LogoLayout';
+import TextInput from '@/Components/TextInput';
+import NotificacionesMin from '@/Components/NotificacionesMin';
 
 export default function Authenticated({ header, children }) {
     const user = usePage().props.auth.user;
     const { auth } = usePage().props;
     const role = auth?.user?.role;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -18,17 +22,74 @@ export default function Authenticated({ header, children }) {
         const toggleMenu = () => {
             setIsMenuOpen((prev) => !prev);
         };
+
+        const [search, setSearch] = useState("");
+    const [users, setUsers] = useState([]);
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    useEffect(() => {
+        if (search.trim() === "") {
+            setUsers([]);
+            return;
+        }
+
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get(`/usuarios?search=${search}`);
+                setUsers(response.data);
+                setShowDropdown(true);
+            } catch (error) {
+                console.error("Error al buscar usuarios:", error);
+            }
+        };
+
+        const timeout = setTimeout(fetchUsers, 300); // Evitar múltiples peticiones
+
+        return () => clearTimeout(timeout);
+    }, [search]);
+
+
+    
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="border-b border-gray-100 bg-white">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between items-center">
                         {/* Logo a la izquierda */}
-                        <div className="flex items-center">
-                            <Link href="/dashboard">
-                               <LogoLayout></LogoLayout>
-                            </Link>
-                        </div>
+                        <div className="flex items-center relative">
+          
+            <Link href="/dashboard">
+                <LogoLayout />
+            </Link>
+
+            <div className="ml-4 relative flex items-center border-2 rounded-xl shadow-sm">
+                <Search className="w-4 ml-2 h-4 text-gray-500" /> {/* Icono de búsqueda */}
+
+                <TextInput
+                    className="hidden sm:block border-none focus:ring-0 focus:outline-none ml-2"
+                    placeholder="Buscar usuarios..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onFocus={() => setShowDropdown(true)}
+                    onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+                />
+            
+
+            {/* Lista desplegable de resultados */}
+            {showDropdown && users.length > 0 && (
+              <ul className="absolute z-10 left-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg">
+
+                    {users.map((user) => (
+                        <li key={user.id} className="p-2 hover:bg-gray-100">
+                            <Link href={`/usuario/${user.id}`} className="block">
+                                   <div className='flex justify-between'> {user.name} <p className='text-green-500'>{user.departamento}</p></div>
+                                </Link>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+        </div>
 
                         {/* Iconos en el centro */}
                         <div className="hidden sm:flex sm:space-x-8 items-center justify-center">
@@ -110,8 +171,32 @@ export default function Authenticated({ header, children }) {
                                         </div></Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
-                            </div>
+                              
+                            </div> 
+                                
+                            <div className="relative ms-3">
+                     <Dropdown>
+                       <Dropdown.Trigger>
+                         <span className="inline-flex rounded-md">
+                           <button
+                             type="button"
+                             className="inline-flex items-center bg-gray-50 rounded-full border border-transparent px-3 py-3 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-800 focus:outline-none focus:shadow-inner hover:shadow-inner"
+                             onClick={() => setShowNotifications(!showNotifications)} 
+                           >
+                             <Bell className="h-5 w-5 text-gray-500" />
+                           </button>
+                         </span>
+                       </Dropdown.Trigger>
+                                            
+                       {showNotifications && (
+                         <div className="absolute right-0 mt-3 w-96 bg-white border rounded-lg shadow-lg z-20">
+                           <NotificacionesMin />
+                         </div>
+                       )}
+                     </Dropdown>
+                   </div>
                         </div>
+
                     </div>
                 </div>
 
