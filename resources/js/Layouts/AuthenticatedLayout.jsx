@@ -4,7 +4,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Home, Ticket, Settings, LogOut, UserRound, 
     UserPlus, Search, Bell } from "lucide-react";
 import { Link, usePage } from '@inertiajs/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import LogoLayout from '@/Components/LogoLayout';
 import TextInput from '@/Components/TextInput';
 import NotificacionesMin from '@/Components/NotificacionesMin';
@@ -15,6 +15,7 @@ export default function Authenticated({ header, children }) {
     const role = auth?.user?.role;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
+    const dropdownRef = useRef(null);
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -43,13 +44,25 @@ export default function Authenticated({ header, children }) {
             }
         };
 
-        const timeout = setTimeout(fetchUsers, 300); // Evitar múltiples peticiones
+        const timeout = setTimeout(fetchUsers, 300); 
 
         return () => clearTimeout(timeout);
     }, [search]);
 
 
-    
+    useEffect(() => {
+        function handleClickOutside(event) {
+          if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setShowNotifications(false);
+          }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, []);
+
+      
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="border-b border-gray-100 bg-white">
@@ -174,9 +187,8 @@ export default function Authenticated({ header, children }) {
                               
                             </div> 
                                 
-                            <div className="relative ms-3">
-                     <Dropdown>
-                       <Dropdown.Trigger>
+
+                            <div className="relative ms-3" ref={dropdownRef}>
                          <span className="inline-flex rounded-md">
                            <button
                              type="button"
@@ -185,16 +197,15 @@ export default function Authenticated({ header, children }) {
                            >
                              <Bell className="h-5 w-5 text-gray-500" />
                            </button>
-                         </span>
-                       </Dropdown.Trigger>
-                                            
+                         </span>               
                        {showNotifications && (
                          <div className="absolute right-0 mt-3 w-96 bg-white border rounded-lg shadow-lg z-20">
                            <NotificacionesMin />
                          </div>
                        )}
-                     </Dropdown>
                    </div>
+
+
                         </div>
 
                     </div>
