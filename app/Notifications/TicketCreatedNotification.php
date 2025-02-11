@@ -14,9 +14,9 @@ class TicketCreatedNotification extends Notification
     public $ticket;
 
     /**
-     * Create a new notification instance.
+     * Crear una nueva instancia de notificación.
      *
-     * @return void
+     * @param mixed $ticket
      */
     public function __construct($ticket)
     {
@@ -24,20 +24,46 @@ class TicketCreatedNotification extends Notification
     }
 
     /**
-     * Get the notification's delivery channels.
+     * Obtener los canales de entrega de la notificación.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable)
     {
-        return ['database']; // Puedes agregar 'mail' u otros canales si es necesario.
+        // Solo enviar por correo si el usuario es administrador
+        if ($notifiable->role === 'admin') {
+            return ['database', 'mail'];
+        }
+
+        return ['database'];
     }
 
     /**
-     * Get the array representation of the notification.
+     * Obtener la representación en correo de la notificación.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+            ->subject('Nuevo Ticket Creado')
+            ->greeting('Hola ' . $notifiable->name . ',')
+            ->line('Se ha creado un nuevo ticket con la siguiente información:')
+            ->line('**ID del Ticket:** ' . $this->ticket->id)
+            ->line('**Nombre:** ' . $this->ticket->Nombre)
+            ->line('**Departamento:** ' . $this->ticket->Departamento)
+            ->line('**Prioridad:** ' . $this->ticket->Prioridad)
+            ->line('**Creado por:** ' . $this->ticket->user->name)
+            ->action('Ver Ticket', url('/tickets/' . $this->ticket->id))
+            ->line('Gracias por usar nuestro sistema.');
+    }
+
+    /**
+     * Obtener la representación de la notificación en formato de array.
+     *
+     * @param mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)

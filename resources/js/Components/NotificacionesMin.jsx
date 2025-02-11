@@ -26,8 +26,8 @@ export default function Notificaciones() {
   };
 
   return (
-    <nav className="flex flex-col bg-white px-5 h-[26rem] w-full shadow-md rounded-lg">
-     
+    <nav className="flex flex-col bg-white px-5 mt-4 h-[26rem] w-full shadow-md rounded-lg">
+     <strong>Notificaciones</strong>
      <div className="w-full flex flex-col items-center my-5 overflow-auto">
         {notifications.length > 0 ? (
           notifications.map((notification) => (
@@ -76,7 +76,7 @@ export default function Notificaciones() {
             </div>
           ))
         ) : (
-          <p className="text-gray-400 mt-28">Sin notificaciones</p>
+          <p className="text-gray-400 mt-36">Sin notificaciones</p>
         )}
       </div>
     </nav>

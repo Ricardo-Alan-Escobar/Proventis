@@ -16,31 +16,40 @@ class TicketUpdatedNotification extends Notification
 
     /**
      * Create a new notification instance.
-     *
-     * @return void
      */
     public function __construct($ticket, $action)
     {
         $this->ticket = $ticket;
-        $this->action = $action; 
+        $this->action = $action;
     }
 
     /**
      * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
      */
     public function via($notifiable)
     {
-        return ['database']; // Puedes agregar 'mail' si necesitas notificación por correo.
+        return ['database', 'mail']; 
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+            ->subject('Actualización de Ticket')
+            ->greeting('Hola ' . $notifiable->name . ',')
+            ->line('Tu ticket ha sido actualizado.')
+            ->line('**Acción:** ' . $this->action)
+            ->line('**ID del Ticket:** ' . $this->ticket->id)
+            ->line('**Problema:** ' . $this->ticket->Problema)
+            ->line('**Departamento:** ' . $this->ticket->Departamento)
+            ->action('Ver Ticket', url('/tickets/' . $this->ticket->id))
+            ->line('Gracias por usar nuestro sistema.');
     }
 
     /**
      * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
      */
     public function toArray($notifiable)
     {
