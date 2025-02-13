@@ -93,9 +93,9 @@ export default function Authenticated({ header, children }) {
               <ul className="absolute z-10 left-0 top-full mt-2 w-64 bg-white border rounded-lg shadow-lg">
 
                     {users.map((user) => (
-                        <li key={user.id} className="p-2 hover:bg-gray-100">
+                        <li key={user.id} className=" hover:bg-gray-100">
                             <Link href={`/usuario/${user.id}`} className="block">
-                                   <div className='flex justify-between'> {user.name} <p className='text-green-500'>{user.departamento}</p></div>
+                                   <div className='flex justify-between p-2  '> {user.name} <p className='text-green-500'>{user.departamento}</p></div>
                                 </Link>
                         </li>
                     ))}
