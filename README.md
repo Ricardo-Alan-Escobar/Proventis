@@ -6,9 +6,9 @@
 
 ### Javascript(React)
 
-### Inertiajs
+### Inertia.js
 
-### SQLite
+### PostgreSQL
 
 ### TailwindCSS
 
