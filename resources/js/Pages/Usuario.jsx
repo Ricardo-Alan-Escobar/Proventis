@@ -34,6 +34,7 @@ export default function Usuario({ user }) {
                         <img
                             src={Banner}
                             alt="Foto de Portada"
+                            decoding="async"
                             className="w-full h-48 rounded-md sm:h-64 md:h-80 lg:h-[400px] object-cover"
                               loading="lazy"
                         />

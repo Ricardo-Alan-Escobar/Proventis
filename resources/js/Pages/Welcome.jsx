@@ -1,7 +1,10 @@
 import { Head, Link } from '@inertiajs/react';
 import Fondo from '@/Components/Img/fondo03.png';
+import Modal from '@/Components/Modal';
+import { useState } from 'react';
 
 export default function Welcome({ auth }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const handleImageError = () => {
         document
             .getElementById('screenshot-container')
@@ -57,17 +60,18 @@ export default function Welcome({ auth }) {
                         <img
                             src={Fondo}
                             alt="Fondo"
+                            loading="lazy"
+                            decoding="async"
                             className="mt-8 h-[300px] lg:h-[500px] rounded-md shadow-lg"
                             onError={handleImageError}
                         />
                         <div className="mt-8 space-x-4">
                            
-                            <Link
-                                href="#features"
-                                className="px-6 py-3 text-lg text-[#35fb63] border border-[#35fb63] rounded-md hover:bg-[#35fb63] hover:text-white transition"
-                            >
-                                Ver características
-                            </Link>
+                            <button  
+                            onClick={() => setIsModalOpen(true)}
+                            className="px-6 py-3 text-lg text-[#35fb63] border border-[#35fb63] rounded-md hover:bg-[#35fb63] hover:text-white transition">
+                                Ver Caracteristicas
+                            </button>
                         </div>
                     </main>
 
@@ -102,6 +106,34 @@ export default function Welcome({ auth }) {
 
                         </div>
                     </footer>
+                    <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                        <div className="p-6">
+                            <h2 className="text-2xl font-semibold text-gray-800 ">
+                                ¿Que es Proventis?
+                            </h2>
+                            <div className="mt-4 text-gray-700 ">
+                            Proventis es una plataforma integral y moderna diseñada para mejorar la <strong>comunicación, la colaboración</strong>  y la gestión de tareas dentro de las empresas.
+                            <p className='pt-1'> La aplicación combina las funciones esenciales de una red social corporativa con herramientas de productividad, creando un entorno digital en el 
+                            que los empleados pueden interactuar, capacitarse y gestionar su día a día de manera eficiente y centralizada.</p> <p className='pt-1'> Su objetivo es optimizar tanto el flujo de 
+                            trabajo como las relaciones laborales, facilitando que las organizaciones crezcan de manera más ágil y conectada.</p>
+                            </div>
+                            <h3 className="text-xl py-6 font-semibold text-gray-800 ">
+                                Caracteristicas
+                            </h3>
+                            <div className=" text-gray-700 "> 
+                            Proventis ofrece herramientas clave para la gestión empresarial: cursos y capacitación continua, encuestas y retroalimentación interna, gestión de solicitudes
+                             administrativas, seguimiento de actividades laborales, gestión de quejas y sugerencias, red social interna para empleados, notificaciones y recordatorios, 
+                             análisis en tiempo real para administradores, acceso móvil y multiplataforma, e integraciones y personalización con otros sistemas. <p className='pt-1'> Todo esto contribuye a un 
+                             entorno colaborativo y eficiente, con un enfoque en el crecimiento y la productividad del equipo.</p>
+                            </div>
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                className="mt-6 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-[#3a7c4e] transition"
+                            >
+                                Cerrar
+                            </button>
+                        </div>
+                    </Modal>
                 </div>
             </div>
         </>

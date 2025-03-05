@@ -281,6 +281,8 @@ export default function PostList({ posts }) {
                             <img
                                 src={`/storage/${post.image}`}
                                 alt="Post Image"
+                                decoding="async"
+                                loading="lazy"
                                 className="rounded-lg w-full lg:w-10/12"
                             />
                         </div>
