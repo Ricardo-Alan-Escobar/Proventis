@@ -85,7 +85,7 @@ export default function PostForm() {
                 )}
                 {imagePreview && (
                     <div className="mt-4 relative">
-                        <img src={imagePreview} alt="Preview" className="max-w-full h-auto rounded-lg" />
+                        <img src={imagePreview} alt="Preview" decoding="async" loading="lazy" className="max-w-full h-auto rounded-lg" />
                         <button
                             type="button"
                             className="absolute top-2 right-2 bg-gray-800 bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-75 focus:outline-none"

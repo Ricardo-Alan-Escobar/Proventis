@@ -60,6 +60,8 @@ export default function Welcome({ auth }) {
                         <img
                             src={Fondo}
                             alt="Fondo"
+                            loading="lazy"
+                            decoding="async"
                             className="mt-8 h-[300px] lg:h-[500px] rounded-md shadow-lg"
                             onError={handleImageError}
                         />
