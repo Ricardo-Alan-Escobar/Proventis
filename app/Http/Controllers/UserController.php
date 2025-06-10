@@ -11,7 +11,7 @@ class UserController extends Controller
     public function show(Request $request, $id)
 {
     $user = User::findOrFail($id); 
-    
+    // Check if the user is authenticated and has permission to view the profile 
     return Inertia::render('Usuario', [
         'user' => [
             'id' => $user->id,
@@ -45,7 +45,7 @@ public function index(Request $request)
 }
 
 
-public function store(Request $request)
+public function store(Request $request) 
 {
     $request->validate([
         'name' => 'required|string|max:255',

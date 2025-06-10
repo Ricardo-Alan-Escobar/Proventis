@@ -45,10 +45,11 @@ export default function Menu() {
                 <span className="text-sm font-medium">Cursos</span>
       </NavLink>
       
-      <NavLink href={route('construccion')} className="flex items-center space-x-3 px-4 " active={route().current('construccion')}>
-                <Palmtree className="w-5 h-5" />
-                <span className="text-sm font-medium">Vacaciones</span>
-      </NavLink>
+    <NavLink href="http://127.0.0.1:8001/" className="flex items-center space-x-3 px-4">
+    <Palmtree className="w-5 h-5" />
+    <span className="text-sm font-medium">Vacaciones</span>
+</NavLink>
+
       
       <NavLink href={route('construccion')} className="flex items-center space-x-3 px-4 " active={route().current('construccion')}>
                 <FileText className="w-5 h-5" />
