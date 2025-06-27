@@ -25,7 +25,7 @@ export default function Menu() {
                 <span className="text-sm font-medium">Admin Tickets</span>
                 </NavLink>
       )}
-
+ 
       {role === 'admin' && (
       <NavLink href={route('crearusuario')} className="flex items-center space-x-3  px-4 " active={route().current('crearusuario')}>
                 <UserPlus className="w-5 h-5" />
