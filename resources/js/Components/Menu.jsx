@@ -40,21 +40,13 @@ export default function Menu() {
                 </NavLink>
       )}
       
-      <NavLink href={route('construccion')} className="flex items-center space-x-3  px-4 " active={route().current('construccion')}>
-                <BookOpen className="w-5 h-5" />
-                <span className="text-sm font-medium">Cursos</span>
-      </NavLink>
       
-    <NavLink href="http://127.0.0.1:8001/" className="flex items-center space-x-3 px-4">
+    <NavLink href="http://192.168.1.44:8000" className="flex items-center space-x-3 px-4">
     <Palmtree className="w-5 h-5" />
     <span className="text-sm font-medium">Vacaciones</span>
 </NavLink>
 
       
-      <NavLink href={route('construccion')} className="flex items-center space-x-3 px-4 " active={route().current('construccion')}>
-                <FileText className="w-5 h-5" />
-                <span className="text-sm font-medium">Formularios</span>
-      </NavLink>
     </nav>
   )
 }
