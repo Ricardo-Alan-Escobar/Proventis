@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
 
+//Creacion de controlador para manejar las operaciones relacionadas con los usuarios
 class UserController extends Controller
 {
     public function show(Request $request, $id)
